@@ -1,0 +1,29 @@
+.. _mongosniff:
+
+:orphan:
+
+==============
+``mongosniff``
+==============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. binary:: mongosniff
+
+.. program:: mongosniff
+
+.. admonition:: Removed in MongoDB 3.4
+
+   MongoDB 3.4 replaces :program:`mongosniff` with :program:`mongoreplay`,
+   a powerful traffic capture and replay tool that you can use to inspect
+   and record commands sent a MongoDB instance, and then replay those
+   commands back onto another host at a later time.
+   
+   :program:`mongoreplay` provides a more flexible version of
+   :program:`mongosniff` to help you investigate database activity.

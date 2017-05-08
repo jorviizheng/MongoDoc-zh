@@ -1,0 +1,29 @@
+========
+applyOps
+========
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. dbcommand:: applyOps
+
+   Applies specified :term:`oplog` entries to a :program:`mongod`
+   instance. The :dbcommand:`applyOps` command is an internal
+   command.
+
+Behavior
+--------
+
+.. include:: /includes/warning-blocking-global.rst
+
+.. write-lock
+
+.. see: DOCS-133; SERVER-4259

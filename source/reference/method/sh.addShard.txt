@@ -1,0 +1,84 @@
+=============
+sh.addShard()
+=============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. method:: sh.addShard(host)
+
+   Adds a database instance or replica set to a :term:`sharded cluster`.
+   The optimal configuration is to deploy shards across :term:`replica
+   sets <replica set>`. This method must be run on a :program:`mongos`
+   instance.
+
+   The :method:`sh.addShard()` method has the following parameter:
+
+   .. include:: /includes/apiargs/method-sh.addShard-param.rst
+
+   The :method:`sh.addShard()` method has the following prototype form:
+
+   .. code-block:: javascript
+
+      sh.addShard("<host>")
+
+   The ``host`` parameter can be in any
+   of the following forms:
+
+   .. code-block:: none
+
+      [hostname]
+      [hostname]:[port]
+      [replica-set-name]/[hostname]
+      [replica-set-name]/[hostname]:port
+
+   .. warning::
+
+      Do not use ``localhost`` for the hostname unless your
+      :term:`configuration server <config database>`
+      is also running on ``localhost``.
+
+      .. |mongodb-package| replace:: :program:`mongos`
+      .. include:: /includes/note-deb-and-rpm-default-to-localhost.rst
+
+The :method:`sh.addShard()` method is a helper for the
+:dbcommand:`addShard` command.
+The :dbcommand:`addShard` command has additional options which are
+not available with this helper.
+
+Considerations
+--------------
+
+Balancing
+~~~~~~~~~
+
+.. include:: /includes/fact-adding-shards-changes-cluster-balance.rst
+
+Hidden Members
+~~~~~~~~~~~~~~
+
+.. |cmd-name| replace:: :method:`sh.addShard()`
+.. include:: /includes/important-add-shard-not-compatible-with-hidden-members.rst
+
+Example
+-------
+
+To add a shard on a replica set, specify the name of the replica set and
+the hostname of at least one member of the replica set, as a seed. If
+you specify additional hostnames, all must be members of the same
+replica set.
+
+The following example adds a replica set named ``repl0`` and specifies
+one member of the replica set:
+
+.. code-block:: javascript
+
+   sh.addShard("repl0/mongodb3.example.net:27327")

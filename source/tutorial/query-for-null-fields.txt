@@ -1,0 +1,141 @@
+.. include:: /includes/templates/tabs.rst
+
+.. _faq-developers-query-for-nulls:
+
+================================
+Query for Null or Missing Fields
+================================
+
+.. default-domain:: mongodb
+
+Different query operators in MongoDB treat ``null`` values differently.
+
+.. |query_operations| replace:: operations that query for ``null`` values
+
+.. include:: /includes/driver-example-query-intro.rst
+
+.. tabs::
+
+   tabs:
+     - id: python
+       content: |
+         .. important::
+            You must use ``None`` with the PyMongo Python driver to
+            query for ``null`` or missing fields in MongoDB.
+
+     - id: perl
+       content: |
+         .. important::
+            You must use ``undef`` with the MongoDB Perl driver to
+            query for ``null`` or missing fields in MongoDB.
+
+.. include:: /includes/driver-example-query-38.rst
+
+.. _faq-comparison-with-null:
+
+Equality Filter
+---------------
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         The ``{ item : null }`` query matches documents that either
+         contain the ``item`` field whose value is ``null`` *or* that
+         do not contain the ``item`` field.
+
+     - id: python
+       content: |
+         The ``{ item : None }`` query matches documents that either
+         contain the ``item`` field whose value is ``null`` *or* that
+         do not contain the ``item`` field.
+
+     - id: php
+       content: |
+         The ``[ item => undef ]`` query matches documents that either
+         contain the ``item`` field whose value is ``null`` *or* that
+         do not contain the ``item`` field.
+
+     - id: perl
+       content: |
+         The ``{ item => undef }`` query matches documents that either
+         contain the ``item`` field whose value is ``null`` *or* that
+         do not contain the ``item`` field.
+
+For example, the following query returns both documents:
+
+.. include:: /includes/driver-example-query-39.rst
+
+Type Check
+----------
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         The ``{ item : { $type: 10 } }`` query matches documents that
+         contains the ``item`` field whose value is ``null`` *only*;
+         i.e. the value of the ``item`` field is of BSON Type ``Null``
+         (i.e. ``10``) :
+
+     - id: python
+       content: |
+         The ``{ item : { $type: 10 } }`` query matches documents that
+         contains the ``item`` field whose value is ``null`` *only*;
+         i.e. the value of the ``item`` field is of BSON Type ``Null``
+         (i.e. ``10``) :
+
+     - id: php
+       content: |
+         The ``[ item => [ $type => 10 ] ]`` query matches documents that
+         contains the ``item`` field whose value is ``null`` *only*;
+         i.e. the value of the ``item`` field is of BSON Type ``Null``
+         (i.e. ``10``) :
+
+     - id: perl
+       content: |
+         The ``{ item => { $type => 10 } }`` query matches documents that
+         contains the ``item`` field whose value is ``null`` *only*;
+         i.e. the value of the ``item`` field is of BSON Type ``Null``
+         (i.e. ``10``) :
+
+.. include:: /includes/driver-example-query-40.rst
+
+The query returns only the document where the ``item`` field has a
+``null`` value.
+
+Existence Check
+---------------
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         The ``{ item : { $exists: false } }`` query matches documents
+         that do not contain the ``item`` field:
+
+     - id: python
+       content: |
+         The ``{ item : { $exists: False } }`` query matches documents
+         that do not contain the ``item`` field:
+
+     - id: php
+       content: |
+         The ``[ item => [ $exists => false ] ]`` query matches documents
+         that do not contain the ``item`` field:
+
+     - id: perl
+       content: |
+         The ``{ item => { $exists => false } }`` query matches documents
+         that do not contain the ``item`` field:
+
+.. include:: /includes/driver-example-query-41.rst
+
+The query returns only the document that does *not* contain the
+``item`` field:
+
+.. seealso:: The reference documentation for the :query:`$type` and
+   :query:`$exists` operators.

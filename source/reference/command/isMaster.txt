@@ -1,0 +1,245 @@
+========
+isMaster
+========
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. dbcommand:: isMaster
+
+   :dbcommand:`isMaster` returns a document that describes the role of
+   the :program:`mongod` instance.
+
+   If the instance is a member of a
+   replica set, then :dbcommand:`isMaster` returns a subset of the
+   replica set configuration and status including whether or not the
+   instance is the :term:`primary` of the replica set.
+
+   When sent to a :program:`mongod` instance that is not a member of a
+   replica set, :dbcommand:`isMaster` returns a subset of this
+   information.
+
+   MongoDB :term:`drivers <driver>` and :term:`clients <client>` use
+   :dbcommand:`isMaster` to determine the state of the replica set
+   members and to discover additional members of a :term:`replica
+   set`.
+
+   The :method:`db.isMaster()` method in the :program:`mongo` shell
+   provides a wrapper around :dbcommand:`isMaster`.
+
+   The command takes the following form:
+
+   .. code-block:: javascript
+
+      { isMaster: 1 }
+
+.. seealso::
+
+   :method:`db.isMaster()`
+
+Output
+------
+
+All Instances
+~~~~~~~~~~~~~
+
+The following :dbcommand:`isMaster` fields are common across all
+roles:
+
+.. data:: isMaster.ismaster
+
+   A boolean value that reports when this node is writable. If
+   ``true``, then this instance is a :term:`primary` in a
+   :term:`replica set`, or a :term:`master` in a master-slave
+   configuration, or a :program:`mongos` instance, or a standalone
+   :program:`mongod`.
+
+   This field will be ``false`` if the instance is a
+   :term:`secondary` member of a replica set or if the member is an
+   :term:`arbiter` of a replica set.
+
+.. data:: isMaster.maxBsonObjectSize
+
+   The maximum permitted size of a :term:`BSON` object in bytes for
+   this :program:`mongod` process. If not provided, clients should
+   assume a max size of "``16 * 1024 * 1024``".
+
+.. data:: isMaster.maxMessageSizeBytes
+
+   .. versionadded:: 2.4
+
+   The maximum permitted size of a :term:`BSON` wire protocol message.
+   The default value is ``48000000`` bytes.
+
+.. data:: isMaster.localTime
+
+   Returns the local server time in UTC. This value is an
+   :term:`ISO date <ISODate>`.
+
+.. data:: isMaster.minWireVersion
+
+   .. versionadded:: 2.6
+
+   The earliest version of the wire protocol that this
+   :program:`mongod` or :program:`mongos` instance is capable of using
+   to communicate with clients.
+
+   Clients may use :data:`~isMaster.minWireVersion` to help negotiate
+   compatibility with MongoDB.
+
+.. data:: isMaster.maxWireVersion
+
+   .. versionadded:: 2.6
+
+   The latest version of the wire protocol that this :program:`mongod`
+   or :program:`mongos` instance is capable of using to communicate
+   with clients.
+
+   Clients may use :data:`~isMaster.maxWireVersion` to help negotiate
+   compatibility with MongoDB.
+
+Sharded Instances
+~~~~~~~~~~~~~~~~~
+
+:program:`mongos` instances add the following field to the
+:dbcommand:`isMaster` response document:
+
+.. data:: isMaster.msg
+
+   Contains the value ``isdbgrid`` when :dbcommand:`isMaster`
+   returns from a :program:`mongos` instance.
+
+Replica Sets
+~~~~~~~~~~~~
+
+:dbcommand:`isMaster` contains these fields when returned by a member
+of a replica set:
+
+.. data:: isMaster.setName
+
+   The name of the current :replica set.
+
+.. data:: isMaster.setVersion
+
+   .. versionadded:: 2.6
+
+   The current replica set config version.
+
+.. data:: isMaster.secondary
+
+   A boolean value that, when ``true``, indicates if the
+   :program:`mongod` is a :term:`secondary` member of a :term:`replica
+   set`.
+
+.. data:: isMaster.hosts
+
+   An array of strings in the format of ``"[hostname]:[port]"`` that
+   lists all members of the :term:`replica set` that are neither
+   :term:`hidden <hidden member>`, :term:`passive <passive member>`,
+   nor :term:`arbiters <arbiter>`.
+
+   Drivers use this array and the :data:`isMaster.passives` to determine
+   which members to read from.
+
+.. data:: isMaster.passives
+
+   An array of strings in the format of ``"[hostname]:[port]"``
+   listing all members of the :term:`replica set` which have a
+   :rsconf:`members[n].priority` of ``0``.
+
+   This field only appears if there is at least one member with a
+   :rsconf:`members[n].priority` of ``0``.
+
+   Drivers use this array and the :data:`isMaster.hosts` to determine
+   which members to read from.
+
+.. data:: isMaster.arbiters
+
+   An array of strings  in the format of ``"[hostname]:[port]"``
+   listing all members of the :term:`replica set` that are
+   :term:`arbiters <arbiter>`.
+
+   This field only appears if there is at least one arbiter in the
+   replica set.
+
+.. data:: isMaster.primary
+
+   A string in the format of ``"[hostname]:[port]"`` listing the
+   current :term:`primary` member of the replica set.
+
+.. data:: isMaster.arbiterOnly
+
+   A boolean value that , when ``true``, indicates that the current
+   instance is an :term:`arbiter`.  The :data:`~isMaster.arbiterOnly`
+   field is only present, if the instance is an arbiter.
+
+.. data:: isMaster.passive
+
+   A boolean value that, when ``true``, indicates that the current
+   instance is :term:`passive <passive member>`.  The
+   :data:`~isMaster.passive` field is only present for members with a
+   :rsconf:`members[n].priority` of ``0``.
+
+.. data:: isMaster.hidden
+
+   A boolean value that, when ``true``, indicates that the current
+   instance is :term:`hidden <hidden member>`.  The
+   :data:`~isMaster.hidden` field is only present for hidden members.
+
+.. data:: isMaster.tags
+
+   .. include:: /includes/fact-tag-set-field.rst
+
+.. data:: isMaster.me
+
+   The ``[hostname]:[port]`` of the member that returned
+   :dbcommand:`isMaster`.
+
+.. data:: isMaster.electionId
+
+   .. versionadded:: 3.0.0
+
+   A unique identifier for each election. Included only in the output
+   of :dbcommand:`isMaster` for the :term:`primary`. Used by clients
+   to determine when elections occur.
+
+.. data:: isMaster.lastWrite
+
+   .. versionadded:: 3.4
+
+   A document containing :term:`optime` and date information for the
+   database's most recent write operation.
+
+   .. data:: isMaster.lastWrite.opTime
+
+      An object giving the :term:`optime` of the last write operation.
+
+   .. data:: isMaster.lastWrite.lastWriteDate
+
+      A :bsontype:`date <data_date>` object containing the
+      time of the last write operation.
+
+   .. data:: isMaster.lastWrite.majorityOpTime
+
+      An object giving the :term:`optime` of the last write operation
+      readable by :readconcern:`majority <"majority">` reads.
+
+      This field only appears on :program:`mongod` instances started with
+      the :option:`--enableMajorityReadConcern` option.
+
+   .. data:: isMaster.lastWrite.majorityWriteDate
+
+      A :bsontype:`date <data_date>` object containing the
+      time of the last write operation readable by
+      :readconcern:`majority <"majority">` reads.
+
+      This field only appears on :program:`mongod` instances started with
+      the :option:`--enableMajorityReadConcern` option.

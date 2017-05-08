@@ -1,0 +1,52 @@
+=========================================
+OS X上安装MongoDB社区版
+=========================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Overview
+--------
+
+Use this tutorial to install MongoDB Community Edition on OS X systems.
+
+.. admonition:: Platform Support
+
+   Starting in version 3.0, MongoDB only supports OS X versions 10.7 (Lion)
+   and later on Intel x86-64.
+
+You may download MongoDB Community Edition through either the `MongoDB
+Download site <https://www.mongodb.com/download-center>`_ or the
+popular OS X package manager `Homebrew <http://brew.sh/>`_.
+
+Install MongoDB Community Edition
+---------------------------------
+
+.. include:: /includes/extracts/install-past-mongodb-org-osx.rst
+
+Install MongoDB Community Edition Manually
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/steps/install-mongodb-on-osx-manually.rst
+
+.. _install-with-homebrew:
+
+Install MongoDB Community Edition with Homebrew
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`Homebrew <http://brew.sh/>`_ installs binary packages based on published
+"formulae." This section describes how to update ``brew`` to the latest
+packages and install MongoDB Community Edition. Homebrew requires some initial
+setup and configuration, which is beyond the scope of this document.
+
+.. include:: /includes/steps/install-mongodb-on-osx-with-homebrew.rst
+
+Run MongoDB
+-----------
+
+.. include:: /includes/steps/run-mongodb-on-linux.rst

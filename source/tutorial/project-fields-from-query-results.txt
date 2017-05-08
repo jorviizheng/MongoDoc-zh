@@ -1,0 +1,208 @@
+.. include:: /includes/templates/tabs.rst
+
+.. _read-operations-projection:
+.. _projection:
+.. _projections:
+
+===================================
+Project Fields to Return from Query
+===================================
+
+.. default-domain:: mongodb
+
+By default, queries in MongoDB return all fields in matching documents.
+To limit the amount of data that MongoDB sends to applications, you can
+include a :term:`projection` document to specify or restrict fields to
+return.
+
+.. |query_operations| replace:: query operations with projection
+
+.. include:: /includes/driver-example-query-intro.rst
+
+.. include:: /includes/driver-example-query-42.rst
+
+Return All Fields in Matching Documents
+---------------------------------------
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         If you do not specify a :term:`projection` document, the
+         :method:`db.collection.find()` method returns all fields in the
+         matching documents.
+
+     - id: python
+       content: |
+         If you do not specify a :term:`projection` document, the
+         :py:meth:`~pymongo.collection.Collection.find` method returns
+         all fields in the matching documents.
+
+     - id: php
+       content: |
+         If you do not specify a :term:`projection` document, the
+         :phpmethod:`find() <phpmethod.MongoDB\\Collection::find>`
+         method returns all fields in the matching documents.
+
+     - id: perl
+       content: |
+         If you do not specify a :term:`projection` document, the
+         :perl-api:`find()<Collection#find>`
+         method returns all fields in the matching documents.
+
+The following example returns all fields from all documents in the
+``inventory`` collection where the ``status`` equals ``"A"``:
+
+.. include:: /includes/driver-example-query-43.rst
+
+The operation corresponds to the following SQL statement:
+
+.. code-block:: sql
+
+   SELECT * from inventory WHERE status = "A"
+
+Return the Specified Fields and the ``_id`` Field Only
+------------------------------------------------------
+
+A projection can explicitly include several fields by setting the
+``<field>`` to ``1`` in the projection document. The following
+operation returns all documents that match the query. In the result set,
+only the ``item``, ``status`` and, by default, the ``_id`` fields return
+in the matching documents.
+
+.. include:: /includes/driver-example-query-44.rst
+
+The operation corresponds to the following SQL statement:
+
+.. code-block:: sql
+
+   SELECT _id, item, status from inventory WHERE status = "A"
+
+Suppress ``_id`` Field
+----------------------
+
+You can remove the ``_id`` field from the results by setting its
+exclusion ``<field>`` to ``0`` in the projection, as in the
+following example:
+
+.. include:: /includes/driver-example-query-45.rst
+
+The operation corresponds to the following SQL statement:
+
+.. code-block:: sql
+
+   SELECT item, status from inventory WHERE status = "A"
+
+Return All But the Excluded Fields
+----------------------------------
+
+Instead of listing the fields to return in the matching document, you
+can use a projection to exclude specific fields. The following example
+which returns all fields except for the ``status`` and the ``instock``
+fields in the matching documents:
+
+.. include:: /includes/driver-example-query-46.rst
+
+With the exception of the ``_id`` field, you cannot combine inclusion
+and exclusion statements in projection documents.
+
+Return Specific Fields in Embedded Documents
+--------------------------------------------
+
+You can return specific fields in an embedded document. Use the
+:ref:`dot notation <document-dot-notation>` to refer to the embedded
+field and set to ``1`` in the projection document.
+
+The following example returns: the ``_id`` field (returned by default),
+``item`` field, ``status`` field, and the ``uom`` field in the ``size``
+document; the ``uom`` field remains embedded in the ``size`` document.
+
+.. include:: /includes/driver-example-query-47.rst
+
+Suppress Specific Fields in Embedded Documents
+----------------------------------------------
+
+You can suppress specific fields in an embedded document. Use the
+:ref:`dot notation <document-dot-notation>` to refer to the embedded
+field in the projection document and set to ``0``.
+
+The following example specifies a projection to exclude the ``uom``
+field inside the ``size`` document. All other fields are returned in
+the matching documents:
+
+.. include:: /includes/driver-example-query-48.rst
+
+Projection on Embedded Documents in an Array
+--------------------------------------------
+
+Use :ref:`dot notation <document-dot-notation>` to project specific
+fields inside documents embedded in an array.
+
+The following example specifies a projection to return the ``item``
+field, the ``status`` field, and the ``qty`` field in the documents
+embedded in the ``instock`` array. The ``_id`` field is returned by
+default.
+
+.. include:: /includes/driver-example-query-49.rst
+
+
+Project Specific Array Elements in the Returned Array
+-----------------------------------------------------
+
+For fields that contain arrays, MongoDB provides the following
+projection operators: :projection:`$elemMatch`, :projection:`$slice`,
+and :projection:`$`.
+
+The following example uses the :projection:`$slice` projection operator
+to return just the last element in the ``instock`` array.
+
+.. include:: /includes/driver-example-query-50.rst
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         :projection:`$elemMatch`, :projection:`$slice`, and
+         :projection:`$` are the *only* way to project specific elements
+         to include in the returned array. For instance, you *cannot*
+         project specific array elements using the array index; e.g.
+         ``{ "instock.0": 1 }`` projection will *not* project the array
+         with the first element.
+
+     - id: python
+       content: |
+         :projection:`$elemMatch`, :projection:`$slice`, and
+         :projection:`$` are the *only* way to project specific elements
+         to include in the returned array. For instance, you *cannot*
+         project specific array elements using the array index; e.g.
+         ``{ "instock.0": 1 }`` projection will *not* project the array
+         with the first element.
+
+     - id: php
+       content: |
+         :projection:`$elemMatch`, :projection:`$slice`, and
+         :projection:`$` are the *only* way to project specific elements
+         to include in the returned array. For instance, you *cannot*
+         project specific array elements using the array index; e.g.
+         ``[ "instock.0" => 1 ]`` projection will *not* project the array
+         with the first element.
+
+     - id: perl
+       content: |
+         :projection:`$elemMatch`, :projection:`$slice`, and
+         :projection:`$` are the *only* way to project specific elements
+         to include in the returned array. For instance, you *cannot*
+         project specific array elements using the array index; e.g.
+         ``{ "instock.0" => 1 }`` projection will *not* project the array
+         with the first element.
+
+.. seealso:: :doc:`/tutorial/query-documents`
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         .. include:: /includes/footnote-set-shell-batch-size.rst

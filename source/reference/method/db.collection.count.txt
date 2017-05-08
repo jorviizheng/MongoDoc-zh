@@ -1,0 +1,94 @@
+=====================
+db.collection.count()
+=====================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. method:: db.collection.count(query, options)
+
+   Returns the count of documents that would match a
+   :method:`~db.collection.find()` query. The
+   :method:`db.collection.count()` method does not perform the
+   :method:`~db.collection.find()` operation but instead counts and
+   returns the number of results that match a query.
+
+   .. include:: /includes/apiargs/method-db.collection.count-param.rst
+
+   The ``options`` document contains the following fields:
+
+   .. include:: /includes/apiargs/method-db.collection.count-options-param.rst
+
+   :method:`~db.collection.count()` is equivalent to the
+   ``db.collection.find(query).count()`` construct.
+
+.. seealso:: :method:`cursor.count()`
+
+Behavior
+--------
+
+Sharded Clusters
+~~~~~~~~~~~~~~~~
+
+.. include:: /includes/extracts/fact-count-on-sharded-clusters-method-db.collection.count.rst
+
+Index Use
+~~~~~~~~~
+
+.. include:: /includes/fact-count-index-use.rst
+
+Accuracy after Unexpected Shutdown
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. |cmd| replace:: :method:`~db.collection.count()`
+.. |opt| replace:: count
+
+.. include:: /includes/fact-unexpected-shutdown-accuracy.rst
+
+.. note:: 
+   This loss of accuracy only applies to :method:`~db.collection.count()`
+   operations that do *not* include a query predicate.
+
+Examples
+--------
+
+Count all Documents in a Collection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To count the number of all documents in the ``orders`` collection, use
+the following operation:
+
+.. code-block:: javascript
+
+   db.orders.count()
+
+This operation is equivalent to the following:
+
+.. code-block:: javascript
+
+   db.orders.find().count()
+
+Count all Documents that Match a Query
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Count the number of the documents in the ``orders``
+collection with the field ``ord_dt`` greater than ``new
+Date('01/01/2012')``:
+
+.. code-block:: javascript
+
+   db.orders.count( { ord_dt: { $gt: new Date('01/01/2012') } } )
+
+The query is equivalent to the following:
+
+.. code-block:: javascript
+
+   db.orders.find( { ord_dt: { $gt: new Date('01/01/2012') } } ).count()

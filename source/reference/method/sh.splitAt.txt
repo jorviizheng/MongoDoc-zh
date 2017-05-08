@@ -1,0 +1,42 @@
+============
+sh.splitAt()
+============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. method:: sh.splitAt(namespace, query)
+
+   Splits a chunk at the shard key value specified by the query.
+
+   The method takes the following arguments:
+
+   .. include:: /includes/apiargs/method-sh.splitAt-param.rst
+
+Consideration
+-------------
+
+.. |split-method| replace:: :method:`sh.splitAt()`
+
+.. include:: /includes/fact-split-methods.rst
+
+Behavior
+--------
+
+:method:`sh.splitAt()` splits the original chunk into two chunks. One
+chunk has a shard key range that starts with the original lower bound
+(inclusive) and ends at the specified shard key value (exclusive). The
+other chunk has a shard key range that starts with the specified shard
+key value (inclusive) as the lower bound and ends at the original upper
+bound (exclusive).
+
+To split a chunk at its median point instead, see
+:method:`sh.splitFind()`.

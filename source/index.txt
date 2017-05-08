@@ -1,0 +1,176 @@
+:orphan:
+
+============================
+MongoDB 手册 |version|
+============================
+
+.. default-domain:: mongodb
+
+.. admonition:: MongoDB 3.4 Released
+
+   有关MongoDB 3.4新功能的摘要, 请参见
+   :doc:`/release-notes/3.4`.
+
+.. admonition:: 新的大学课程
+
+   `M034: mongodb 3.4 的新增功能和工具
+   <https://university.mongodb.com/courses/M034/about?jmp=docs>`_. M034
+   是基于 mongodb 3.4 的继续教育课程。在一系列大约16个模块中，我们将详细介绍
+   3.4的特性。
+
+.. admonition:: 近期活动
+
+   `MongoDB World'17 <https://www.mongodb.com/world17?jmp=docs>`_. 更多
+   信息请访问 `MongoDB World'17
+   <https://www.mongodb.com/world17?jmp=docs>`_.
+
+欢迎查看 MongoDB |version| 手册! MongoDB是一个开源的,为方便开发和扩展设计
+的文档数据库。该手册介绍了 mongodb 中的关键概（术）念（语），提出了查询语言，
+并提供了操作和管理的注意事项和程序以及综合参考部分。[#availableformats]_
+
+.. _getting-started:
+
+Getting Started
+---------------
+
+mongodb 提供了以下版本的 `入门指南 </shell>` 。
+
+.. list-table::
+   :class: index-table
+
+   * - :gettingstarted:`mongo Shell Edition </shell>`
+
+       `Node.JS Edition <http://mongodb.github.io/node-mongodb-native/2.2/quick-start/>`_
+
+     - :gettingstarted:`Python Edition </python>`
+
+       `C++ Edition <https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/tutorial/>`_
+
+     - `Java Edition <https://mongodb.github.io/mongo-java-driver/3.4/>`_
+
+       :gettingstarted:`C# Edition </csharp>`
+
+     - `Ruby Edition <https://docs.mongodb.com/ruby-driver/master/quick-start/>`_
+
+完成入门指南后, 您可能会发现以下有用的主题。
+
+.. list-table::
+   :header-rows: 1
+   :class: index-table
+
+   * - 介绍
+     - 开发
+     - 管理
+     - 参考
+
+   * - :doc:`/introduction`
+
+       :doc:`安装指南 </installation>`
+
+       :doc:`/core/databases-and-collections`
+
+       :doc:`/core/document`
+
+     - :doc:`CRUD 操作 </crud>`
+
+       :doc:`聚合 </aggregation>`
+
+       :doc:`SQL to MongoDB </reference/sql-comparison>`
+
+       :doc:`/indexes`
+
+     - :doc:`/administration/production-notes`
+
+       :doc:`副本集 </replication>`
+
+       :doc:`分片集群 </sharding>`
+
+       :doc:`MongoDB 安全 </security>`
+
+     - :doc:`Shell 方法 </reference/method>`
+
+       :doc:`Query 操作 </reference/operator>`
+
+       :doc:`参考 </reference>`
+
+       :doc:`/reference/glossary`
+
+社区
+---------
+
+参与 mongodb 社区是建立与其他有才华和志同道合的工程师的关系的好方法, 提高对你所做的
+有趣工作的认识, 并增强你的技能。 要了解 mongodb 社区, 请参阅
+`Get Involved with MongoDB <http://www.mongodb.org/get-involved?jmp=docs>`_.
+
+学习 MongoDB
+----------------
+
+除了文档之外, 还有许多方法可以学习使用mongodb。 比如:
+
+- 免费报名参加在线课程 
+  `MongoDB University <https://university.mongodb.com?jmp=docs>`_
+
+- 浏览归档文件
+  `MongoDB Presentations <https://www.mongodb.com/presentations?jmp=docs>`_
+
+- 加入本地
+  `MongoDB 用户组 (MUG) <https://www.mongodb.org/user-groups?jmp=docs>`_
+
+- 参加即将举行的 mongodb `活动 <http://www.mongodb.com/events?jmp=docs>`_ 或
+  `网络研讨会 <http://www.mongodb.com/webinars?jmp=docs>`_
+
+- 阅读
+  `MongoDB blog <http://www.mongodb.com/blog?jmp=docs>`_
+
+- 下载 `架构指南 
+  <https://www.mongodb.com/lp/whitepaper/architecture-guide?jmp=docs>`_
+
+获取帮助
+------------
+
+如果你需要帮助，通过 `Stack Overflow`_ 或 `邮箱
+<https://groups.google.com/forum/#!forum/mongodb-user>`_ .可以快速的得到回
+复。`MongoDB,
+Inc.`_  也提供商业支持与服务。
+
+.. _`Stack Overflow`: http://stackoverflow.com/questions/tagged/mongodb
+
+许可协议
+---------
+
+The manual is licensed under a `Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 United States License
+<http://creativecommons.org/licenses/by-nc-sa/3.0/us/>`_
+
+有关 mongodb 授权的信息, 请参阅  `mongodb 许可
+<https://www.mongodb.org/about/licensing/>`_。
+
+
+其他资源
+--------------------
+
+.. class:: toc
+
+   `MongoDB, Inc.`_
+      MongoDB背后的公司。
+
+   `MongoDB Atlas <https://www.mongodb.com/cloud?jmp=docs>`_
+      数据库服务
+
+   |mms-home|
+      MongoDB的云托管运营管理解决方案。
+
+   `MongoDB Ops Manager <https://docs.opsmanager.mongodb.com/current/?jmp=docs>`_
+      mongodb 企业运营管理解决方案: 包括自动化、备份和监视。
+
+   `MongoDB Ecosystem <https://docs.mongodb.com/ecosystem/?jmp=docs>`_
+      可用于 mongodb 驱动程序、框架、工具和服务的文档。
+
+.. _`MongoDB, Inc.`: https://www.mongodb.com?jmp=docs
+
+.. include:: /includes/replacement-mms.rst
+
+.. [#availableformats]
+   本手册离线版本 :hardlink:`HTML tar.gz
+   <manual.tar.gz>` and :hardlink:`EPUB <MongoDB-manual.epub>`
+   

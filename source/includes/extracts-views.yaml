@@ -1,0 +1,147 @@
+ref: views-behavior
+content: |
+
+   视图表现出以下行为:
+
+   只读
+   ~~~~~~~~~
+
+   视图为只读；对视图的写操作将出错。
+
+   索引使用和排序操作
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   
+   - 视图使用基础集合的索引。
+ 
+   - .. include:: /includes/extracts/views-unsupported-natural-sort.rst
+   
+   投影限制
+   ~~~~~~~~~~~~~~~~~~~~~~~
+
+   .. include:: /includes/extracts/views-unsupported-projection-operators.rst
+
+   名称不可变
+   ~~~~~~~~~~~~~~
+
+   .. include:: /includes/extracts/views-unsupported-rename.rst
+
+   视图创建
+   ~~~~~~~~~~~~~
+   
+   - 视图在读取操作期间按需计算, MongoDB 将视图作为基础聚合管线的一部分执行读取操作。
+     因此, 视图不支持以下操作:
+
+     - :method:`db.collection.mapReduce()`,
+
+     - :query:`$text` 运算符, 因为在聚合中的 ``$text`` 操作仅在第一个阶段有效。
+
+     - :dbcommand:`geoNear` 命令和 :pipeline:`$geoNear` 管线阶段。
+
+   - 如果用于创建视图的聚合管线抑制 ``_id`` 字段, 则视图中的文档没有 ``_id`` 字段。
+
+   视图分片
+   ~~~~~~~~~~~~
+   
+   如果其基础集合是分片, 则视图被视为分片。因此，您不能为 :pipeline:`$lookup`
+   和 :pipeline:`$graphLookup` 操作中的 ``from`` 字段指定分片视图。
+
+   例如, 以下操作 *无效* :
+        
+   .. code-block:: javascript
+
+      db.view.find().sort({$natural: 1})
+
+   视图排序
+   ~~~~~~~~~~~~~~~~~~~
+
+   .. include:: /includes/extracts/views-collation-behavior.rst
+
+---
+ref: views-unsupported-natural-sort
+content: |
+   不能在视图上指定 :operator:`$natural` 排序。
+---
+ref: views-unsupported-text-search
+content: |
+   :doc:`Views </core/views>` do not support text search.
+---
+ref: views-unsupported-mapReduce
+content: |
+   :doc:`Views </core/views>` do not support map-reduce operations.
+---
+ref: views-unsupported-rename
+content: |
+   不能重命名 :doc:`视图 </core/views>` .
+---
+ref: views-unsupported-geoNear
+content: |
+   :doc:`Views </core/views>` do not support geoNear operations (i.e.
+   :dbcommand:`geoNear` command and :pipeline:`$geoNear` pipeline stage)
+---
+ref: views-unsupported-projection-operators
+content: |
+   在视图上 :method:`~db.collection.find()` 操作不支
+   持 :doc:`projection </reference/operator/projection>` 运算符:
+
+   - :projection:`$`
+   - :projection:`$elemMatch`
+   - :projection:`$slice`
+   - :projection:`$meta`
+---
+ref: _views-unsupported-projection
+content: |
+   :method:`db.collection.find()` operations on :doc:`views </core/views>` do not support {{projection}} projection operator.
+---
+ref: views-unsupported-projection-$
+inherit:
+   ref: _views-unsupported-projection
+   file: extracts-views.yaml
+replacement:
+   projection: ":projection:`$`"
+---
+ref: views-unsupported-projection-$elemMatch
+inherit:
+   ref: _views-unsupported-projection
+   file: extracts-views.yaml
+replacement:
+   projection: ":projection:`$elemMatch`"
+---
+ref: views-unsupported-projection-$slice
+inherit:
+   ref: _views-unsupported-projection
+   file: extracts-views.yaml
+replacement:
+   projection: ":projection:`$slice`"
+---
+ref: views-unsupported-projection-$meta
+inherit:
+   ref: _views-unsupported-projection
+   file: extracts-views.yaml
+replacement:
+   projection: ":projection:`$meta`"
+---
+ref: views-collation-behavior
+content: |
+
+   - 可以在创建时为视图指定默认 :doc:`排序规则 </reference/collation>` 。
+     如果未指定排序规则, 则视图的默认排序规则是 "simple" 二进制比较排序程序。
+     也就是说, 该视图不继承集合的默认排序规则。
+
+   - 视图上的字符串使用视图的默认排序规则进行比较。尝试更改或重写视图的默认归
+     类的操作将失败, 并出现错误。
+
+   - 如果从另一个视图创建视图, 则不能指定与源视图排序规则不同的排序规则。
+
+   - .. include:: /includes/extracts/views-collation-agg.rst
+---
+ref: views-collation-agg
+content: |
+
+   如果执行涉及多个视图的聚合 (如使用 :pipeline:`$lookup` 或 :pipeline:`$graphLookup` ),
+   则视图必须具有相同的 :doc:`排序规则  </reference/collation>` 。
+---
+ref: views-public-definition
+content: |
+   视图定义是公共的;也就是说: 方法: :method:`db.getCollectionInfos()`
+   和 ``explain`` 操作将包括定义视图的管线。因此, 避免直接引用视图定义中的敏感字段和值。
+...

@@ -1,0 +1,65 @@
+==========================================
+Amazon Linux上安装MongoDB企业版
+==========================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: twocols
+
+.. admonition:: MongoDB Atlas and AWS
+   :class: note
+
+   `MongoDB Atlas <https://www.mongodb.com/cloud/atlas?jmp=docs>`_ is a
+   hosted MongoDB service on AWS, for launching, running, and
+   maintaining MongoDB clusters.
+
+Overview
+--------
+
+Use this tutorial to install :products:`MongoDB Enterprise
+</mongodb-enterprise-advanced?jmp=docs>` on Amazon Linux
+AMI. MongoDB Enterprise is available on select platforms and contains
+support for several features related to security and monitoring.
+
+.. include:: /includes/fact-installation-64bit.rst
+
+.. include:: /includes/list-mongodb-enterprise-packages.rst
+
+Install MongoDB Enterprise
+--------------------------
+
+.. include:: /includes/extracts/install-past-mongodb-enterprise-amazon.rst
+
+.. include:: /includes/steps/install-mongodb-enterprise-on-amazon.rst
+
+.. _install-amazon-from-tarball:
+
+Install MongoDB Enterprise From Tarball
+---------------------------------------
+
+.. |package-format| replace:: ``.rpm``
+
+.. include:: /includes/fact-install-tarball-link.rst
+
+Run MongoDB Enterprise
+----------------------
+
+.. |mongod-user| replace:: ``mongod``
+.. |mongod-datadir| replace:: ``/var/lib/mongo``
+
+.. include:: /includes/fact-installation-directories.rst
+
+.. include:: /includes/fact-installation-ulimit.rst
+
+.. include:: /includes/steps/run-mongodb-on-a-linux-distribution.rst
+
+Uninstall MongoDB
+-----------------
+
+.. include:: /includes/fact-uninstall.rst
+
+.. include:: /includes/steps/uninstall-mongodb-enterprise-on-redhat.rst

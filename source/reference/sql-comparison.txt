@@ -1,0 +1,139 @@
+============================
+SQL to MongoDB Mapping Chart
+============================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. all of the included table files are built from corresponding .yaml
+   files in the includes directory. To change the content of the
+   tables, edit those files.
+
+In addition to the charts that follow, you might want to consider the
+:doc:`/faq` section for a selection of common questions about MongoDB.
+
+Terminology and Concepts
+------------------------
+
+The following table presents the various SQL terminology and concepts
+and the corresponding MongoDB terminology and concepts.
+
+.. include:: /includes/table/sql-to-mongo-terms.rst
+
+Executables
+-----------
+
+The following table presents some database executables and the
+corresponding MongoDB executables. This table is *not* meant to be
+exhaustive.
+
+.. include:: /includes/table/sql-to-mongo-executables.rst
+
+Examples
+--------
+
+The following table presents the various SQL statements and the
+corresponding MongoDB statements. The examples in the table assume the
+following conditions:
+
+- The SQL examples assume a table named ``people``.
+
+- The MongoDB examples assume a collection named ``people`` that contain
+  documents of the following prototype:
+
+  .. code-block:: javascript
+
+     {
+       _id: ObjectId("509a8fb2f3f4948bd2f983a0"),
+       user_id: "abc123",
+       age: 55,
+       status: 'A'
+     }
+
+Create and Alter
+~~~~~~~~~~~~~~~~
+
+The following table presents the various SQL statements related to
+table-level actions and the corresponding MongoDB statements.
+
+.. include:: /includes/table/sql-to-mongo-schema-examples.rst
+
+For more information, see:
+
+- :method:`db.collection.insertOne()`
+- :method:`db.collection.insertMany()`
+- :method:`db.createCollection()`
+- :method:`db.collection.updateMany()`
+- :update:`$set`
+- :update:`$unset`
+- :method:`db.collection.createIndex()`
+- :doc:`Indexes </indexes>`
+- :method:`db.collection.drop()`
+- :doc:`/core/data-models`.
+
+Insert
+~~~~~~
+
+The following table presents the various SQL statements related to
+inserting records into tables and the corresponding MongoDB statements.
+
+.. include:: /includes/table/sql-to-mongo-insert-examples.rst
+
+For more information, see :method:`db.collection.insertOne()`.
+
+Select
+~~~~~~
+
+The following table presents the various SQL statements related to
+reading records from tables and the corresponding MongoDB statements.
+
+.. note:: 
+
+   The :method:`~db.collection.find()` method always includes the ``_id``
+   field in the returned documents unless specifically excluded through
+   :ref:`projection<projection>`. Some of the SQL queries below may include an
+   ``_id`` field to reflect this, even if the field is not included in the
+   corresponding :method:`~db.collection.find()` query.
+
+.. include:: /includes/table/sql-to-mongo-select-examples.rst
+
+For more information, see:
+
+- :method:`db.collection.find()`
+- :method:`db.collection.distinct()`
+- :method:`db.collection.findOne()`
+- Query operators: :query:`$ne`, :query:`$and`, :query:`$or`,
+  :query:`$gt`, :query:`$lt`, :query:`$exists`, :query:`$lte`, and 
+  :query:`$regex`.
+- :method:`~cursor.limit()`
+- :method:`~cursor.skip()`
+- :method:`~cursor.explain()`
+- :method:`~cursor.sort()`
+- :method:`~cursor.count()`
+
+Update Records
+~~~~~~~~~~~~~~
+
+The following table presents the various SQL statements related to
+updating existing records in tables and the corresponding MongoDB
+statements.
+
+.. include:: /includes/table/sql-to-mongo-update-examples.rst
+
+For more information, see :method:`db.collection.updateMany()`,
+:update:`$set`, :update:`$inc`, and :query:`$gt`.
+
+Delete Records
+~~~~~~~~~~~~~~
+
+The following table presents the various SQL statements related to
+deleting records from tables and the corresponding MongoDB statements.
+
+.. include:: /includes/table/sql-to-mongo-delete-examples.rst
+
+For more information, see :method:`db.collection.deleteMany()`.

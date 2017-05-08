@@ -1,0 +1,245 @@
+=======
+collMod
+=======
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. dbcommand:: collMod
+
+   :dbcommand:`collMod` makes it possible to add flags to a collection
+   to modify the behavior of MongoDB. Flags include
+   :collflag:`usePowerOf2Sizes` and :collflag:`index`. The command
+   takes the following prototype form:
+
+   .. code-block:: javascript
+
+      db.runCommand( {"collMod" : <collection> , "<flag>" : <value> } )
+
+   In this command substitute ``<collection>`` with the name of a
+   collection in the current database, and ``<flag>`` and ``<value>``
+   with the flag and value you want to set.
+
+   Use the :data:`~collStats.userFlags` field in the
+   :method:`db.collection.stats()` output to check enabled collection
+   flags.
+
+.. Commenting out the following after DOCS-717, it does take
+   a lock but its to cover a very small metadata change.
+
+   This command obtains a write lock on the affected database
+   and will block other operations until it has completed.
+
+Flags
+-----
+
+TTL Collection Expiration Time
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. index:: expireAfterSeconds
+.. collflag:: index
+
+   The :collflag:`index` flag changes the expiration time of a
+   :doc:`TTL Collection </tutorial/expire-data>`.
+
+   Specify the key and new expiration time with a document of the form:
+
+   .. code-block:: javascript
+
+      {keyPattern: <index_spec>, expireAfterSeconds: <seconds> }
+
+   In this example, ``<index_spec>`` is an existing index in the
+   collection and ``seconds`` is the number of seconds to subtract
+   from the current time.
+
+   On success :dbcommand:`collMod` returns a document with fields
+   ``expireAfterSeconds_old`` and ``expireAfterSeconds_new`` set to
+   their respective values.
+
+   On failure, :dbcommand:`collMod` returns a document with ``no
+   expireAfterSeconds field to update`` if there is no existing
+   ``expireAfterSeconds`` field or ``cannot find index { **key**:
+   1.0 } for ns **namespace**`` if the specified ``keyPattern``
+   does not exist.
+
+Record Allocation
+~~~~~~~~~~~~~~~~~
+
+Disable All Record Padding
+``````````````````````````
+
+.. collflag:: noPadding
+
+   .. versionadded:: 3.0
+
+   :collflag:`noPadding` flag is available for the MMAPv1 storage
+   engine only.
+
+   :collflag:`noPadding` disables record padding for the collection.
+   Without padding, the record allocation size corresponds to the
+   document size, and any updates that results in document growth will
+   require a new allocation.
+
+   .. warning::
+
+      Only set :collflag:`noPadding` to ``true`` for collections whose
+      workloads have *no* update operations that cause documents to grow,
+      such as for collections with workloads that are insert-only. For
+      more information, see :ref:`exact-fit-allocation`.
+
+Powers of Two Record Allocation
+```````````````````````````````
+
+.. index:: document; space allocation
+.. index:: usePowerOf2Sizes
+.. _usePowerOf2Sizes:
+.. collflag:: usePowerOf2Sizes
+
+   .. deprecated:: 3.0
+
+   :collflag:`usePowerOf2Sizes` flag is available for the MMAPv1 storage
+   engine only.
+
+   :collflag:`usePowerOf2Sizes` has no effect on the allocation
+   strategy. MongoDB 3.0 uses the :ref:`power of 2 allocation
+   <power-of-2-allocation>` as the default record allocation strategy
+   for MMAPv1.
+
+   To disable the :ref:`power of 2 allocation <power-of-2-allocation>`
+   for a collection, use the :dbcommand:`collMod` command with the
+   :collflag:`noPadding` flag or the :method:`db.createCollection()`
+   method with the ``noPadding`` option. For more information, see
+   :ref:`3.0-mmapv1-padding`.
+
+Document Validation
+~~~~~~~~~~~~~~~~~~~
+
+.. collflag:: validator
+
+   .. versionadded:: 3.2
+
+   :collflag:`validator` allows users to specify :doc:`validation rules
+   or expressions </core/document-validation>` for a collection.
+   For more information, see :doc:`/core/document-validation`.
+
+   The ``validator`` option takes a document that specifies the
+   validation rules or expressions. You can specify the expressions
+   using the same operators as the :ref:`query operators
+   <query-selectors>` with the exception of : :query:`$geoNear`,
+   :query:`$near`, :query:`$nearSphere`, :query:`$text`, and
+   :query:`$where`.
+
+   .. note::
+
+      - Validation occurs during updates and inserts. Existing
+        documents do not undergo validation checks until modification.
+
+      - You cannot specify a validator for collections in the ``admin``,
+        ``local``, and ``config`` databases.
+
+      - You cannot specify a validator for ``system.*`` collections.
+
+.. collflag:: validationLevel
+
+   .. versionadded:: 3.2
+
+   The :collflag:`validationLevel` determines how strictly MongoDB applies the
+   validation rules to existing documents during an update.
+
+   .. include:: /includes/table/validationLevel-values.rst
+
+.. collflag:: validationAction   
+
+   .. versionadded:: 3.2
+
+   The :collflag:`validationAction` option determines whether to ``error`` on
+   invalid documents or just ``warn`` about the violations but allow
+   invalid documents.
+
+   .. important::
+
+      Validation of documents only applies to those documents as
+      determined by the ``validationLevel``.
+
+   .. include:: /includes/table/validationAction-values.rst
+
+To view the validation specifications for a collection, use the
+:method:`db.getCollectionInfos()` method.
+
+Examples
+--------
+
+Change Expiration Value for Indexes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To update the expiration value for a collection
+named ``sessions`` indexed on a ``lastAccess`` field from 30
+minutes to 60 minutes, use the following operation:
+
+.. code-block:: javascript
+
+   db.runCommand( { collMod: "sessions",
+                    index: { keyPattern: { lastAccess: 1 },
+                             expireAfterSeconds: 3600 
+                           }
+   })
+
+Which will return the document:
+
+.. code-block:: javascript
+
+   { "expireAfterSeconds_old" : 1800, "expireAfterSeconds_new" : 3600, "ok" : 1 }
+
+Add Document Validation to an Existing Collection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following example adds a validator to a collection named ``contacts``.
+The validator specifies that inserted or updated documents should meet at least
+one of the following conditions:
+
+- the ``phone`` field is a string
+- the ``email`` field matches the regular expression
+- the ``status`` field is either ``Unknown`` or ``Incomplete``.
+
+The ``moderate`` :collflag:`validationLevel` specifies that only updates
+to existing *valid* documents will be checked against the validator, and
+the ``warn`` :collflag:`validationAction` means that the write operation
+will log a validation failure for any document that does not pass
+validation.
+
+.. code-block:: javascript
+
+   db.runCommand( { collMod: "contacts",
+                    validator: { $or:
+                       [
+                          { phone: { $type: "string" } },
+                          { email: { $regex: /@mongodb\.com$/ } },
+                          { status: { $in: [ "Unknown", "Incomplete" ] } }
+                       ]
+                    },
+                    validationLevel: "moderate",
+                    validationAction: "warn"
+   
+   } )
+
+With the validator in place, the following insert operation fails validation:
+
+.. code-block:: javascript
+
+   db.contacts.insert( { name: "Amanda", status: "Updated" } )
+
+The write operation logs the failure and succeeds:
+
+.. code-block:: sh
+
+   2015-10-15T11:20:44.260-0400 W STORAGE  [conn3] Document would fail validation collection: example.contacts doc: { _id: ObjectId('561fc44c067a5d85b96274e4'), name: "Amanda", status: "Updated" }
+
+For more information, see :doc:`/core/document-validation`.

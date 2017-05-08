@@ -1,0 +1,42 @@
+==============
+Administration
+==============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. admin-introduction-start
+
+The administration documentation addresses the ongoing operation and
+maintenance of MongoDB instances and deployments. This documentation
+includes both high level overviews of these concerns as well as
+tutorials that cover specific procedures and processes for operating
+MongoDB.
+
+.. admin-introduction-end
+
+.. seealso:: The MongoDB Manual contains administrative documentation
+   and tutorials thoughout several sections. See
+   :doc:`/administration/replica-sets` and
+   :doc:`/sharding` for additional tutorials and
+   information.
+
+.. class:: hidden
+
+   .. toctree::
+      :titlesonly:
+
+      /administration/production-notes
+      /administration/production-checklist-operations
+      /administration/production-checklist-development
+      Performance </administration/analyzing-mongodb-performance>
+      /administration/configuration-and-maintenance
+      /data-center-awareness
+      /core/backups
+      /administration/monitoring
+

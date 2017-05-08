@@ -1,0 +1,19 @@
+===========================
+Set Operators (Aggregation)
+===========================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. include:: /includes/intro-aggregation-set.rst
+
+.. include:: /includes/extracts/operators-toc-explanation.rst
+
+.. include:: /includes/toc/table-aggregation-set.rst
+
+.. include:: /includes/toc/aggregation-set.rst

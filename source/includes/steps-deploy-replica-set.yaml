@@ -1,0 +1,150 @@
+# This file ref'd in steps-convert-replica-set-shard-deploy-test-data.yaml
+# This file is tweaked to work with the other step file, as well.
+#
+title: "Start each member of the replica set with the appropriate options."
+level: 4
+stepnum: 1
+ref: start-mongod
+pre: |
+  For each member, start a :program:`mongod` and specify the replica set
+  name through the :setting:`replSet` option. Specify any other parameters
+  specific to your deployment. For replication-specific parameters, see
+  :ref:`cli-mongod-replica-set`.
+
+  .. include:: /includes/fact-unique-replica-set-names.rst
+action:
+  - pre: |
+      The following example specifies the replica set name through the
+      :option:`--replSet` command-line option:
+    language: sh
+    code: |
+      mongod --replSet "rs0"
+  - pre: |
+      You can also specify the :setting:`replica set name
+      <replication.replSetName>` in a :doc:`configuration file
+      </reference/configuration-options>`. To start :program:`mongod`
+      with a configuration file, specify the configuration file's path with
+      the :option:`--config <mongod --config>` option:
+    language: sh
+    code: |
+      mongod --config <path-to-config>
+post: |
+  In production deployments, you can configure a :term:`init script` to
+  manage this process. Init scripts are beyond the scope of this document.
+---
+title: "Connect a :program:`mongo` shell to a replica set member."
+level: 4
+stepnum: 2
+ref: open-shell
+pre: |
+  For example, to connect to a :program:`mongod` running on localhost on
+  the default port of ``27017``, simply issue:
+action:
+  language: sh
+  code: |
+    mongo
+---
+title: "Initiate the replica set."
+level: 4
+stepnum: 3
+ref: initiate-rs
+pre: |
+  Use :method:`rs.initiate()` on *one and only one* member of the replica set:
+action:
+  language: javascript
+  code: |
+    rs.initiate( {
+       _id : "rs0",
+       members: [ { _id : 0, host : "mongodb0.example.net:27017" } ]
+    })
+post: |
+  MongoDB initiates a set that consists of the current member and that
+  uses the default replica set configuration.
+---
+title: "Verify the initial replica set configuration."
+level: 4
+stepnum: 4
+ref: verify-rsconf
+action:
+  - pre: |
+      Use :method:`rs.conf()` to display the :doc:`replica set configuration
+      object </reference/replica-configuration>`:
+    language: javascript
+    code: |
+      rs.conf()
+  - pre: |
+      The replica set configuration object resembles the following:
+    language: javascript
+    code: |
+      {
+         "_id" : "rs0",
+         "version" : 1,
+         "protocolVersion" : NumberLong(1),
+         "members" : [
+            {
+               "_id" : 0,
+               "host" : "mongodb0.example.net:27017",
+               "arbiterOnly" : false,
+               "buildIndexes" : true,
+               "hidden" : false,
+               "priority" : 1,
+               "tags" : {
+            
+               },
+               "slaveDelay" : NumberLong(0),
+               "votes" : 1
+            }
+         ],
+         "settings" : {
+            "chainingAllowed" : true,
+            "heartbeatIntervalMillis" : 2000,
+            "heartbeatTimeoutSecs" : 10,
+            "electionTimeoutMillis" : 10000,
+            "catchUpTimeoutMillis" : 2000,
+            "getLastErrorModes" : {
+         
+            },
+            "getLastErrorDefaults" : {
+               "w" : 1,
+               "wtimeout" : 0
+            },
+            "replicaSetId" : ObjectId("585ab9df685f726db2c6a840")
+         }
+      }
+---
+title: "Add the remaining members to the replica set."
+level: 4
+stepnum: 5
+ref: add-remaining-members
+pre: |
+  Add the remaining members with the :method:`rs.add()` method. You must be
+  connected to the :term:`primary` to add members to a replica set.
+
+  :method:`rs.add()` can, in some cases, trigger an election.
+  If the :term:`mongod` you are connected to becomes a :term:`secondary`, you
+  need to connect the :term:`mongo` shell to the new primary to
+  continue adding new replica set members.
+  Use :method:`rs.status()` to identify the primary in the replica set.
+  
+action:
+  pre: |
+    The following example adds two members:
+  language: javascript
+  code: |
+      rs.add("mongodb1.example.net")
+      rs.add("mongodb2.example.net")
+post: |
+  When complete, you have a fully functional replica set. The new replica
+  set will elect a :term:`primary`.
+---
+title: "Check the status of the replica set."
+level: 4
+stepnum: 6
+ref: check-status
+action:
+  pre: |
+    Use the :method:`rs.status()` operation:
+  language: javascript
+  code: |
+    rs.status()
+...

@@ -1,0 +1,52 @@
+================================
+SQL to Aggregation Mapping Chart
+================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. all of the included table files are built from corresponding .yaml
+   files in the includes directory. To change the content of the
+   tables, edit those files.
+
+The :doc:`aggregation pipeline </core/aggregation-pipeline>` allows
+MongoDB to provide native aggregation capabilities that corresponds to
+many common data aggregation operations in SQL.
+
+The following table provides an overview of common SQL aggregation
+terms, functions, and concepts and the corresponding MongoDB
+:ref:`aggregation operators <aggregation-pipeline-operator-reference>`:
+
+.. include:: /includes/table/sql-to-agg-terms.rst
+
+Examples
+--------
+
+The following table presents a quick reference of SQL aggregation
+statements and the corresponding MongoDB statements. The examples in
+the table assume the following conditions:
+
+- The SQL examples assume *two* tables, ``orders`` and
+  ``order_lineitem`` that join by the ``order_lineitem.order_id`` and
+  the ``orders.id`` columns.
+
+- The MongoDB examples assume *one* collection ``orders`` that contain
+  documents of the following prototype:
+
+  .. code-block:: javascript
+
+     {
+       cust_id: "abc123",
+       ord_date: ISODate("2012-11-02T17:04:11.102Z"),
+       status: 'A',
+       price: 50,
+       items: [ { sku: "xxx", qty: 25, price: 1 },
+                { sku: "yyy", qty: 25, price: 1 } ]
+     }
+
+.. include:: /includes/table/sql-to-agg-examples.rst

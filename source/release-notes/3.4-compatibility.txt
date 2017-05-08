@@ -1,0 +1,227 @@
+:orphan:
+
+====================================
+Compatibility Changes in MongoDB 3.4
+====================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+The following 3.4 changes can affect the compatibility with older
+versions of MongoDB.
+
+See also :doc:`/release-notes/3.4`.
+
+Sharded Cluster Changes
+-----------------------
+
+.. COMMENT to docs:  this section can be singlesourced since we refer to it in both rel notes and compatibility page (figured these changes are significant enought to place in both places)
+
+``shardsvr`` Requirement
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+For a 3.4 sharded cluster, :program:`mongod` instances for the
+shards **must** explicitly specify its role as a ``shardsvr``,
+either via the configuration file setting
+:setting:`sharding.clusterRole` or via the command line option
+:option:`--shardsvr`.
+
+.. note::
+
+   Default port for :program:`mongod` instances with the ``shardsvr``
+   role is ``27018``. To use a different port, specify
+   :setting:`net.port` setting or ``--port`` option.
+
+.. COMMENT To DOCS TEAM: Ensure that in all our sharding tutorials we specify shardsvr.
+
+3.4 ``mongos`` and Earlier Versions of ``mongod``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Version 3.4 :program:`mongos` instances cannot connect to earlier
+versions of :program:`mongod` instances.
+
+Removal for Configuration Options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+MongoDB 3.4 removes the following configuration options from
+the :program:`mongos`:
+
+- ``sharding.chunkSize`` configuration file setting and
+  :option:`--chunkSize` command-line option
+
+- ``sharding.autoSplit`` configuration file setting and
+  :option:`--noAutoSplit` command line option
+
+Removal of Support for SCCC Config Servers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+3.4 sharded clusters no longer support the use of mirrored (SCCC)
+:program:`mongod` instances as config servers. The use of SCCC config
+servers, deprecated in the 3.2 release, is no longer valid. Instead,
+deploy your config servers as a replica set (CSRS).
+
+To upgrade your sharded cluster to version 3.4, the config servers must
+be running as a replica set.
+
+To convert your existing config servers from SCCC to CSRS, see
+:doc:`/tutorial/upgrade-config-servers-to-replica-set`.
+
+.. seealso:: 
+
+   :ref:`Sharded Cluster Release Notes Section <3.4-rel-notes-sharded-cluster>`
+
+.. _3.4-compatibility-deprecated:
+
+Deprecated Operations
+---------------------
+
+.. _group-deprecation:
+
+``group``
+~~~~~~~~~
+
+Mongodb 3.4 deprecates the following commands and :program:`mongo`
+shell methods:
+
+- :dbcommand:`group` command and :method:`db.collection.group()`.
+  Use :method:`db.collection.aggregate()` or
+  :method:`db.collection.mapReduce()` instead.
+
+.. _aggregate-wo-cursor-deprecation:
+
+``aggregate`` without ``cursor``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/deprecation-aggregate-wo-cursor.rst
+
+Stricter Validation of Collection and Index Specifications
+----------------------------------------------------------
+
+Stricter Validation of Collection Options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+MongoDB 3.4 enforces a stricter validation of collection options during
+:dbcommand:`create` and :method:`db.createCollection()` operations;
+namely, the specified options must be valid options supported by
+:dbcommand:`create` and :method:`db.createCollection()`.
+
+For example, the following operation is no longer valid:
+
+.. code-block:: javascript
+
+   db.createCollection( "myCappedCollection", { caped: true,  size: 5242880 } )
+
+Stricter Validation of Index Specifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+MongoDB 3.4 enforces a stricter validation of index specification
+during :dbcommand:`createIndexes` and
+:method:`db.collection.createIndex()` operations. The enforcement does
+not apply to existing indexes.
+
+Stricter validation include the following:
+
+- Ensuring that the value in the index key pattern ``key: value`` is
+  valid. Specifically, value can be:
+
+  .. list-table::
+     :header-rows: 1
+
+     * - Value
+       - Description
+
+     * - A number greater than 0
+       - For ascending index
+
+     * - A number less than 0 
+       - For descending index
+ 
+     * - String "text", "2dsphere", "2d", or "hashed"
+       - For special index types
+
+  For example, the following operations are no longer valid:
+
+  .. code-block:: javascript
+
+     db.collection.createIndex( { x: 0 } );
+     db.collection.createIndex( { y: "text2d" } );
+     db.collection.createIndex( { z: NaN } );
+     db.collection.createIndex( { x: 1, unique: true } )
+
+- Ensuring that the specified :doc:`index options
+  </core/index-properties>` are valid. Previous versions ignored
+  invalid options. For example, the following operations are no longer
+  valid:
+
+  .. code-block:: javascript
+
+     db.collection.createIndex( { y: 1 }, { uniques2: true} ); 
+     db.collection.createIndex( { z: 1 }, { expireAfterSec: 350 } )
+
+.. _3.4-general-compatibility:
+
+General Compatibility Changes
+-----------------------------
+
+- Removal of deprecated ``textSearchEnabled`` parameter. Starting from
+  version 2.6, MongoDB enables the text search feature by default.
+
+- Removal of :program:`mongosniff`. In MongoDB 3.4,
+  :program:`mongosniff` is replaced by :program:`mongoreplay`, which
+  offers a more flexible superset of :program:`mongosniff`'s
+  functionality.
+
+- Updates to :pipeline:`$project` specification behavior: empty
+  documents in :pipeline:`$project` specifications produce an error.
+
+- .. include:: /includes/fact-sparse-index-hint-count.rst
+
+  Previous versions ignored the hint if the use of the sparse index
+  would result in an incomplete count.
+
+.. _3.4-user-roles-incompatible:
+
+User Roles Changes
+------------------
+
+.. include:: /includes/fact-3.4-built-in-roles-changes.rst
+
+.. _3.4-compatibility-enabled:
+
+Backwards Incompatible Features
+-------------------------------
+
+.. include:: /includes/3.4-backwards-incompatible-features.rst
+
+To set the ``featureCompatibilityVersion``, see
+:dbcommand:`setFeatureCompatibilityVersion` command.
+
+.. warning::
+
+   .. include:: /includes/3.4-featureCompatibility-caveat.rst
+
+3.4 deployments have the following default
+``featureCompatibilityVersion`` values:
+
+.. include:: /includes/list-table-featureCompatibilityVersion-defaults.rst
+
+Earlier versions of MongoDB will not start if the database contains
+views, collation specifications, or ``v:2`` indexes. If the data
+contains the decimal data type, operations against these documents may
+fail. See :doc:`/release-notes/3.4-downgrade` for details. If you need
+to downgrade, you must remove data related to these incompatible
+features from your database before downgrading the binaries.
+
+.. _3.4-driver-compatibility:
+ 
+Driver Compatibility Changes
+----------------------------
+
+To use the various new features such as the new :ref:`3.4-decimal` and
+:ref:`collation` with a MongoDB driver, an upgrade to a driver version
+that supports these features is necessary.

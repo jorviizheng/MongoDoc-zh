@@ -1,0 +1,83 @@
+.. index:: sharding; shards
+.. index:: shards
+.. _sharding-shards:
+.. _sharding-production-architecture:
+
+
+==========================
+Sharded Cluster Components
+==========================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+A MongoDB :term:`sharded cluster` consists of the following components:
+
+* :doc:`shard </core/sharded-cluster-shards>`: Each shard contains a
+  subset of the sharded data. Each shard can be deployed as a :term:`replica
+  set`.
+
+* :doc:`/core/sharded-cluster-query-router`: The ``mongos`` acts as a
+  query router, providing an interface between client applications and the
+  sharded cluster.
+
+* :doc:`config servers </core/sharded-cluster-config-servers>`: Config
+  servers store metadata and configuration settings for the cluster. As
+  of MongoDB 3.4, config servers must be deployed as a replica set (CSRS).
+
+Production Configuration
+------------------------
+
+In a production cluster, ensure that data is redundant and
+that your systems are highly available. Consider the following
+for a production sharded cluster deployment:
+
+- Deploy Config Servers as a 3 member :term:`replica set`
+- Deploy each Shard as a 3 member :term:`replica set`
+- Deploy one or more :program:`mongos` routers
+
+Where possible, consider deploying one member of each replica set 
+in a site suitable for being a disaster recovery location.
+
+Sharding requires at least two shards to distribute sharded data. Single 
+shard sharded clusters may be useful if you plan on enabling sharding in the 
+near future, but do not need to at the time of deployment.
+
+You can deploy a :program:`mongos` router on each application server to ensure
+each server has consistent access to the sharded cluster. Alternatively, 
+deploy a group of :program:`mongos` routers and use a proxy or load balancer 
+between the application and the :program:`mongos` group. In these deployments,
+you *must* configure the load balancer for *client affinity* such that every
+connection from a single client reaches the same :program:`mongos`.
+
+.. include:: /images/sharded-cluster-production-architecture.rst
+
+Development Configuration
+-------------------------
+
+For testing and development, you can deploy a sharded cluster with a
+minimum number of components. These **non-production** clusters have the
+following components:
+
+- A replica set :ref:`config server <sharding-config-server>` with one
+  member.
+
+- At least one shard as a single-member :term:`replica set`.
+
+- One :program:`mongos` instance.
+
+.. include:: /images/sharded-cluster-test-architecture.rst
+
+.. warning:: Use the test cluster architecture for testing and
+   development only.
+
+.. seealso:: :doc:`/tutorial/deploy-shard-cluster/`
+
+.. class:: hidden
+
+   .. include:: /includes/toc/sharded-cluster-components.rst

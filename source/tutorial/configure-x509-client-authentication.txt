@@ -1,0 +1,219 @@
+==============================================
+Use x.509 Certificates to Authenticate Clients
+==============================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. versionadded:: 2.6
+
+MongoDB supports x.509 certificate authentication for use with a secure
+:doc:`TLS/SSL connection </tutorial/configure-ssl>`. The x.509 client
+authentication allows :ref:`clients to authenticate to servers with
+certificates <x509-client-authentication>` rather than with a username and
+password.
+
+To use x.509 authentication for the internal authentication of replica
+set/sharded cluster members, see
+:doc:`configure-x509-member-authentication`.
+
+.. _`default distribution of MongoDB`: http://www.mongodb.org/downloads
+.. _`MongoDB Enterprise`: http://www.mongodb.com/products/mongodb-enterprise
+
+Prerequisites
+-------------
+
+.. important::
+   .. include:: /includes/extracts/security-prereq-configure-x509-client-authentication.rst
+
+Certificate Authority
+~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/fact-ssl-certificate-authorities.rst
+
+.. _x509-client-authentication:
+
+Client x.509 Certificate
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/extracts/x509-certificate-client.rst
+
+Procedures
+----------
+
+Configure Replica Set/Sharded Cluster
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Outside of rolling upgrade procedures, every component of a :term:`replica
+set` or :term:`sharded cluster` should use the same
+:option:`--clusterAuthMode` setting to ensure it can securely connect to all
+other components in the deployment.
+
+For :term:`replica set` deployments, this includes all :program:`mongod`
+members of the replica set.
+
+For :term:`sharded cluster` deployments, this includes all :program:`mongod`
+and :program:`mongos` instances.
+
+.. note:: 
+
+   If you are configuring a standalone :program:`mongod`, omit the 
+   :option:`--clusterAuthMode` option.
+
+Use Command-line Options
+````````````````````````
+
+You can configure the MongoDB server from the command line, e.g.:
+
+.. code-block:: sh
+
+   mongod --clusterAuthMode x509 --sslMode requireSSL --sslPEMKeyFile <path to SSL certificate and key PEM file> --sslCAFile <path to root CA PEM file>
+
+.. include:: /includes/warning-x509-requires-sslCAfile.rst
+
+
+
+Use Configuration File
+``````````````````````
+
+You may also specify these options in the :doc:`configuration file
+</reference/configuration-options>`.
+
+Starting in MongoDB 2.6, you can specify the configuration for MongoDB
+in :doc:`YAML format </reference/configuration-options>`, e.g.:
+
+.. code-block:: yaml
+
+   security:
+      clusterAuthMode: x509
+   net:
+      ssl:
+         mode: requireSSL
+         PEMKeyFile: <path to TLS/SSL certificate and key PEM file>
+         CAFile: <path to root CA PEM file>
+
+For backwards compatibility, you can also specify the configuration
+using the :v2.4:`older configuration file format </reference/configuration-options>`,
+e.g.:
+
+.. code-block:: none
+
+   clusterAuthMode = x509
+   sslMode = requireSSL
+   sslPEMKeyFile = <path to TLS/SSL certificate and key PEM file>
+   sslCAFile = <path to the root CA PEM file>
+
+Include any additional options, TLS/SSL or otherwise, that are required for
+your specific configuration.
+
+.. _addX509SubjectUser:
+
+Add x.509 Certificate ``subject`` as a User
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To authenticate with a client certificate, you must first add the value
+of the ``subject`` from the client certificate as a MongoDB user. Each
+unique x.509 client certificate corresponds to a single MongoDB user;
+i.e. you cannot use a single client certificate to authenticate more
+than one MongoDB user.
+
+.. note::
+
+   The RDNs in the ``subject`` string must be compatible with the
+   `RFC2253 <https://www.ietf.org/rfc/rfc2253.txt>`_ standard.
+
+#. You can retrieve the ``RFC2253`` formatted ``subject`` from the client
+   certificate with the following command:
+
+   .. code-block:: sh
+
+      openssl x509 -in <pathToClient PEM> -inform PEM -subject -nameopt RFC2253
+
+   The command returns the ``subject`` string as well as certificate:
+
+   .. code-block:: sh
+
+      subject= CN=myName,OU=myOrgUnit,O=myOrg,L=myLocality,ST=myState,C=myCountry
+      -----BEGIN CERTIFICATE-----
+      # ...
+      -----END CERTIFICATE-----
+
+
+
+#. Add the ``RFC2253`` compliant value of the ``subject`` as a user.
+   Omit spaces as needed.
+
+   For example, in the :program:`mongo` shell, to add the user with
+   both the ``readWrite`` role in the ``test`` database and the
+   ``userAdminAnyDatabase`` role which is defined only in the ``admin``
+   database:
+
+   .. code-block:: javascript
+
+      db.getSiblingDB("$external").runCommand(
+        {
+          createUser: "CN=myName,OU=myOrgUnit,O=myOrg,L=myLocality,ST=myState,C=myCountry",
+          roles: [
+                   { role: 'readWrite', db: 'test' },
+                   { role: 'userAdminAnyDatabase', db: 'admin' }
+                 ],
+          writeConcern: { w: "majority" , wtimeout: 5000 }
+        }
+      )
+
+   In the above example, to add the user with the ``readWrite`` role in
+   the ``test`` database, the role specification document specified
+   ``'test'`` in the ``db`` field. To add ``userAdminAnyDatabase``
+   role for the user, the above example specified ``'admin'`` in the
+   ``db`` field.
+
+   .. note::
+      Some roles are defined only in the ``admin`` database, including:
+      ``clusterAdmin``, ``readAnyDatabase``, ``readWriteAnyDatabase``,
+      ``dbAdminAnyDatabase``, and ``userAdminAnyDatabase``. To add a
+      user with these roles, specify ``'admin'`` in the ``db``.
+
+See :doc:`/tutorial/manage-users-and-roles` for details on adding a user
+with roles.
+
+.. _authenticate-with-x509-cert:
+
+Authenticate with a x.509 Certificate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To authenticate with a client certificate, you must first add a MongoDB
+user that corresponds to the client certificate. See
+:ref:`addX509SubjectUser`.
+
+To authenticate, use the :method:`db.auth()` method in the
+``$external`` database, specifying ``"MONGODB-X509"`` for the
+``mechanism`` field, and the :ref:`user that corresponds to the client
+certificate <addX509SubjectUser>` for the ``user`` field.
+
+For example, if using the :program:`mongo` shell,
+
+1. Connect :program:`mongo` shell to the :program:`mongod` set up for
+   SSL:
+
+   .. code-block:: sh
+
+      mongo --ssl --sslPEMKeyFile <path to CA signed client PEM file> --sslCAFile <path to root CA PEM file>
+
+#. To perform the authentication, use the :method:`db.auth()` method in
+   the ``$external`` database. For the ``mechanism`` field, specify
+   ``"MONGODB-X509"``, and for the ``user`` field, specify the user, or
+   the ``subject``, that corresponds to the client certificate.
+
+   .. code-block:: javascript
+
+      db.getSiblingDB("$external").auth(
+        {
+          mechanism: "MONGODB-X509",
+          user: "CN=myName,OU=myOrgUnit,O=myOrg,L=myLocality,ST=myState,C=myCountry"
+        }
+      )

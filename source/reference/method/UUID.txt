@@ -1,0 +1,38 @@
+======
+UUID()
+======
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. method:: UUID(<string>)
+
+   Generates a BSON UUID object.
+
+   .. include:: /includes/apiargs/method-UUID-param.rst
+
+   :returns: A BSON UUID object.
+
+Example
+-------
+
+Create a 32 byte hexadecimal string:
+
+.. code-block:: javascript
+
+   var myuuid = '0123456789abcdeffedcba9876543210'
+
+Convert it to the BSON UUID subtype:
+
+.. code-block:: javascript
+
+   UUID(myuuid)
+   BinData(3,"ASNFZ4mrze/+3LqYdlQyEA==")

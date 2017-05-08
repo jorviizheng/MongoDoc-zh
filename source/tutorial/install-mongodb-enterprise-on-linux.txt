@@ -1,0 +1,37 @@
+=======================================
+从压缩包安装MongoDB企业版
+=======================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+
+Overview
+--------
+
+MongoDB Enterprise tarballs provide an option for installing
+MongoDB Enterprise Edition if the distribution packages are not
+appropriate for your deployment.
+
+Installing the tarballs on a platform not listed on
+:ref:`prod-notes-supported-platforms` may result in unpredictable
+behavior.
+
+Install MongoDB
+---------------
+
+.. include:: /includes/extracts/install-past-mongodb-enterprise-tarball.rst
+
+.. include:: /includes/steps/install-mongodb-enterprise-on-linux.rst
+
+Run MongoDB
+-----------
+
+.. include:: /includes/fact-installation-ulimit.rst
+
+.. include:: /includes/steps/run-mongodb-on-linux.rst

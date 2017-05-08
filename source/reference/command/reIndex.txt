@@ -1,0 +1,41 @@
+=======
+reIndex
+=======
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. dbcommand:: reIndex
+
+   The :dbcommand:`reIndex` command drops all indexes on a
+   collection and recreates them. This operation may be expensive for
+   collections that have a large amount of data and/or a large number
+   of indexes. Use the following syntax:
+
+   .. code-block:: javascript
+
+      { reIndex: "collection" }
+
+   Normally, MongoDB compacts indexes during routine updates. For most
+   users, the :dbcommand:`reIndex` command is unnecessary. However, it
+   may be worth running if the collection size has changed significantly
+   or if the indexes are consuming a disproportionate amount of disk space.
+
+   Call :dbcommand:`reIndex` using the following form:
+
+   .. code-block:: javascript
+
+      db.collection.reIndex();
+
+   .. |cmd-name| replace:: :dbcommand:`reIndex`
+   .. include:: /includes/note-reindex-impact-on-replica-sets.rst
+
+   .. include:: /includes/important-reindex-locking.rst
+
+.. see:: :doc:`/core/index-creation` for more information on the
+   behavior of indexing operations in MongoDB.

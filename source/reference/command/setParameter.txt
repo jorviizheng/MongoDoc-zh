@@ -1,0 +1,67 @@
+============
+setParameter
+============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. dbcommand:: setParameter
+
+   :dbcommand:`setParameter` is an administrative command for
+   modifying options normally set on the command line. You must issue
+   the :dbcommand:`setParameter` command against the :term:`admin database`
+   in the form:
+
+   .. code-block:: javascript
+
+      { setParameter: 1, <option>: <value> }
+
+   Replace the ``<option>`` with one of the supported
+   :dbcommand:`setParameter` options:
+
+   **Indexing**
+
+   - :parameter:`failIndexKeyTooLong`
+   - :parameter:`notablescan`
+
+   **Logging**
+
+   - :parameter:`logComponentVerbosity`
+   - :parameter:`logLevel`
+   - :parameter:`logUserIds`
+   - :parameter:`quiet`
+   - :parameter:`traceExceptions`
+
+   **Replication**
+
+   - :parameter:`replApplyBatchSize`
+   - :parameter:`replIndexPrefetch`
+
+   **Security**
+
+   - :parameter:`auditAuthorizationSuccess`
+   - :parameter:`clusterAuthMode`
+   - :parameter:`scramIterationCount`
+   - :parameter:`sslMode`
+
+   **Sharding**
+
+   - :parameter:`userCacheInvalidationIntervalSecs`
+
+   **Storage**
+
+   - :parameter:`journalCommitInterval`
+   - :parameter:`syncdelay`
+   - :parameter:`wiredTigerEngineRuntimeConfigSetting`
+
+   **JavaScript**
+
+   - :parameter:`disableJavaScriptJIT`
+
+   .. slave-ok, admin-only
+   .. textSearchEnabled, deprecated v2.6

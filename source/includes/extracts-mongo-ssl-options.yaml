@@ -1,0 +1,37 @@
+ref: mongo-ssl-options-mongo
+inherit:
+  ref: _mongo-ssl-options
+  file: extracts-mongo-ssl-options-base.yaml
+replacement: 
+  program: ":program:`mongo`"
+  tools: ""
+---
+ref: mongo-ssl-options-configure
+inherit:
+  ref: _mongo-ssl-options
+  file: extracts-mongo-ssl-options-base.yaml
+replacement: 
+  program: ":program:`mongo`"
+  instance: ":program:`mongod` or :program:`mongos`"
+post: |
+  If your MongoDB deployment uses SSL, you must also specify the ``--host`` option.
+  {{program}} verifies that the
+  hostname of the {{instance}} to which you are connecting matches
+  the CN or SAN of the {{instance}}'s ``--sslPEMKeyFile`` certificate.
+  If the hostname does not match the CN/SAN, {{program}} will fail to
+  connect.
+---
+ref: mongo-warning-sslCAFile
+inherit:
+  ref: _warning-sslCAFile
+  file: extracts-mongo-ssl-options-base.yaml
+replacement: 
+  program: ":program:`mongo` shell"
+---
+ref: clients-warning-sslCAFile
+inherit:
+  ref: _warning-sslCAFile
+  file: extracts-mongo-ssl-options-base.yaml
+replacement: 
+  program: ":program:`mongo` shell (or :ref:`MongoDB tools <mongodb-tools-support-ssl>`)"
+...

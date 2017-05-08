@@ -1,0 +1,64 @@
+.. _3.4-reference-views:
+
+=====
+视图
+=====
+
+.. default-domain:: mongodb
+
+.. versionadded:: 3.4
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+
+从版本3.4 开始, mongodb 添加了对从现有集合或其他视图创建只读视图的支持。
+
+创建视图
+-----------
+
+要创建或定义视图, MongoDB 3.4 引入:
+
+- :dbcommand:`create` 命令选项 ``viewOn`` and ``pipeline`` (
+和 :method:`db.createCollection` 助手):
+
+  .. code-block:: javascript
+
+     db.runCommand( { create: <view>, viewOn: <source>, pipeline: <pipeline> } )
+
+  或者, 为视图指定 :ref:`排序 <3.4-relnotes-collation>` :
+  
+  .. code-block:: javascript
+
+     db.runCommand( { create: <view>, viewOn: <source>, pipeline: <pipeline>, collation: <collation> } )
+
+- 一个新的 :program:`mongo` shell helper :method:`db.createView()`:
+
+  .. code-block:: javascript
+
+     db.createView(<view>, <source>, <pipeline>, <collation> )
+
+行为
+--------
+
+.. include:: /includes/extracts/views-behavior.rst
+
+Public View Definition
+~~~~~~~~~~~~~~~~~~~~~~
+
+Operations that lists collections, such as
+:method:`db.getCollectionInfos()` and
+:method:`db.getCollectionNames()`, include views in their outputs.
+
+.. important::
+
+   .. include:: /includes/extracts/views-public-definition.rst
+
+Drop a View
+-----------
+
+To remove a view, use the :method:`db.collection.drop()` method on the
+view.

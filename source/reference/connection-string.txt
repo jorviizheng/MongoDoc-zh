@@ -1,0 +1,724 @@
+.. index:: connections
+
+.. _mongodb-uri:
+
+============================
+Connection String URI Format
+============================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+This document describes the URI format for defining connections between
+applications and MongoDB instances in the official MongoDB :doc:`drivers
+</applications/drivers>`.
+
+.. index:: connections; connection string format
+.. _connections-standard-connection-string-format:
+
+Standard Connection String Format
+---------------------------------
+
+This section describes the standard format of the MongoDB connection URI
+used to connect to a MongoDB database server. The format is the same for
+all official MongoDB drivers. For a list of drivers and links to driver
+documentation, see :doc:`/applications/drivers`.
+
+The following is the standard URI connection scheme:
+
+.. code-block:: none
+
+   mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+
+The components of this string are:
+
+.. list-table::
+   :widths: 20 80
+
+   * - ``mongodb://``
+
+     - A required prefix to identify that this is a string in the
+       standard connection format.
+
+   * - ``username:password@``
+
+     - Optional. If specified, the client will attempt to log in to the
+       specific database using these credentials after connecting to
+       the :program:`mongod` instance.
+
+   * - ``host1``
+
+     - Required. It identifies a server
+       address to connect to. It identifies either a hostname, IP
+       address, or UNIX domain socket. 
+       
+       .. include:: /includes/fact-uri-rs-hostnames.rst
+
+       For a sharded cluster, specify the hostname of the
+       :program:`mongos` instance.
+       
+
+   * - ``:port1``
+
+     - Optional. The default value is ``:27017`` if not specified.
+
+   * - ``hostN``
+
+     - Optional. You can specify as many hosts as necessary. You would
+       specify multiple hosts, for example, for connections to replica
+       sets.
+
+       .. include:: /includes/fact-uri-rs-hostnames.rst
+
+       For a sharded cluster, specify the hostname of the
+       :program:`mongos` instance.
+
+   * - ``:portX``
+
+     - Optional. The default value is ``:27017`` if not specified.
+
+   * - ``/database``
+
+     - Optional. The name of the database to authenticate if the
+       connection string includes authentication credentials in the
+       form of ``username:password@``. If ``/database`` is not
+       specified and the connection string includes credentials, the
+       driver will authenticate to the ``admin`` database.
+
+   * - ``?options``
+
+     - Connection specific options. See
+       :ref:`connections-connection-options` for a full description of
+       these options.
+
+       If the connection string does not specify a database/ you must
+       specify a slash (i.e. ``/``) between the last ``hostN`` and the
+       question mark that begins the string of options.
+
+.. example::
+
+   To describe a connection to a replica set named ``test``, with the
+   following :program:`mongod` hosts:
+
+   - ``db1.example.net`` on port ``27017`` and
+   - ``db2.example.net`` on port ``2500``.
+
+   You would use a connection string that resembles the following:
+
+   .. code-block:: none
+
+      mongodb://db1.example.net,db2.example.net:2500/?replicaSet=test
+
+
+   .. include:: /includes/fact-uri-rs-hostnames.rst
+
+.. example::
+
+   To describe a connection to a sharded cluster with the
+   following :program:`mongos` hosts:
+
+   - ``r1.example.net`` on port ``27017`` and
+   - ``r2.example.net`` on port ``27017``.
+
+   You would use a connection string that resembles the following:
+
+   .. code-block:: none
+
+      mongodb://r1.example.net:27017,r2.example.net:27017/
+
+.. index:: connections; options
+.. _connections-connection-options:
+
+Connection String Options
+-------------------------
+
+This section lists all connection options used in the
+:ref:`connections-standard-connection-string-format`.
+
+Connection options are pairs in the following form: ``name=value``. The
+``value`` is always case sensitive. Separate options with the ampersand
+(i.e. ``&``) character. In the following example, a connection uses the
+``replicaSet`` and ``connectTimeoutMS`` options:
+
+.. code-block:: none
+
+   mongodb://db1.example.net,db2.example.net:2500/?replicaSet=test&connectTimeoutMS=300000
+
+.. admonition:: Semi-colon separator for connection string arguments
+
+   To provide backwards compatibility, drivers currently accept
+   semi-colons (i.e. ``;``) as option separators.
+
+.. _replica-set-options:
+.. _replica-set-option:
+
+Replica Set Option
+~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Connection Option
+     - Description
+
+   * - .. urioption:: replicaSet
+
+     - Specifies the name of the :term:`replica set`, if the
+       :program:`mongod` is a member of a replica set.
+
+       When connecting to a replica set it is important to give a seed
+       list of at least two :program:`mongod` instances. If you only
+       provide the connection point of a single :program:`mongod`
+       instance, and omit the :urioption:`replicaSet`, the client will
+       create a :term:`standalone` connection.
+
+Connection Options
+~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Connection Option
+     - Description
+
+   * - .. urioption:: ssl
+
+     - ``true``: Initiate the connection with TLS/SSL.
+
+       ``false``: Initiate the connection without TLS/SSL.
+
+       The default value is ``false``.
+
+       .. note::
+          The :urioption:`ssl` option is not supported by all drivers.
+          See your :doc:`driver </applications/drivers>` documentation
+          and the :doc:`/tutorial/configure-ssl` document.
+
+   * - .. urioption:: connectTimeoutMS
+
+     - The time in milliseconds to attempt a connection before timing
+       out. The default is never to timeout, though different drivers
+       might vary. See the :doc:`driver </applications/drivers>`
+       documentation.
+
+   * - .. urioption:: socketTimeoutMS
+
+     - The time in milliseconds to attempt a send or receive on a
+       socket before the attempt times out. The default is never to
+       timeout, though different drivers might vary. See the
+       :doc:`driver </applications/drivers>` documentation.
+
+.. _connection-pool-options:
+
+Connection Pool Options
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Most drivers implement some kind of connection pool handling. 
+Some drivers do not support connection
+pools. See your :doc:`driver </applications/drivers>` documentation
+for more information on the connection pooling implementation. These
+options allow applications to configure the connection pool when
+connecting to the MongoDB deployment.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Connection Option
+     - Description
+
+   * - .. urioption:: maxPoolSize
+
+     - The maximum number of connections in the connection pool. The
+       default value is ``100``.
+
+   * - .. urioption:: minPoolSize
+
+     - The minimum number of connections in the connection pool. The
+       default value is ``0``.
+
+       .. note::
+          The :urioption:`minPoolSize` option is not supported by all
+          drivers. For information on your driver, see the
+          :doc:`drivers </applications/drivers>` documentation.
+
+   * - .. urioption:: maxIdleTimeMS
+
+     - The maximum number of milliseconds that a connection can remain
+       idle in the pool before being removed and closed.
+
+       This option is not supported by all drivers.
+
+   * - .. urioption:: waitQueueMultiple
+
+     - A number that the driver multiples the :urioption:`maxPoolSize`
+       value to, to provide the maximum number of threads allowed to
+       wait for a connection to become available from the pool. For
+       default values, see the :doc:`/applications/drivers`
+       documentation.
+
+   * - .. urioption:: waitQueueTimeoutMS
+
+     - The maximum time in milliseconds that a thread can wait for a
+       connection to become available. For default values, see the
+       :doc:`/applications/drivers` documentation.
+
+.. _connections-write-concern:
+
+Write Concern Options
+~~~~~~~~~~~~~~~~~~~~~
+
+:ref:`Write concern <write-concern>` describes the kind of assurances
+that the :program:`mongod` and the driver provide to the application
+regarding the success and durability of the write operation. For a
+full explanation of write concern and write operations in general, see
+:doc:`/reference/write-concern`.
+
+.. note::
+
+   You can specify the write concern both in the connection string and
+   as a parameter to method calls like ``insert`` or ``update``. If the
+   write concern is specified in both places, the method parameter
+   overrides the connection-string setting.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Connection Option
+     - Description
+
+   * - .. urioption:: w
+
+     - Corresponds to the write concern :ref:`wc-w`. The ``w`` option
+       requests acknowledgement that the write operation has propagated
+       to a specified number of :program:`mongod` instances or to
+       :program:`mongod` instances with specified tags.
+
+       You can specify a :writeconcern:`number <\<number\>>`, the
+       string :writeconcern:`majority <"majority">`, or a
+       :writeconcern:`tag set <\<tag set\>>`.
+
+       For details, see :ref:`wc-w`.
+
+   * - .. urioption:: wtimeoutMS
+
+     - Corresponds to the write concern :ref:`wc-wtimeout`.
+       :urioption:`wtimeoutMS` specifies a time limit, in milliseconds,
+       for the write concern.
+
+       When ``wtimeoutMS`` is ``0``, write operations will never time
+       out. For more information, see :ref:`wc-wtimeout`.
+
+   * - .. urioption:: journal
+
+     - Corresponds to the write concern :ref:`wc-j` option. The
+       :urioption:`journal` option requests acknowledgement from
+       MongoDB that the write operation has been written to the
+       :doc:`journal </core/journaling>`. For details, see :ref:`wc-j`.
+
+       If you set :urioption:`journal` to ``true``, and specify a
+       :urioption:`w` value less than 1, :urioption:`journal` prevails.
+
+       .. versionchanged:: 2.6
+          If you set :urioption:`journal` to true, and the
+          :program:`mongod` does not have journaling enabled, as with
+          :setting:`storage.journal.enabled`, then MongoDB will error.
+          In previous versions, MongoDB would provide basic receipt
+          acknowledgement (i.e. ``w:1``), ignore :urioption:`journal`,
+          and include a ``jnote`` field in its return document.
+
+``readConcern`` Options
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 3.2
+
+   For the WiredTiger storage engine, MongoDB 3.2 introduces the
+   readConcern option for replica sets and replica set shards.
+
+:doc:`/reference/read-concern` allows clients to choose a level of
+isolation for their reads from replica sets.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Connection Option
+     - Description
+
+   * - .. urioption:: readConcernLevel
+
+     - The level of isolation. Accepts either :readconcern:`"local"` or
+       :readconcern:`"majority"`.
+
+       For details, see :doc:`/reference/read-concern`.
+
+.. _connections-read-preference:
+
+Read Preference Options
+~~~~~~~~~~~~~~~~~~~~~~~
+
+:doc:`Read preferences </core/read-preference>` describe the
+behavior of read operations with regards to :term:`replica sets
+<replica set>`. These parameters allow you to specify read preferences
+on a per-connection basis in the connection string:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Connection Option
+     - Description
+
+   * - .. urioption:: readPreference
+
+     - Specifies the :term:`replica set` read preference for this
+       connection. 
+       
+       The read preference values are the following:
+
+       - :readmode:`primary`
+       - :readmode:`primaryPreferred`
+       - :readmode:`secondary`
+       - :readmode:`secondaryPreferred`
+       - :readmode:`nearest`
+
+       For descriptions of each value, see
+       :ref:`replica-set-read-preference-modes`.
+
+       The default value is :readmode:`primary`, which sends all read
+       operations to the replica set's :term:`primary`.
+
+   * - .. urioption:: maxStalenessSeconds
+   
+     - .. versionadded:: 3.4
+     
+       Specifies, in seconds, how stale a secondary can be before the client
+       stops using it for read operations. For details, see:
+       :ref:`replica-set-read-preference-max-staleness`.
+
+       By default, there is no maximum staleness and clients will not consider a
+       secondary's lag when choosing where to direct a read operation.
+  
+       The minimum :urioption:`maxStalenessSeconds` value is 90
+       seconds. Specifying a value between 0 and 90 seconds will produce
+       an error. MongoDB drivers treat a ``maxStalenessSeconds`` value
+       of ``-1`` as "no max staleness", the same as if
+       ``maxStalenessSeconds`` is omitted.
+       
+       .. important::
+          To use ``maxStalenessSeconds``, all of the
+          MongoDB instances in your deployment must be using MongoDB 3.4 or
+          later. If any instances are on an earlier version of MongoDB, the
+          driver or :program:`mongos` will raise an error.
+      
+       The following specifies a maxStalenessSeconds value of 120 seconds
+       with the :readmode:`secondary` read preference mode:
+       
+       .. code-block:: none
+       
+          mongodb://host.example.com/?readPreference=secondary&maxStalenessSeconds=120
+
+   * - .. urioption:: readPreferenceTags
+
+     - Specifies a tag set as a comma-separated list of colon-separated
+       key-value pairs. For example:
+
+       .. code-block:: none
+
+          dc:ny,rack:1
+
+       To specify a *list* of tag sets, use multiple
+       ``readPreferenceTags``.
+
+       The following specifies two tag sets and an empty tag set:
+
+       .. code-block:: none
+
+          readPreferenceTags=dc:ny,rack:1&readPreferenceTags=dc:ny&readPreferenceTags=
+
+       Order matters when using multiple ``readPreferenceTags``.
+
+Authentication Options
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Connection Option
+     - Description
+
+   * - .. urioption:: authSource
+
+     - Specify the database name associated with the user's
+       credentials. :urioption:`authSource`
+       defaults to the database specified in the connection string.
+
+       For authentication mechanisms that delegate credential storage
+       to other services, the :urioption:`authSource` value should be
+       ``$external`` as with the ``PLAIN`` (LDAP) and ``GSSAPI``
+       (Kerberos) authentication mechanisms.
+
+       MongoDB will ignore :urioption:`authSource` values if the
+       connection string specifies no username.
+
+   * - .. urioption:: authMechanism
+
+     - .. versionchanged:: 2.6
+          Added support for the ``PLAIN`` and ``MONGODB-X509``
+          authentication mechanisms.
+
+       .. versionchanged:: 3.0
+          Added support for the ``SCRAM-SHA-1`` authentication mechanism.
+
+          Specify the authentication mechanism that MongoDB will use to
+          authenticate the connection. Possible values include:
+
+       - :ref:`SCRAM-SHA-1 <authentication-scram-sha-1>`
+       - :ref:`MONGODB-CR <authentication-mongodb-cr>`
+       - :ref:`MONGODB-X509 <security-auth-x509>`
+       - :ref:`GSSAPI <security-auth-kerberos>` (Kerberos)
+       - :ref:`PLAIN <security-auth-ldap>` (LDAP SASL)
+
+       Only MongoDB Enterprise :program:`mongod` and :program:`mongos`
+       instances provide ``GSSAPI`` (Kerberos) and ``PLAIN`` (LDAP)
+       mechanisms. To use ``MONGODB-X509``, you must have TLS/SSL
+       Enabled.
+
+       See :doc:`/core/authentication` for more information about the
+       authentication system in MongoDB. Also consider
+       :doc:`/tutorial/configure-x509-client-authentication` for more
+       information on x509 authentication.
+
+   * - .. urioption:: gssapiServiceName
+
+     - Set the Kerberos service name when connecting to Kerberized
+       MongoDB instances. This value must match the service name set on
+       MongoDB instances.
+
+       :urioption:`gssapiServiceName` defaults to ``mongodb`` for all
+       clients and for MongoDB instance. If you change
+       :parameter:`saslServiceName` setting on a MongoDB instance, you
+       will need to set :urioption:`gssapiServiceName` to the same
+       value.
+
+Server Selection and Discovery Options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+MongoDB provides the following options to configure how MongoDB drivers
+and :program:`mongos` instances select a server to which to direct read
+or write operations.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+   
+   * - Connection Option
+     - Description
+   
+   * - .. urioption:: localThresholdMS
+
+     - The size (in milliseconds) of the latency window for selecting
+       among multiple suitable MongoDB instances. *Default*: 15
+       milliseconds.
+       
+       All drivers use :urioption:`localThresholdMS`. Use the
+       ``localThreshold`` alias when specifying the latency window size
+       to :program:`mongos`.
+
+   * - .. urioption:: serverSelectionTimeoutMS
+
+     - Specifies how long (in milliseconds) to block for server
+       selection before throwing an exception. *Default*: 30,000
+       milliseconds.
+
+   * - .. urioption:: serverSelectionTryOnce
+
+     - **Single-threaded drivers only**. When ``true``, instructs the
+       driver to scan the MongoDB deployment exactly once after server
+       selection fails and then either select a server or raise an
+       error. When ``false``, the driver blocks and searches for a
+       server up to the :urioption:`serverSelectionTimeoutMS` value.
+       *Default*: ``true``.
+       
+       Multi-threaded drivers and :program:`mongos` do not support
+       :urioption:`serverSelectionTryOnce`.
+
+   * - .. urioption:: heartbeatFrequencyMS
+
+     - :urioption:`heartbeatFrequencyMS` controls when the driver
+       checks the state of the MongoDB deployment. Specify the interval
+       (in milliseconds) between checks, counted from the end of the
+       previous check until the beginning of the next one.
+       
+       *Default*:
+       
+       - Single-threaded drivers: 60 seconds.
+       - Multi-threaded drivers: 10 seconds.
+       
+       :program:`mongos` does not support changing the frequency of 
+       the heartbeat checks.
+
+Miscellaneous Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Connection Option
+     - Description
+
+   * - .. urioption:: uuidRepresentation
+
+     - Possible values are:
+
+       ``standard``
+         The standard binary representation.
+
+       ``csharpLegacy``
+         The default representation for the C# driver.
+
+       ``javaLegacy``
+         The default representation for the Java driver.
+
+       ``pythonLegacy``
+         The default representation for the Python driver.
+
+       For the default, see the :doc:`drivers </applications/drivers>`
+       documentation for your driver.
+
+       .. note::
+          Not all drivers support the :urioption:`uuidRepresentation`
+          option. For information on your driver, see the :doc:`drivers
+          </applications/drivers>` documentation.
+
+.. _connections-connection-examples:
+
+Examples
+--------
+
+The following provide example URI strings for common connection targets.
+
+Database Server Running Locally
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following connects to a database server running locally on the
+default port:
+
+.. code-block:: none
+
+   mongodb://localhost
+
+``admin`` Database
+~~~~~~~~~~~~~~~~~~
+
+The following connects and logs in to the ``admin`` database as user
+``sysop`` with the password ``moon``:
+
+.. code-block:: none
+
+   mongodb://sysop:moon@localhost
+
+``records`` Database
+~~~~~~~~~~~~~~~~~~~~
+
+The following connects and logs in to the ``records`` database as user
+``sysop`` with the password ``moon``:
+
+.. code-block:: none
+
+   mongodb://sysop:moon@localhost/records
+
+UNIX Domain Socket
+~~~~~~~~~~~~~~~~~~
+
+Use a URL encoded connection string when connecting to a UNIX domain
+socket. 
+
+The following connects to a UNIX domain socket with file path
+``/tmp/mongodb-27017.sock``:
+
+.. code-block:: none
+
+   mongodb://%2Ftmp%2Fmongodb-27017.sock
+
+.. note:: Not all drivers support UNIX domain sockets. For information
+   on your driver, see the :doc:`drivers </applications/drivers>`
+   documentation.
+
+Replica Set with Members on Different Machines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following connects to a :term:`replica set` with two members, one on
+``db1.example.net`` and the other on ``db2.example.net``:
+
+.. note::
+
+   .. include:: /includes/fact-uri-rs-hostnames.rst
+
+.. code-block:: none
+
+   mongodb://db1.example.net,db2.example.com/?replicaSet=test
+
+Replica Set with Members on ``localhost``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following connects to a replica set with three members running on ``localhost`` on
+ports ``27017``, ``27018``, and ``27019``:
+
+.. note::
+
+   .. include:: /includes/fact-uri-rs-hostnames.rst
+
+.. code-block:: none
+
+   mongodb://localhost,localhost:27018,localhost:27019/?replicaSet=test
+
+Replica Set with Read Distribution
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following connects to a replica set with three members and
+distributes reads to the :term:`secondaries <secondary>`:
+
+.. note::
+
+   .. include:: /includes/fact-uri-rs-hostnames.rst
+
+.. code-block:: none
+
+   mongodb://example1.com,example2.com,example3.com/?replicaSet=test&readPreference=secondary
+
+Replica Set with a High Level of Write Concern
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following connects to a replica set with write concern configured to wait for
+replication to succeed on at least two members, with a two-second
+timeout.
+
+.. note::
+
+   .. include:: /includes/fact-uri-rs-hostnames.rst
+
+.. code-block:: none
+
+   mongodb://example1.com,example2.com,example3.com/?replicaSet=test&w=2&wtimeoutMS=2000
+
+Sharded Cluster
+~~~~~~~~~~~~~~~
+
+The following connects to a sharded cluster with three :program:`mongos` instances:
+
+.. code-block:: none
+
+   mongodb://router1.example.com:27017,router2.example2.com:27017,router3.example3.com:27017/
+
+

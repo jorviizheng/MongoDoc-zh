@@ -1,0 +1,85 @@
+=============================
+Add an Arbiter to Replica Set
+=============================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Arbiters are :program:`mongod` instances that are part of a
+:term:`replica set` but do not hold data. Arbiters participate in
+:ref:`elections <replica-set-elections>` in order to break ties.
+If a replica set has an even number of members, add an arbiter.
+
+Arbiters have minimal resource requirements and do not require
+dedicated hardware. You can deploy an arbiter on an application
+server or a monitoring host.
+
+.. important::
+
+   Do not run an arbiter on the same system as a member of the replica
+   set.
+
+Considerations
+--------------
+
+.. note::
+
+   .. include:: /includes/extracts/arbiters-and-pvs-with-reference.rst
+
+An arbiter does not store data, but until the arbiter's :program:`mongod`
+process is added to the replica set, the arbiter will act like any other
+:program:`mongod` process and start up with a set of data files and with a
+full-sized :term:`journal`.
+
+To minimize the default creation of data, set the following in the
+arbiter's :doc:`configuration file </reference/configuration-options>`:
+
+- :setting:`storage.journal.enabled` to ``false``
+
+  .. warning::
+
+     Never set :setting:`storage.journal.enabled` to
+     ``false`` on a data-bearing node.
+
+- For MMAPv1 storage engine, :setting:`storage.mmapv1.smallFiles` to
+  ``true``
+
+These settings are specific to arbiters. Do not set
+:setting:`storage.journal.enabled` to ``false`` on a
+data-bearing node. Similarly, do not set :setting:`storage.mmapv1.smallFiles`
+unless specifically indicated.
+
+Add an Arbiter
+--------------
+
+#. Create a data directory (e.g. :setting:`storage.dbPath`) for the
+   arbiter. The :program:`mongod` instance uses the directory for
+   configuration data. The directory *will not* hold the data set. For
+   example, create the ``/data/arb`` directory:
+
+   .. code-block:: sh
+
+      mkdir /data/arb
+
+#. Start the arbiter, specifying the data directory and the replica set
+   name. The following starts an arbiter using the ``/data/arb``
+   as the :setting:`~storage.dbPath` and  ``rs`` for the replica set name:
+
+   .. code-block:: sh
+
+      mongod --port 30000 --dbpath /data/arb --replSet rs
+
+#. Connect to the primary and add the arbiter to the replica set. Use
+   the :method:`rs.addArb()` method, as in the following example:
+
+   .. code-block:: javascript
+
+      rs.addArb("m1.example.net:30000")
+
+   This operation adds the arbiter running on port ``30000`` on the
+   ``m1.example.net`` host.

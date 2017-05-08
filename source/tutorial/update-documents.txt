@@ -1,0 +1,416 @@
+.. include:: /includes/templates/tabs.rst
+
+.. _write-op-update:
+
+================
+Update Documents
+================
+
+.. default-domain:: mongodb
+
+.. meta::
+   :description: How to update documents in MongoDB. How to update  a single document in MongoDB. How to update multiple documents in MongoDB. How to update all documents in MongoDB. How to update fields in documents in MongoDB.  How to replace documents.
+   :keywords: update documents, update all documents, update single document, modify documents, update fields in documents, update collection, MongoDB Manual
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         This page provides examples of how to update documents in
+         using the following methods in the :program:`mongo` shell:
+
+         - ``db.collection.updateOne(<filter>, <update>, <options>)``
+
+         - ``db.collection.updateMany(<filter>, <update>, <options>)``
+
+         - ``db.collection.replaceOne(<filter>, <replacement>, <options>)``
+
+     - id: python
+       content: |
+         This page provides examples of how to update documents using the
+         following methods in the `PyMongo <https://api.mongodb.com/python/current/index.html>`_
+         Python driver:
+         
+         - :py:meth:`pymongo.collection.Collection.update_one`
+         
+         - :py:meth:`pymongo.collection.Collection.update_many`
+         
+         - :py:meth:`pymongo.collection.Collection.replace_one`
+
+     - id: php
+       content: |
+         This page provides examples of how to update documents using the
+         following methods in the `MongoDB PHP Library <https://docs.mongodb.com/php-library/master/>`_:
+         
+         - :phpmethod:`MongoDB\\Collection::updateOne() <phpmethod.MongoDB\\Collection::updateOne>`
+         
+         - :phpmethod:`MongoDB\\Collection::updateMany() <phpmethod.MongoDB\\Collection::updateMany>`
+         
+         - :phpmethod:`MongoDB\\Collection::replaceOne() <phpmethod.MongoDB\\Collection::replaceOne>`
+
+     - id: perl
+       content: |
+         This page provides examples of how to update documents using the
+         following methods in the `MongoDB Perl Driver <https://metacpan.org/release/MongoDB>`_:
+         
+         - :perl-api:`MongoDB::Collection::update_one()<Collection#update_one>`
+         
+         - :perl-api:`MongoDB::Collection::update_many()<Collection#update_many>`
+         
+         - :perl-api:`MongoDB::Collection::replace_one()<Collection#replace_one>`
+
+The examples on this page use the ``inventory`` collection. To create
+and/or populate the ``inventory`` collection, run the following:
+
+.. include:: /includes/driver-example-update-51.rst
+
+.. _update-documents-modifiers:
+
+Update Documents in a Collection
+--------------------------------
+
+To update a document, MongoDB provides :manual:`update operators
+</reference/operator/update>`, such as :update:`$set`, to modify field
+values. To use the update operators, pass to the update methods an
+update document of the form:
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         .. code-block:: javascript
+         
+            {
+              <update operator>: { <field1>: <value1>, ... }, 
+              <update operator>: { <field2>: <value2>, ... },
+              ...
+            }
+
+     - id: python
+       content: |
+         .. code-block:: python
+         
+            {
+              <update operator>: { <field1>: <value1>, ... }, 
+              <update operator>: { <field2>: <value2>, ... },
+              ...
+            }
+
+     - id: php
+       content: |
+         .. code-block:: php
+         
+            [
+              <update operator> => [ <field1> => <value1>, ... ], 
+              <update operator> => [ <field2> => <value2>, ... ],
+              ...
+            ]
+
+     - id: perl
+       content: |
+         .. code-block:: perl
+         
+            {
+              <update operator> => { <field1> => <value1>, ... }, 
+              <update operator> => { <field2> => <value2>, ... },
+              ...
+            }
+
+Some update operators, such as :update:`$set`, will create the field if
+the field does not exist. See the individual :manual:`update operator
+</reference/operator/update>` reference for details.
+
+.. _write-op-updateOne:
+
+Update a Single Document
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         The following example uses the
+         :method:`db.collection.updateOne()` method on the
+         ``inventory`` collection to update the *first* document where
+         ``item`` equals ``"paper"``:
+
+     - id: python
+       content: |
+         The following example uses the
+         :py:meth:`~pymongo.collection.Collection.update_one` method on
+         the ``inventory`` collection to update the *first* document
+         where ``item`` equals ``"paper"``:
+
+     - id: php
+       content: |
+         The following example uses the
+         :phpmethod:`updateOne() <phpmethod.MongoDB\\Collection::updateOne>`
+         method on the ``inventory`` collection to update the *first*
+         document where ``item`` equals ``"paper"``:
+
+     - id: perl
+       content: |
+         The following example uses the
+         :perl-api:`update_one()<Collection#update_one>` method on the
+         ``inventory`` collection to update the *first* document where
+         ``item`` equals ``"paper"``:
+
+.. include:: /includes/driver-example-update-52.rst
+
+The update operation:
+
+- uses the :update:`$set` operator to update the value of the
+  ``size.uom`` field to ``"cm"`` and the value of the ``status``
+  field to ``"P"``,
+
+- uses the :update:`$currentDate` operator to update the value of the
+  ``lastModified`` field to the current date. If ``lastModified`` field
+  does not exist, :update:`$currentDate` will create the field. See
+  :update:`$currentDate` for details.
+
+.. _update-multiple-documents:
+.. _write-op-updateMany:
+
+Update Multiple Documents
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 3.2
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         The following example uses the :method:`db.collection.updateMany()`
+         method on the ``inventory`` collection to update all documents where
+         ``qty`` is less than ``50``:
+
+     - id: python
+       content: |
+         The following example uses the
+         :py:meth:`~pymongo.collection.Collection.update_many` method on
+         the ``inventory`` collection to update all documents where
+         ``qty`` is less than ``50``:
+
+     - id: php
+       content: |
+         The following example uses the
+         :phpmethod:`updateMany() <phpmethod.MongoDB\\Collection::updateMany>`
+         method on the ``inventory`` collection to update all documents
+         where ``qty`` is less than ``50``:
+
+     - id: perl
+       content: |
+         The following example uses the
+         :perl-api:`update_many()<Collection#update_many>` method on
+         the ``inventory`` collection to update all documents where
+         ``qty`` is less than ``50``:
+
+.. include:: /includes/driver-example-update-53.rst
+
+The update operation:
+
+- uses the :update:`$set` operator to update the value of the
+  ``size.uom`` field to ``"in"`` and the value of the ``status``
+  field to ``"P"``,
+
+- uses the :update:`$currentDate` operator to update the value of the
+  ``lastModified`` field to the current date. If ``lastModified`` field
+  does not exist, :update:`$currentDate` will create the field. See
+  :update:`$currentDate` for details.
+
+Replace a Document
+--------------------
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         To replace the entire content of a document except for the ``_id``
+         field, pass an entirely new document as the second argument to
+         :method:`db.collection.replaceOne()`.
+
+     - id: python
+       content: |
+         To replace the entire content of a document except for the ``_id``
+         field, pass an entirely new document as the second argument to
+         :py:meth:`~pymongo.collection.Collection.replace_one`.
+
+     - id: php
+       content: |
+         To replace the entire content of a document except for the ``_id``
+         field, pass an entirely new document as the second argument to
+         :phpmethod:`replaceOne() <phpmethod.MongoDB\\Collection::replaceOne>`.
+
+     - id: perl
+       content: |
+         To replace the entire content of a document except for the ``_id``
+         field, pass an entirely new document as the second argument to
+         :perl-api:`replace_one()<Collection#replace_one>`.
+
+When replacing a document, the
+replacement document must consist of only field/value pairs;
+i.e. do not include :manual:`update operators
+</reference/operator/update>` expressions.
+
+The replacement document can have different fields from the original
+document. In the replacement document, you can omit the ``_id`` field
+since the ``_id`` field is immutable; however, if you do include the
+``_id`` field, it must have the same value as the current value.
+
+.. _write-op-replaceOne:
+
+The following example replaces the *first* document from the
+``inventory`` collection that matches the filter ``item`` equals
+``"paper"``:
+
+.. include:: /includes/driver-example-update-54.rst
+
+Behavior
+--------
+
+Atomicity
+~~~~~~~~~
+
+All write operations in MongoDB are atomic on the level of a single
+document. For more information on MongoDB and atomicity, see
+:doc:`/core/write-operations-atomicity`.
+
+``_id`` Field
+~~~~~~~~~~~~~
+
+Once set, you cannot update the value of the ``_id`` field nor can you
+replace an existing document with a replacement document that has a
+different ``_id`` field value.
+
+Document Size
+~~~~~~~~~~~~~
+
+When performing update operations that increase the document size
+beyond the allocated space for that document, the update operation
+relocates the document on disk.
+
+Field Order
+~~~~~~~~~~~
+
+.. include:: /includes/fact-update-field-order.rst
+
+.. _write-operations-upsert-behavior:
+
+``Upsert`` Option
+~~~~~~~~~~~~~~~~~
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         If :method:`~db.collection.updateOne()`,
+         :method:`~db.collection.updateMany()`, or
+         :method:`~db.collection.replaceOne()` includes ``upsert : true`` **and**
+         no documents match the specified filter, then the operation creates a
+         new document and inserts it. If there are matching documents, then the
+         operation modifies or replaces the matching document or documents.
+
+     - id: python
+       content: |
+         If :py:meth:`~pymongo.collection.Collection.update_one`,
+         :py:meth:`~pymongo.collection.Collection.update_many`, or
+         :py:meth:`~pymongo.collection.Collection.replace_one` includes
+         ``upsert : true`` **and** no documents match the specified
+         filter, then the operation creates a new document and inserts
+         it. If there are matching documents, then the operation
+         modifies or replaces the matching document or documents.
+
+     - id: php
+       content: |
+         If :phpmethod:`updateOne() <phpmethod.MongoDB\\Collection::updateOne>`,
+         :phpmethod:`updateMany() <phpmethod.MongoDB\\Collection::updateMany>`,
+         or :phpmethod:`replaceOne() <phpmethod.MongoDB\\Collection::replaceOne>`
+         includes ``upsert => true`` **and** no documents match the
+         specified filter, then the operation creates a new document and
+         inserts it. If there are matching documents, then the operation
+         modifies or replaces the matching document or documents.
+
+     - id: perl
+       content: |
+         If :perl-api:`update_one()<Collection#update_one>`,
+         :perl-api:`update_many()<Collection#update_many>`, or
+         :perl-api:`replace_one()<Collection#replace_one>` includes
+         ``upsert => true`` **and** no documents match the specified
+         filter, then the operation creates a new document and inserts
+         it. If there are matching documents, then the operation
+         modifies or replaces the matching document or documents.
+
+For details on the new document created, see the individual reference
+pages for the methods.
+
+Write Acknowledgement
+~~~~~~~~~~~~~~~~~~~~~
+
+With write concerns, you can specify the level of acknowledgement
+requested from MongoDB for write operations. For details, see
+:doc:`/reference/write-concern`.
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         .. include:: /includes/footnote-set-shell-batch-size.rst
+         
+         .. seealso::
+
+            - :method:`db.collection.updateOne()`
+
+            - :method:`db.collection.updateMany()`
+
+            - :method:`db.collection.replaceOne()`
+
+            - :ref:`additional-updates`
+
+     - id: python
+       content: |
+         .. seealso::
+         
+            - :py:meth:`pymongo.collection.Collection.update_one`
+            
+            - :py:meth:`pymongo.collection.Collection.update_many`
+            
+            - :py:meth:`pymongo.collection.Collection.replace_one`
+            
+            - :ref:`additional-updates`
+
+     - id: php
+       content: |
+         .. seealso::
+            
+            - :phpmethod:`MongoDB\\Collection::updateOne() <phpmethod.MongoDB\\Collection::updateOne>`
+            
+            - :phpmethod:`MongoDB\\Collection::updateMany() <phpmethod.MongoDB\\Collection::updateMany>`
+            
+            - :phpmethod:`MongoDB\\Collection::replaceOne() <phpmethod.MongoDB\\Collection::replaceOne>`
+            
+            - :ref:`additional-updates`
+
+     - id: perl
+       content: |
+         .. seealso::
+         
+            - :perl-api:`MongoDB::Collection::update_one()<Collection#update_one>`
+            
+            - :perl-api:`MongoDB::Collection::update_many()<Collection#update_many>`
+            
+            - :perl-api:`MongoDB::Collection::replace_one()<Collection#replace_one>`
+            
+            - :ref:`additional-updates`
+
+.. class:: hidden
+
+   .. toctree::
+      :titlesonly:
+
+      /reference/update-methods

@@ -1,0 +1,35 @@
+==========
+listShards
+==========
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. dbcommand:: listShards
+
+   Returns a list of the configured shards. :dbcommand:`listShards` is
+   only available for :program:`mongos` instances. You can only issue
+   :dbcommand:`listShards` against the ``admin`` database.
+
+   The command takes the following form:
+
+   .. code-block:: javascript
+
+      { listShards: 1 }
+
+Example
+-------
+
+The following example returns the list of shards:
+
+.. code-block:: javascript
+
+   db.getSiblingDB("admin").runCommand( { listShards: 1 } )

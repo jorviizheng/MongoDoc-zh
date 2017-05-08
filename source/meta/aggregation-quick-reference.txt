@@ -1,0 +1,187 @@
+.. ensure that the changes to this text are reflected in /reference/operator/aggregation.txt
+.. ensure that the changes to this text are reflected in /meta/aggregation-quick-reference.txt
+   with slight difference. Quick Reference contains information on different expressions,
+   such as field paths, expression objects, etc.
+
+====================================
+Aggregation Pipeline Quick Reference
+====================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. include:: /includes/extracts/operators-toc-explanation.rst
+
+Stages
+------
+
+In the :method:`db.collection.aggregate` method, pipeline stages appear
+in an array. Documents pass through the stages in sequence. All except
+the :pipeline:`$out` and :pipeline:`$geoNear` stages can appear
+multiple times in a pipeline.
+
+.. code-block:: javascript
+
+   db.collection.aggregate( [ { <stage> }, ... ] )
+
+.. include:: /includes/toc/table-aggregation-pipeline-operator.rst
+
+.. _aggregation-expressions:
+
+Expressions
+-----------
+
+Expressions can include :ref:`field paths and system variables
+<agg-quick-ref-field-paths>`, :ref:`literals <agg-quick-ref-literals>`,
+:ref:`expression objects <agg-quick-ref-expression-objects>`, and
+:ref:`expression operators <agg-quick-ref-operator-expressions>`.
+Expressions can be nested.
+
+.. _agg-quick-ref-field-paths:
+
+Field Path and System Variables
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aggregation expressions use :term:`field path` to access fields in the
+input documents. To specify a field path, use a string that prefixes
+with a dollar sign ``$`` the field name or the dotted field name, if
+the field is in embedded document. For example, ``"$user"`` to specify
+the field path for the ``user`` field or ``"$user.name"`` to specify
+the field path to ``"user.name"`` field.
+
+``"$<field>"`` is equivalent to ``"$$CURRENT.<field>"`` where the
+:variable:`CURRENT` is a system variable that defaults to the root of
+the current object in the most stages, unless stated otherwise in
+specific stages. :variable:`CURRENT` can be rebound.
+
+Along with the :variable:`CURRENT` system variable, other :ref:`system
+variables <agg-system-variables>` are also available for use in
+expressions. To use user-defined variables, use :expression:`$let` and
+:expression:`$map` expressions. To access variables in expressions, use
+a string that prefixes the variable name with ``$$``.
+
+.. _agg-quick-ref-literals:
+
+Literals
+~~~~~~~~
+
+Literals can be of any type. However, MongoDB parses string literals
+that start with a dollar sign ``$`` as a path to a field and
+numeric/boolean literals in :ref:`expression objects
+<agg-quick-ref-expression-objects>` as projection flags. To avoid
+parsing literals, use the :expression:`$literal` expression.
+
+.. _agg-quick-ref-expression-objects:
+
+Expression Objects
+~~~~~~~~~~~~~~~~~~
+
+Expression objects have the following form:
+
+.. code-block:: javascript
+
+   { <field1>: <expression1>, ... }
+
+If the expressions are numeric or boolean literals, MongoDB treats the
+literals as projection flags (e.g. ``1`` or ``true`` to include the
+field), valid only in the :pipeline:`$project` stage. To avoid treating
+numeric or boolean literals as projection flags, use the
+:expression:`$literal` expression to wrap the numeric or boolean
+literals.
+
+.. _agg-quick-ref-operator-expressions:
+
+Operator Expressions
+~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/intro-aggregation-operator-expressions.rst
+
+Boolean Expressions
+```````````````````
+
+.. include:: /includes/intro-aggregation-boolean.rst
+
+.. include:: /includes/toc/table-aggregation-boolean.rst
+
+Set Expressions
+```````````````
+
+.. include:: /includes/intro-aggregation-set.rst
+
+.. include:: /includes/toc/table-aggregation-set.rst
+
+Comparison Expressions
+``````````````````````
+
+.. include:: /includes/intro-aggregation-comparison.rst
+
+.. include:: /includes/toc/table-aggregation-comparison.rst
+
+Arithmetic Expressions
+``````````````````````
+
+.. include:: /includes/intro-aggregation-arithmetic.rst
+
+.. include:: /includes/toc/table-aggregation-arithmetic.rst
+
+String Expressions
+``````````````````
+
+.. |exp-has| replace:: String expressions, with the exception of
+   :expression:`$concat`, only have
+
+.. include:: /includes/intro-aggregation-string.rst
+
+:expression:`$concat` behavior is well-defined regardless of the
+characters used.
+
+.. include:: /includes/toc/table-aggregation-string.rst
+
+Text Search Expressions
+```````````````````````
+
+.. include:: /includes/toc/table-aggregation-text-search.rst
+
+Array Expressions
+`````````````````
+
+.. include:: /includes/toc/table-aggregation-array.rst
+
+Variable Expressions
+````````````````````
+
+.. include:: /includes/toc/table-aggregation-projection-expressions.rst
+
+Literal Expressions
+```````````````````
+
+.. include:: /includes/toc/table-aggregation-literal-expressions.rst
+
+Data Type Expressions
+`````````````````````
+
+.. include:: /includes/toc/table-aggregation-type.rst
+
+Date Expressions
+````````````````
+
+.. include:: /includes/toc/table-aggregation-date.rst
+
+Conditional Expressions
+```````````````````````
+
+.. include:: /includes/toc/table-aggregation-conditional.rst
+
+.. _agg-quick-reference-accumulators:
+
+Accumulators
+------------
+
+.. include:: /includes/intro-aggregation-accumulator.rst
+
+.. include:: /includes/toc/table-aggregation-group.rst

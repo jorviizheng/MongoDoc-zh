@@ -1,0 +1,98 @@
+=======================
+MongoDB 介绍
+=======================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+MongoDB是一个开源文档数据库,提供高性能、高可用性和自动缩放。
+
+文档数据库
+-----------------
+
+MongoDB 中的记录是一个文档, 它是由字段和值对组成的数据结构。
+MongoDB 文档与 JSON 对象类似。字段的值可能包括其他文档、数组和文档的数组
+
+.. include:: /images/crud-annotated-document.rst
+
+使用文档的优点:
+
+- 文档 (即对象) 与许多编程语言中现有的数据类型对应。
+
+- 嵌入的文档和数组减少了join操作的消耗。
+
+- 动态架构支持流畅的多态性。（个人理解：可以随时方便地调整表结构）
+
+主要功能
+------------
+
+高性能
+~~~~~~~~~~~~~~~~
+
+MongoDB 提供高性能数据持久性。特别是：
+
+- 支持嵌入式数据模型，减少了数据库系统的 i/o。
+
+- 索引支持更快的查询, 并且可以包含嵌入的文档和数组中的键。
+
+丰富的查询语言
+~~~~~~~~~~~~~~~~~~~
+
+MongoDB 支持一个丰富的查询语言来支持 :doc:`读写操作(CRUD) </crud>` ，以及:
+
+- :doc:`数据聚合 </core/aggregation-pipeline>`
+
+- :doc:`文本搜索 </text-search>` 和 :doc:`地理空间查询
+  </tutorial/geospatial-tutorial>`.
+
+高可用性
+~~~~~~~~~~~~~~~~~
+
+MongoDB的复制集, 叫做 :doc:`副本集
+</replication>`, 提供:
+
+- *自动* 故障切换和
+
+- 数据冗余。
+
+:doc:`副本集 </replication>` 是一组 mongodb 服务器, 它维护相同的数据集,
+提供冗余和增加数据可用性。
+
+水平扩展
+~~~~~~~~~~~~~~~~~~~~~~
+
+MongoDB 提供水平扩展作为其 *核心* 功能的一部分:
+
+- 在服务器集群上做 :ref:`分片 <sharding-introduction>` 。
+  
+- MongoDB 3.4 支持基于 :term:`切分键` 创建数据 :ref:`区域 <zone-sharding>` 。
+  在平衡的集群中, mongodb 只将区域覆盖的读写操作定向到区域内的分片。更多信息
+  请参考 :ref:`zone-sharding` 手册 。
+
+支持多种存储引擎
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+MongoDB支持 :doc:`多种存储引擎 </core/storage-engines>` , 比如:
+
+- :doc:`/core/wiredtiger` and
+
+- :doc:`/core/mmapv1`.
+
+此外, mongodb 提供可插拔存储引擎 api, 允许第三方开发 mongodb 的存储引擎。
+
+.. class:: hidden
+
+   .. toctree::
+      :titlesonly: 
+
+      /core/databases-and-collections
+      /core/document
+      /reference/bson-types
+      /reference/bson-type-comparison-order.txt
+      /reference/mongodb-extended-json
+

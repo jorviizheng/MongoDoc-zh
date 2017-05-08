@@ -1,0 +1,105 @@
+=========================
+数据库和集合
+=========================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+MongoDB存储 :ref:`BSON文档 <bson-document-format>`, 即数据记录,
+数据库 > :term:`集合 <collection>`> 数据记录。
+
+.. include:: /images/crud-annotated-collection.rst
+
+数据库
+---------
+
+在 MongoDB 中, 数据库保存文档的集合。
+
+选择使用的数据库, 在 :program:`mongo` shell中, 使用
+``use <db>`` 命令, 如下所示:
+
+.. code-block:: javascript
+
+   use myDB
+
+创建数据库
+~~~~~~~~~~~~~~~~~
+
+如果某个数据库不存在, MongoDB 在第一次存储该数据库的数据时创建数据库。
+因此，你可以在 :program:`mongo` shell中切换到一个不存在的数据库，并
+执行以下操作：
+
+.. code-block:: javascript
+
+   use myNewDB
+
+   db.myNewCollection1.insertOne( { x: 1 } )
+
+:method:`~db.collection.insertOne()` 操作同时创建了数据库 ``myNewDB`` 和
+集合 ``myNewCollection1`` (如果它们尚未存在)。
+
+
+有关数据库名称限制的列表, 请参见 :ref:`restrictions-on-db-names` . 
+
+.. _collections:
+
+集合
+-----------
+
+MongoDB 在集合中存储文档。集合类似于关系数据库中的表。
+
+创建集合
+~~~~~~~~~~~~~~~~~~~
+
+如果集合不存在, 则 MongoDB 在第一次存储该集合的数据时创建集合。
+
+.. code-block:: javascript
+
+   db.myNewCollection2.insertOne( { x: 1 } )
+   db.myNewCollection3.createIndex( { y: 1 } )
+
+:method:`~db.collection.insertOne()` 和
+:method:`~db.collection.createIndex()` 操作都创建各自的集合 (如果它们不存在)。
+
+有关集合名称的限制列表, 请参见
+:ref:`restrictions-on-collection-names`. 
+
+显式创建
+~~~~~~~~~~~~~~~~~
+
+MongoDB 提供 the :method:`db.createCollection()` 方法可以显式创建具有
+各种选项的集合, 如设置最大大小或文档验证规则。如果未指定这些选项, 则无需显
+式创建集合, 因为 MongoDB 会在第一次存储集合的数据时创建新的集合。
+
+要修改这些集合选项, 请参见 :dbcommand:`collMod`.
+
+文档验证
+~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 3.2
+
+默认情况下, 集合不要求其文档具有相同的结构;也就是说, 单个集合中的文档不
+需要具有相同的字段集, 并且字段的数据类型可以在集合中的文档之间有所不同。
+
+但是, 从 mongodb 3.2 开始,您可以在更新和插入操作期间对集合强制执
+行 :doc:`文档验证规则 </core/document-validation>` 。有关详细信息,
+请参阅 :doc:`/core/document-validation` 。
+
+修改文档结构
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+若要更改集合中文档的结构, 如添加新字段、移除现有字段或将字段值更改为
+新类型, 请将文档更新到新结构。
+
+.. class:: hidden
+
+   .. toctree::
+      :titlesonly:
+
+      /core/views
+      /core/capped-collections

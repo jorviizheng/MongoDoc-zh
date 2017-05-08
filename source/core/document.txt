@@ -1,0 +1,297 @@
+.. _bson-document-format:
+
+=========
+文档
+=========
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+MongoDB 将数据记录存储为 BSON 文档。BSON 是 :term:`JSON` 文档的二
+进制表示, 尽管它包含的数据类型多于 json。对于 BSON 规范,
+请参见 `bsonspec.org <http://bsonspec.org/>`_ 。
+另请参见 :doc:`/reference/bson-types` 。
+
+.. include:: /images/crud-annotated-document.rst
+
+.. _document-structure:
+
+文档结构
+------------------
+
+MongoDB 文档由字段和值对组成, 并具有以下结构:
+
+.. code-block:: javascript
+
+   {
+      field1: value1,
+      field2: value2,
+      field3: value3,
+      ...
+      fieldN: valueN
+   }
+
+字段的值可以是任何 BSON 数据类型 :doc:`数据类型</reference/bson-types>` ,
+包括其他文档、数组和文档的数组。例如, 下面的文档包含不同类型的值:
+
+.. code-block:: javascript
+
+   var mydoc = {
+                  _id: ObjectId("5099803df3f4948bd2f98391"),
+                  name: { first: "Alan", last: "Turing" },
+                  birth: new Date('Jun 23, 1912'),
+                  death: new Date('Jun 07, 1954'),
+                  contribs: [ "Turing machine", "Turing test", "Turingery" ],
+                  views : NumberLong(1250000)
+               }
+
+以上字段具有以下数据类型:
+
+- ``_id`` 持有 :ref:`objectid`.
+
+- ``name`` 保存包含 ``first`` 和 ``last`` 字段的 *嵌入文档* 。
+
+- ``birth`` 和 ``death`` 持有 *Date* 类型.
+
+- ``contribs`` 持有 *array of strings*.
+
+- ``views`` 持有 *NumberLong* 类型.
+
+字段名称
+~~~~~~~~~~~
+
+字段名为字符串。
+
+.. include:: /includes/fact-document-field-name-restrictions.rst
+
+BSON 文档可能具有多个同名的字段。但是, 大多数
+:doc:`MongoDB 接口 </applications/drivers>` 都代表了不支持重复字段名称
+的结构 (如哈希表)。如果需要操作具有相同名称的多个字段的文档,
+请参阅 :doc:`驱动程序文档</applications/drivers>`。
+
+由内部 MongoDB 进程创建的某些文档可能具有重复的字段, 但没有 MongoDB 进程会
+向现有 **用户文档** 中添加重复字段。
+
+字段值限制
+~~~~~~~~~~~~~~~~~
+
+对于 :doc:`有索引的集合 </indexes>` , 索引字段的值具有
+:limit:`最大索引键长度 <Index Key Limit>` 限制。有关详细信息,
+请参阅 :limit:`最大索引键长度 <Index Key Limit>` 。
+
+.. _document-dot-notation:
+
+点表示法
+------------
+
+MongoDB 使用点（``.``）符号访问数组的元素和嵌入文档的字段。
+
+Arrays
+~~~~~~
+
+若要通过从零开始的索引位置指定或访问数组的元素, 请将数组名称与点
+(``.``) 和从零开始的索引位置连接, 并将其括在引号中:
+
+.. code-block:: javascript
+
+   "<array>.<index>"
+
+例如, 给定文档中的以下字段:
+
+.. code-block:: javascript
+
+   {
+      ...
+      contribs: [ "Turing machine", "Turing test", "Turingery" ],
+      ...
+   }
+
+若要指定 ``contribs`` 数组中的第三个元素, 请使用点
+表示法 ``"contribs.2"`` 。
+
+有关查询数组的示例, 请参见:
+
+- :doc:`/tutorial/query-arrays`
+
+- :doc:`/tutorial/query-array-of-documents/`
+
+.. seealso::
+
+   - :update:`$` 用于更新操作的位置运算符,
+
+   - :projection:`$` 数组索引位置未知时的投影运算符,
+
+   - :ref:`read-operations-arrays` 对于带数组的点表示法示例。
+
+嵌入式文档
+~~~~~~~~~~~~~~~~~~
+
+要指定或访问带点表示法的嵌入式文档的字段, 请将嵌入的文档名称与
+点 (``.``) 和字段名称串联在一起, 并用引号括起来:
+
+.. code-block:: javascript
+
+   "<embedded document>.<field>"
+
+例如, 给定文档中的以下字段:
+
+.. code-block:: javascript
+
+   {
+      ...
+      name: { first: "Alan", last: "Turing" },
+      contact: { phone: { type: "cell", number: "111-222-3333" } },
+      ...
+   }
+
+- 若要指定 ``name`` 字段中名为 ``last`` 的字段, 请使用点表示法 ``"name.last"`` 。
+
+- 要在 ``contact`` 字段中指定 ``phone`` 文档中的 ``number`` , 请使用
+  点表示法 ``"contact.phone.number"`` 。
+
+有关查询嵌入文档的示例, 请参见:
+
+- :doc:`/tutorial/query-embedded-documents`
+
+- :doc:`/tutorial/query-array-of-documents/`
+
+文档限制
+--------------------
+
+文档具有以下属性:
+
+文档大小限制
+~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/fact-document-max-size.rst
+
+Document Field Order
+~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/fact-update-field-order.rst
+   :start-after: order-of-document-fields
+
+.. _document-id-field:
+
+The ``_id`` Field
+~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/fact-id-field.rst
+
+The ``_id`` field has the following behavior and constraints:
+
+- By default, MongoDB creates a unique index on the ``_id`` field
+  during the creation of a collection.
+
+- The ``_id`` field is always the first field in the documents. If the
+  server receives a document that does not have the ``_id`` field
+  first, then the server will move the field to the beginning.
+
+- The ``_id`` field may contain values of any :doc:`BSON data type
+  </reference/bson-types>`, other than an array.
+
+  .. warning:: To ensure functioning replication, do not store values
+     that are of the BSON regular expression type in the ``_id``
+     field.
+
+     .. See :issue:`SERVER-9562` for more information.
+
+The following are common options for storing values for ``_id``:
+
+- Use an :ref:`objectid`.
+
+- Use a natural unique identifier, if available. This saves space and
+  avoids an additional index.
+
+- Generate an auto-incrementing number.
+
+- Generate a UUID in your application code. For a more efficient
+  storage of the UUID values in the collection and in the ``_id``
+  index, store the UUID as a value of the BSON ``BinData`` type.
+
+  .. include:: /includes/fact-bindata-storage-optimization.rst
+
+- Use your driver's BSON UUID facility to generate UUIDs. Be aware
+  that driver implementations may implement UUID serialization and
+  deserialization logic differently, which may not be fully compatible
+  with other drivers. See your :api:`driver documentation <>` for
+  information concerning UUID interoperability.
+
+.. include:: /includes/note-insert-id-field.rst
+
+Other Uses of the Document Structure
+------------------------------------
+
+In addition to defining data records, MongoDB uses the document
+structure throughout, including but not limited to: :ref:`query filters
+<document-query-filter>`, :ref:`update specifications documents
+<document-update-specification>`, and :ref:`index specification
+documents <document-index-specification>`
+
+.. _document-query-filter:
+
+Query Filter Documents
+~~~~~~~~~~~~~~~~~~~~~~
+
+Query filter documents specify the conditions that determine which
+records to select for read, update, and delete operations.
+
+You can use ``<field>:<value>`` expressions to specify the equality
+condition and :doc:`query operator </reference/operator/query>`
+expressions.
+
+.. code-block:: javascript
+
+   {
+     <field1>: <value1>,
+     <field2>: { <operator>: <value> },
+     ...
+   }
+
+For examples, see:
+
+- :doc:`/tutorial/query-documents`
+
+- :doc:`/tutorial/query-embedded-documents`
+   
+- :doc:`/tutorial/query-arrays`
+
+- :doc:`/tutorial/query-array-of-documents/`
+
+.. _document-update-specification:
+
+Update Specification Documents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Update specification documents use :ref:`update operators
+<update-operators>` to specify the data modifications to perform on
+specific fields during an :method:`db.collection.update()` operation.
+
+.. code-block:: javascript
+
+   {
+     <operator1>: { <field1>: <value1>, ... },
+     <operator2>: { <field2>: <value2>, ... },
+     ...
+   }
+
+
+For examples, see :ref:`Update specifications
+<update-documents-modifiers>`.
+
+.. _document-index-specification:
+
+Index Specification Documents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Index specifications document define the field to index and the index
+type:
+
+.. code-block:: javascript
+
+   { <field1>: <type1>, <field2>: <type2>, ...  }

@@ -1,0 +1,44 @@
+==============================================
+从压缩包安装MongoDB社区版
+==============================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+
+Overview
+--------
+
+Compiled versions of MongoDB Community Edition for Linux provide a simple
+option for installing MongoDB Community Edition for other Linux systems without
+supported packages.
+
+.. note::
+   Do not use this installation method unless you have a specific need
+   that the available :ref:`Linux Packages <recommended-linux-install>`
+   do not address.
+
+Install MongoDB Community Edition
+---------------------------------
+
+MongoDB only provides archives for 64-bit builds of Linux. Follow the
+installation procedure appropriate for your system.
+
+.. include:: /includes/extracts/install-past-mongodb-org-tarball.rst
+
+Install for 64-bit Linux
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/steps/install-mongodb-on-linux-64.rst
+
+Run MongoDB Community Edition
+-----------------------------
+
+.. include:: /includes/fact-installation-ulimit.rst
+
+.. include:: /includes/steps/run-mongodb-on-linux.rst

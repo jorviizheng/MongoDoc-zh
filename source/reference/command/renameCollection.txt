@@ -1,0 +1,92 @@
+================
+renameCollection
+================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. dbcommand:: renameCollection
+
+   Changes the name of an existing collection. Specify collection names
+   to :dbcommand:`renameCollection` in the form of a complete
+   :term:`namespace` (``<database>.<collection>``).
+
+   Issue the :dbcommand:`renameCollection` command against the
+   :term:`admin database`.
+
+   The command takes the following form:
+
+   .. code-block:: javascript
+
+      { renameCollection: "<source_namespace>", to: "<target_namespace>", dropTarget: <true|false> }
+
+   The command contains the following fields:
+
+   .. include:: /includes/apiargs/dbcommand-renameCollection-field.rst
+
+Behavior
+--------
+
+:dbcommand:`renameCollection` is suitable for production
+environments; *however*:
+
+- :dbcommand:`renameCollection` blocks all database activity for the
+  duration of the operation.
+
+- :dbcommand:`renameCollection` is **not** compatible with sharded
+  collections.
+
+- :dbcommand:`renameCollection` fails if ``target`` is the name of an
+  existing collection *and* you do not specify ``dropTarget: true``.
+
+.. warning::
+
+   If the :dbcommand:`renameCollection` operation does not complete,
+   the ``target`` collection and indexes will not be usable and
+   will require manual intervention to clean up.
+
+
+Example
+-------
+
+The following example renames a collection named ``orders`` in the
+``test`` database to ``orders2014`` in the ``test`` database.
+
+.. include:: /includes/warning-blocking-global.rst
+
+.. code-block:: javascript
+
+   use admin
+   db.runCommand( { renameCollection: "test.orders", to: "test.orders2014" } )
+
+The :program:`mongo` shell provides the
+:method:`db.collection.renameCollection()` helper for the command to
+rename collections within the *same* database. The following is
+equivalent to the previous example:
+
+.. code-block:: javascript
+
+   use test
+   db.orders.renameCollection( "orders2014" )
+
+Exceptions
+----------
+
+:exception 10026:
+   Raised if the ``source`` namespace does not exist.
+
+:exception 10027:
+   Raised if the ``target`` namespace exists and ``dropTarget`` is
+   either ``false`` or unspecified.
+
+:exception 15967:
+   Raised if the ``target`` namespace is an invalid collection
+   name.

@@ -1,0 +1,201 @@
+.. _read-concern:
+
+============
+Read Concern
+============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+.. versionadded:: 3.2
+
+The ``readConcern`` query option for replica sets and replica set
+shards determines which data to return from a query. 
+
+.. _read-concern-levels:
+
+Read Concern Levels
+-------------------
+
+.. versionchanged:: 3.4
+
+   Adds support for :readconcern:`"linearizable"` read concern.
+
+The following read concern levels are available:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 10 90
+
+   * - ``level``
+     - Description
+
+   * - .. readconcern:: "local"
+
+     - Default. The query returns the instance's most recent data.
+       Provides no guarantee that the data has been written to a
+       majority of the replica set members (i.e. may be rolled back).
+
+   * - .. readconcern:: "majority"
+
+     - The query returns the instance's most recent data acknowledged
+       as having been written to a majority of members in the replica
+       set.
+
+       .. include:: /includes/fact-enable-majority-readConcern.rst
+
+   * - .. readconcern:: "linearizable"
+
+     - The query returns data that reflects all successful writes
+       issued with a write concern of :writeconcern:`"majority"` *and*
+       acknowledged prior to the start of the read operation. For
+       replica sets that run with
+       :rsconf:`writeConcernMajorityJournalDefault` set to true,
+       linearizable read concern returns data that will never be rolled
+       back. 
+
+       .. include:: /includes/extracts/no-journaling-rollback.rst
+
+       You can specify linearizable read concern for read operations on
+       the :replstate:`primary <PRIMARY>` only.
+
+       Linearizable read concern guarantees only apply if read
+       operations specify a query filter that uniquely identifies a
+       single document.
+
+       .. tip::
+
+          Always use ``maxTimeMS`` with linearizable read concern in
+          case a majority of data bearing members are unavailable.
+          ``maxTimeMS`` ensures that the operation does not block
+          indefinitely and instead ensures that the operation returns
+          an error if the read concern cannot be fulfilled.
+
+       Lineariable read concern is available for both MMAPv1 and
+       WiredTiger. See :ref:`read-concern-storage-engine-drivers`.
+
+       .. versionadded:: 3.4
+
+.. include:: /includes/fact-readConcern-most-recent-data-in-node.rst
+
+.. _read-concern-storage-engine-drivers:
+
+Storage Engine and Drivers Support
+----------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 50 30 20
+
+   * - Read Concern
+     - WiredTiger
+     - MMAPv1
+     
+   * - :readconcern:`"local"`
+     - |checkmark|
+     - |checkmark|
+
+   * - :readconcern:`"majority"`
+     - |checkmark|
+     -
+
+   * - :readconcern:`"linearizable"`
+     - |checkmark|
+     - |checkmark|
+
+.. tip::
+
+   The :dbcommand:`serverStatus` command returns the
+   :serverstatus:`storageEngine.supportsCommittedReads` field which
+   indicates whether the storage engine supports ``"majority"`` read
+   concern.
+
+MongoDB drivers updated for 3.2 and later versions support specifying
+a read concern option.
+
+.. include:: /includes/unicode-checkmark.rst
+
+``readConcern`` Option
+----------------------
+
+Use the ``readConcern`` option to specify the read concern level.
+
+.. code-block:: javascript
+
+   readConcern: { level: <"majority"|"local"|"linearizable"> }
+
+The ``readConcern`` option is available for the following operations:
+
+- :dbcommand:`find` command
+
+- :dbcommand:`aggregate` command and the
+  :method:`db.collection.aggregate()` method
+
+- :dbcommand:`distinct` command
+
+- :dbcommand:`count` command
+
+- :dbcommand:`parallelCollectionScan` command
+
+- :dbcommand:`geoNear` command
+
+- :dbcommand:`geoSearch` command
+
+To specify the read concern for the :program:`mongo` shell method
+:method:`db.collection.find()`, use the :method:`cursor.readConcern()`
+method.
+
+Considerations
+--------------
+
+Read Your Own Writes
+~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/fact-read-own-writes.rst
+
+Real Time Order
+~~~~~~~~~~~~~~~
+
+Combined with :writeconcern:`"majority"` write concern,
+:readconcern:`"linearizable"` read concern enables multiple threads to
+perform reads and writes on a single document as if a single thread
+performed these operations in real time; that is, the corresponding
+schedule for these reads and writes is considered linearizable.
+
+Performance Comparisons
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Unlike :readconcern:`"majority"`, :readconcern:`"linearizable"` read
+concern confirms with secondary members that the read operation is
+reading from a primary that is capable of confirming writes with
+:writeconcern:`{ w: "majority" } <"majority">` write concern.
+[#edge-cases-2-primaries]_ As such, reads with linearizable read
+concern may be significantly slower than reads with
+:readconcern:`"majority"` or :readconcern:`"local"` read concerns.
+
+Always use ``maxTimeMS`` with linearizable read concern in case a
+majority of data bearing members are unavailable. ``maxTimeMS`` ensures
+that the operation does not block indefinitely and instead ensures that
+the operation returns an error if the read concern cannot be fulfilled.
+
+For example:
+
+.. code-block:: javascript
+
+   db.restaurants.find( { _id: 5 } ).readConcern("linearizable").maxTimeMS(10000)
+
+   db.runCommand( {
+        find: "restaurants",
+        filter: { _id: 5 },
+        readConcern: { level: "linearizable" },
+        maxTimeMS: 10000
+   } )
+
+.. [#edge-cases-2-primaries]
+
+   .. include:: /includes/footnote-two-primaries-edge-cases.rst

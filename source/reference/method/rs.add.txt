@@ -1,0 +1,89 @@
+========
+rs.add()
+========
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. method:: rs.add()
+
+   Adds a member to a :term:`replica set`. To run the method, you must
+   connect to the :term:`primary` of the replica set.
+
+   .. include:: /includes/apiargs/method-rs.add-param.rst
+
+   :method:`rs.add()` provides a wrapper around some of the
+   functionality of the :dbcommand:`replSetReconfig` :term:`database
+   command` and the corresponding :program:`mongo` shell helper
+   :method:`rs.reconfig()`. See the
+   :doc:`/reference/replica-configuration` document for full
+   documentation of all replica set configuration options.
+
+Behavior
+--------
+
+:method:`rs.add()` can, in some cases, trigger an election for primary
+which will disconnect the shell. In such cases, the :program:`mongo`
+shell displays an error even if the operation succeeds.
+
+Example
+-------
+
+.. _rs-add-hostname:
+
+Pass a Hostname String to ``rs.add()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following operation adds a :program:`mongod` instance, running on
+the host ``mongodb3.example.net`` and accessible on the default port
+``27017``:
+
+.. code-block:: javascript
+
+   rs.add('mongodb3.example.net:27017')
+
+If ``mongodb3.example.net`` is an arbiter, use the following form:
+
+.. code-block:: javascript
+
+   rs.add('mongodb3.example.net:27017', true)
+
+.. include:: /includes/extracts/arbiters-and-pvs-with-reference.rst
+
+.. _rs-add-member-configuration-document:
+
+Pass a Member Configuration Document to ``rs.add()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionchanged:: 3.0.0
+   Previous versions required an ``_id`` field in the document you
+   passed to :method:`rs.add()`. After 3.0.0 you can omit the
+   ``_id`` field in this document.
+   :rsconf:`members[n]._id` describes the requirements for specifying ``_id``.
+
+The following operation adds a :program:`mongod` instance, running on
+the host ``mongodb4.example.net`` and accessible on the default port
+``27017``, as a :doc:`priority 0 </core/replica-set-priority-0-member>`
+secondary member:
+
+.. code-block:: javascript
+
+   rs.add( { host: "mongodbd4.example.net:27017", priority: 0 } )
+
+You must specify the
+:rsconf:`members[n].host` field in the member
+configuration document.
+
+See the :doc:`/reference/replica-configuration` for the available
+replica set member configuration settings.
+
+See :doc:`/administration/replica-sets` for more examples and
+information.

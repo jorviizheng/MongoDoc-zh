@@ -1,0 +1,90 @@
+============================================
+Windows上安装MongoDB社区版
+============================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Overview
+--------
+
+Use this tutorial to install MongoDB Community Edition on Windows systems.
+
+.. admonition:: Platform Support
+
+   Starting in version 2.2, MongoDB does not support Windows XP. Please
+   use a more recent version of Windows to use more recent releases of
+   MongoDB.
+
+.. important:: If you are running any edition of Windows Server 2008
+   R2 or Windows 7, please install `a hotfix to resolve an issue with
+   memory mapped files on Windows <http://support.microsoft.com/kb/2731284>`_.
+
+Requirements
+------------
+
+MongoDB Community Edition requires Windows Server 2008 R2, Windows Vista, or
+later. The ``.msi`` installer includes all other software dependencies
+and will automatically upgrade any older version of MongoDB installed
+using an ``.msi`` file.
+
+Get MongoDB Community Edition
+-----------------------------
+
+.. include:: /includes/extracts/install-past-mongodb-org-windows.rst
+
+.. include:: /includes/steps/get-mongodb-for-windows.rst
+
+Install MongoDB Community Edition
+---------------------------------
+
+Interactive Installation
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: /includes/steps/install-mongodb-on-windows.rst
+
+Unattended Installation
+~~~~~~~~~~~~~~~~~~~~~~~
+
+You may install MongoDB Community unattended on Windows from the command line
+using ``msiexec.exe``.
+
+.. include:: /includes/steps/install-mongodb-on-windows-unattended.rst
+
+Run MongoDB Community Edition
+-----------------------------
+
+.. warning::
+
+   Do not make :program:`mongod.exe` visible on public networks without
+   running in "Secure Mode" with the :setting:`auth` setting. MongoDB is
+   designed to be run in trusted environments, and the database does not
+   enable "Secure Mode" by default.
+
+.. include:: /includes/steps/run-mongodb-on-windows.rst
+
+.. _manually-create-windows-service:
+
+Configure a Windows Service for MongoDB Community Edition
+---------------------------------------------------------
+
+.. include:: /includes/steps/configure-windows-service-for-mongodb.rst
+
+Manually Create a Windows Service for MongoDB Community Edition
+---------------------------------------------------------------
+
+You can set up the MongoDB server as a :guilabel:`Windows Service` that
+starts automatically at boot time.
+
+The following procedure assumes you have installed MongoDB Community using the
+``.msi`` installer with the path ``C:\Program Files\MongoDB\Server\3.2\``.
+
+If you have installed in an alternative directory, you will need to
+adjust the paths as appropriate.
+
+.. include:: /includes/steps/create-manually-windows-service-for-mongodb.rst

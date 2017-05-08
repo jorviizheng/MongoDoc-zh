@@ -1,0 +1,43 @@
+===============
+cloneCollection
+===============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Definition
+----------
+
+.. dbcommand:: cloneCollection
+
+   Copies a collection from a remote :program:`mongod` instance to the
+   current :program:`mongod` instance. :dbcommand:`cloneCollection`
+   creates a collection in a database with the same name as the remote
+   collection's database.  :dbcommand:`cloneCollection` takes the
+   following form:
+
+   .. code-block:: javascript
+
+      { cloneCollection: "<namespace>", 
+        from: "<hostname>", 
+        query: { <query> }
+      }
+
+   :dbcommand:`cloneCollection` has the following fields:
+
+   .. include:: /includes/apiargs/dbcommand-cloneCollection-field.rst
+
+Behavior
+--------
+
+.. include:: /includes/extracts/cloneCollection-behavior-dbcommand.rst
+
+Example
+-------
+
+.. include:: /includes/example-clone-collection.rst

@@ -1,0 +1,315 @@
+.. include:: /includes/templates/tabs.rst
+
+.. _read-operations-query-document:
+.. _read-operations-queries:
+
+===============
+Query Documents
+===============
+
+.. default-domain:: mongodb
+
+.. meta::
+   :description: MongoDB  Manual. How do I query documents, query top level fields, perform equality match, query with query operators, specify compound query conditions.
+   :keywords: query, select from collection, select all, select conditions, filters, select where, criteria, greater than, less than, MongoDB Manual
+
+.. |query_operations| replace:: query operations
+
+.. include:: /includes/driver-example-query-intro.rst
+
+.. include:: /includes/driver-example-query-6.rst
+
+Select All Documents in a Collection
+------------------------------------
+
+To select all documents in the collection, pass an empty document as the
+query filter parameter to the find method. The query filter parameter
+determines the select criteria:
+
+.. include:: /includes/driver-example-query-7.rst
+
+These operation corresponds to the following SQL statement:
+
+.. code-block:: sql
+
+   SELECT * FROM inventory
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         For more information on the syntax of the method, see
+         :method:`~db.collection.find()`.
+
+     - id: python
+       content: |
+         For more information on the syntax of the method, see
+         :py:meth:`~pymongo.collection.Collection.find`.
+
+     - id: php
+       content: |
+         For more information on the syntax of the method, see
+         :phpmethod:`find() <phpmethod.MongoDB\\Collection::find>`.
+
+     - id: perl
+       content: |
+         For more information on the syntax of the method, see
+         :perl-api:`find()<Collection#find>`.
+
+.. _read-operations-query-argument:
+
+Specify Equality Condition
+--------------------------
+
+.. include:: /includes/extracts/filter-equality.rst
+
+The following example selects from the ``inventory`` collection all
+documents where the ``status`` equals ``"D"``:
+
+.. include:: /includes/driver-example-query-9.rst
+
+This operation corresponds to the following SQL statement:
+
+.. code-block:: sql
+
+   SELECT * FROM inventory WHERE status = "D"
+
+Specify Conditions Using Query Operators
+----------------------------------------
+
+.. include:: /includes/extracts/filter-query-operators.rst
+
+The following example retrieves all documents from the ``inventory``
+collection where ``status`` equals either ``"A"`` or ``"D"``:
+
+.. include:: /includes/driver-example-query-10.rst
+
+Although you can express this query using the :query:`$or` operator,
+use the :query:`$in` operator rather than the :query:`$or`
+operator when performing equality checks on the same field.
+
+The operation corresponds to the following SQL statement:
+
+.. code-block:: sql
+
+   SELECT * FROM inventory WHERE status in ("A", "D")
+
+Refer to the :doc:`/reference/operator/query` document for the complete
+list of MongoDB query operators.
+
+Specify ``AND`` Conditions
+--------------------------
+
+A compound query can specify conditions for more than one field in the
+collection's documents. Implicitly, a logical ``AND`` conjunction
+connects the clauses of a compound query so that the query selects the
+documents in the collection that match all the conditions.
+
+The following example retrieves all documents in the ``inventory``
+collection where the ``status`` equals ``"A"`` **and** ``qty`` is less
+than (:query:`$lt`) ``30``:
+
+.. include:: /includes/driver-example-query-11.rst
+
+The operation corresponds to the following SQL statement:
+
+.. code-block:: sql
+
+   SELECT * FROM inventory WHERE status = "A" AND qty < 30
+
+See :ref:`comparison operators <query-selectors-comparison>` for other
+MongoDB comparison operators.
+
+Specify ``OR`` Conditions
+--------------------------
+
+Using the :query:`$or` operator, you can specify a compound query
+that joins each clause with a logical ``OR`` conjunction so that the
+query selects the documents in the collection that match at least one
+condition.
+
+The following example retrieves all documents in the collection where
+the ``status`` equals ``"A"`` **or** ``qty`` is less than
+(:query:`$lt`) ``30``:
+
+.. include:: /includes/driver-example-query-12.rst
+
+The operation corresponds to the following SQL statement:
+
+.. code-block:: sql
+
+   SELECT * FROM inventory WHERE status = "A" OR qty < 30
+
+.. note::
+   Queries which use :ref:`comparison operators <query-selectors-comparison>`
+   are subject to :ref:`type-bracketing`.
+
+Specify ``AND`` as well as ``OR`` Conditions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In the following example, the compound query document selects all
+documents in the collection where the ``status`` equals ``"A"``
+**and** *either* ``qty`` is less than (:query:`$lt`) ``30`` *or*
+``item`` starts with the character ``p``:
+
+.. include:: /includes/driver-example-query-13.rst
+
+The operation corresponds to the following SQL statement:
+
+.. code-block:: sql
+
+   SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+
+.. note::
+
+   MongoDB supports regular expressions :query:`$regex` queries to
+   perform string pattern matches.
+
+Additional Query Tutorials
+--------------------------
+
+For additional query examples, see:
+
+- :doc:`/tutorial/query-embedded-documents`
+
+- :doc:`/tutorial/query-arrays`
+
+- :doc:`/tutorial/query-array-of-documents`
+
+- :doc:`/tutorial/project-fields-from-query-results`
+
+- :doc:`/tutorial/query-for-null-fields`
+
+Behavior
+--------
+
+Cursor
+~~~~~~
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         The :method:`db.collection.find()` method
+         returns a :doc:`cursor </tutorial/iterate-a-cursor>` to the matching
+         documents.
+     - id: python
+       content: |
+         The :py:meth:`pymongo.collection.Collection.find` method
+         returns a :doc:`cursor </tutorial/iterate-a-cursor>` to the
+         matching documents. See the PyMongo documentation for
+         `iterating over a cursor <http://api.mongodb.com/python/current/tutorial.html#querying-for-more-than-one-document>`_.
+
+     - id: php
+       content: |
+         The :phpmethod:`MongoDB\\Collection::find() <phpmethod.MongoDB\\Collection::find>`
+         method returns a :doc:`cursor </tutorial/iterate-a-cursor>` to
+         the matching documents. See the MongoDB PHP Library
+         documentation for
+         :ref:`iterating over a cursor <php-find-many-documents>`.
+
+     - id: perl
+       content: |
+         The :perl-api:`MongoDB::Collection::find()<Collection#find>`
+         method returns a :doc:`cursor </tutorial/iterate-a-cursor>` to
+         the matching documents. See the MongoDB Perl driver
+         documentation for
+         `iterating over a cursor <https://metacpan.org/pod/distribution/MongoDB/lib/MongoDB/Tutorial.pod#Cursors>`_.
+
+Read Isolation
+~~~~~~~~~~~~~~
+
+.. versionadded:: 3.2
+
+For reads to :doc:`replica sets </replication>` and replica set
+:doc:`shards </sharding>`, read concern allows clients to choose a
+level of isolation for their reads. For more information, see
+:doc:`/reference/read-concern`.
+
+.. class:: hidden
+
+   .. toctree::
+      :titlesonly:
+
+      /tutorial/query-embedded-documents
+      /tutorial/query-arrays
+      /tutorial/query-array-of-documents
+      /tutorial/project-fields-from-query-results
+      /tutorial/query-for-null-fields
+      /tutorial/iterate-a-cursor/
+
+Additional Methods
+------------------
+
+The following methods can also read documents from a collection:
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         - :method:`db.collection.findOne`
+
+         - In :doc:`aggregation pipeline </core/aggregation-pipeline>`, the
+           :pipeline:`$match` pipeline stage provides access to MongoDB
+           queries.
+
+         .. note::
+            The :method:`db.collection.findOne()` method also performs a read
+            operation to return a single document. Internally, the
+            :method:`db.collection.findOne()` method is the
+            :method:`db.collection.find()` method with a limit of 1.
+
+     - id: python
+       content: |
+         - :py:meth:`pymongo.collection.Collection.find_one`
+         
+         - In :doc:`aggregation pipeline </core/aggregation-pipeline>`, the
+           :pipeline:`$match` pipeline stage provides access to MongoDB
+           queries. See the `PyMongo Aggregation Examples <https://api.mongodb.com/python/current/examples/aggregation.html#aggregate-examples>`_.
+         
+         .. note::
+            The :py:meth:`pymongo.collection.Collection.find_one`
+            method also performs a read operation to return a single
+            document. Internally, the
+            :py:meth:`pymongo.collection.Collection.find_one` method is
+            the :py:meth:`pymongo.collection.Collection.find` method
+            with a limit of 1.
+
+     - id: php
+       content: |
+         - :phpmethod:`MongoDB\\Collection::findOne() <phpmethod.MongoDB\\Collection::findOne>`
+         
+         - In :doc:`aggregation pipeline </core/aggregation-pipeline>`, the
+           :pipeline:`$match` pipeline stage provides access to MongoDB
+           queries. See the MongoDB PHP Library's
+           :ref:`aggregation example <php-aggregation>`.
+         
+         .. note::
+            The :phpmethod:`MongoDB\\Collection::findOne() <phpmethod.MongoDB\\Collection::findOne>`
+            method also performs a read operation to return a single
+            document. Internally, the
+            :phpmethod:`MongoDB\\Collection::findOne() <phpmethod.MongoDB\\Collection::findOne>`
+            method is the 
+            :phpmethod:`MongoDB\\Collection::find() <phpmethod.MongoDB\\Collection::find>`
+            method with a limit of 1.
+
+     - id: perl
+       content: |
+         - :perl-api:`MongoDB::Collection::find_one()<Collection#find_one>`
+         
+         - In :doc:`aggregation pipeline </core/aggregation-pipeline>`, the
+           :pipeline:`$match` pipeline stage provides access to MongoDB
+           queries. See the MongoDB Perl driver's
+           `aggregation examples <https://metacpan.org/pod/distribution/MongoDB/lib/MongoDB/Examples.pod#AGGREGATION>`_.
+         
+         .. note::
+            The :perl-api:`MongoDB::Collection::find_one()<Collection#find_one>`
+            method also performs a read operation to return a single
+            document. Internally, the
+            :perl-api:`MongoDB::Collection::find_one()<Collection#find_one>`
+            method is the 
+            :perl-api:`MongoDB::Collection::find()<Collection#find>`
+            method with a limit of 1.

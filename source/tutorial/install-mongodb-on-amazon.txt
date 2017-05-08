@@ -1,0 +1,61 @@
+=================================================
+Amazon Linux上安装MongoDB社区版
+=================================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: twocols
+
+.. admonition:: MongoDB Atlas and AWS
+   :class: note
+
+   `MongoDB Atlas <https://www.mongodb.com/cloud/atlas?jmp=docs>`_ is a
+   hosted MongoDB service on AWS, for launching, running, and
+   maintaining MongoDB clusters.
+
+Overview
+--------
+
+Use this tutorial to install MongoDB Community Edition on Amazon Linux from
+``.rpm`` packages.
+
+.. include:: /includes/fact-installation-64bit.rst
+
+Packages
+--------
+
+.. include:: /includes/list-mongodb-org-packages.rst
+
+.. include:: /includes/fact-installation-bind-ip-default-in-config.rst
+
+Install MongoDB Community Edition
+---------------------------------
+
+.. include:: /includes/extracts/install-past-mongodb-org-amazon.rst
+
+.. include:: /includes/fact-installation-64bit.rst
+
+.. include:: /includes/steps/install-mongodb-on-amazon.rst
+
+Run MongoDB Community Edition
+-----------------------------
+
+.. include:: /includes/fact-installation-ulimit.rst
+
+.. |mongod-user| replace:: ``mongod``
+.. |mongod-datadir| replace:: ``/var/lib/mongo``
+
+.. include:: /includes/fact-installation-directories.rst
+
+.. include:: /includes/steps/run-mongodb-on-a-linux-distribution.rst
+
+Uninstall MongoDB Community Edition
+-----------------------------------
+
+.. include:: /includes/fact-uninstall.rst
+
+.. include:: /includes/steps/uninstall-mongodb-on-redhat.rst

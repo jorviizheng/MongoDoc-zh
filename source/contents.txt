@@ -1,0 +1,26 @@
+=======================
+MongoDB Manual Contents
+=======================
+
+See :doc:`/about` for more information about the MongoDB Documentation
+project, this Manual and additional editions of this text.
+
+.. toctree::
+   :titlesonly:
+
+   介绍 </introduction>
+   安装 </installation>
+   /mongo
+   /crud
+   /aggregation
+   /text-search
+   /data-modeling
+   /administration
+   /indexes
+   /storage
+   /security
+   /replication
+   /sharding
+   /faq
+   /reference
+   /release-notes

@@ -1,0 +1,260 @@
+.. include:: /includes/templates/tabs.rst
+
+.. _write-op-delete:
+
+================
+Delete Documents
+================
+
+.. default-domain:: mongodb
+
+.. meta::
+   :description: MongoDB Manual: How to delete documents in MongoDB. How to remove documents in MongoDB. How to specify conditions for removing or deleting documents in MongoDB.
+   :keywords: delete from collection, remove documents from collection, delete documents from collection, MongoDB Manual
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         This page provides examples of delete operations using the
+         following methods in the :program:`mongo` shell:
+         
+         - :method:`db.collection.deleteMany()` 
+         - :method:`db.collection.deleteOne()`
+
+     - id: python
+       content: |
+         This page provides examples of delete operations using the
+         following methods in the `PyMongo <https://api.mongodb.com/python/current/index.html>`_
+         Python driver:
+         
+         - :py:meth:`pymongo.collection.Collection.delete_many`
+         - :py:meth:`pymongo.collection.Collection.delete_one`
+
+     - id: php
+       content: |
+         This page provides examples of delete operations using the
+         following methods in the
+         `MongoDB PHP Library <https://docs.mongodb.com/php-library/master/>`_:
+         
+         - :phpmethod:`MongoDB\\Collection::deleteMany() <phpmethod.MongoDB\\Collection::deleteMany>`
+         - :phpmethod:`MongoDB\\Collection::deleteOne() <phpmethod.MongoDB\\Collection::deleteOne>`
+
+     - id: perl
+       content: |
+         This page provides examples of delete operations using the
+         following methods in the
+         `MongoDB Perl Driver <https://metacpan.org/release/MongoDB>`_:
+         
+         - :perl-api:`MongoDB::Collection::delete_many()<Collection#delete_many>`
+         - :perl-api:`MongoDB::Collection::delete_one()<Collection#delete_one>`
+
+The examples on this page use the ``inventory`` collection. To populate
+the ``inventory`` collection, run the following:
+
+.. include:: /includes/driver-example-delete-55.rst
+
+.. _write-op-deleteMany:
+
+Delete All Documents
+--------------------
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         To remove all documents from a collection, pass an empty
+         :ref:`filter<document-query-filter>` document ``{}`` to the
+         :method:`db.collection.deleteMany()` method.
+
+     - id: python
+       content: |
+         To remove all documents from a collection, pass an empty
+         :ref:`filter<document-query-filter>` document ``{}`` to the
+         :py:meth:`pymongo.collection.Collection.delete_many` method.
+
+     - id: php
+       content: |
+         To remove all documents from a collection, pass an empty
+         :ref:`filter<document-query-filter>` document ``[]`` to the
+         :phpmethod:`MongoDB\\Collection::deleteMany() <phpmethod.MongoDB\\Collection::deleteMany>`
+         method.
+
+     - id: perl
+       content: |
+         To remove all documents from a collection, pass an empty
+         :ref:`filter<document-query-filter>` document ``{}`` to the
+         :perl-api:`MongoDB::Collection::delete_many()<Collection#delete_many>`
+         method.
+
+The following example deletes *all* documents from the ``inventory``
+collection:
+
+.. include:: /includes/driver-example-delete-56.rst
+
+.. include:: /includes/driver-example-delete-result.rst
+
+Delete All Documents that Match a Condition
+-------------------------------------------
+
+You can specify criteria, or filters, that identify the documents to
+delete. These :ref:`filters <document-query-filter>` use the same
+syntax as read operations:
+
+- .. include:: /includes/extracts/filter-equality.rst
+
+- .. include:: /includes/extracts/filter-query-operators.rst
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         To delete all documents that match a deletion criteria, pass a
+         :ref:`filter <document-query-filter>` parameter to the
+         :method:`~db.collection.deleteMany()` method.
+
+     - id: python
+       content: |
+         To delete all documents that match a deletion criteria, pass a
+         :ref:`filter <document-query-filter>` parameter to the
+         :py:meth:`~pymongo.collection.Collection.delete_many` method.
+
+     - id: php
+       content: |
+         To delete all documents that match a deletion criteria, pass a
+         :ref:`filter <document-query-filter>` parameter to the
+         :phpmethod:`deleteMany() <phpmethod.MongoDB\\Collection::deleteMany>`
+         method.
+
+     - id: perl
+       content: |
+         To delete all documents that match a deletion criteria, pass a
+         :ref:`filter <document-query-filter>` parameter to the
+         :perl-api:`delete_many()<Collection#delete_many>`
+         method.
+
+The following example removes all documents from the ``inventory``
+collection where the ``status`` field equals ``"A"``:
+
+.. include:: /includes/driver-example-delete-57.rst
+
+.. include:: /includes/driver-example-delete-result.rst
+
+Remove Only One Document that Matches a Condition
+-------------------------------------------------
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         To delete at most a single document that matches a specified
+         filter (even though multiple documents may match the specified
+         filter) use the :method:`db.collection.deleteOne()` method.
+
+     - id: python
+       content: |
+         To delete at most a single document that matches a specified
+         filter (even though multiple documents may match the specified
+         filter) use the
+         :py:meth:`pymongo.collection.Collection.delete_one` method.
+
+     - id: php
+       content: |
+         To delete at most a single document that matches a specified
+         filter (even though multiple documents may match the specified
+         filter) use the
+         :phpmethod:`MongoDB\\Collection::deleteOne() <phpmethod.MongoDB\\Collection::deleteOne>`
+         method.
+
+     - id: perl
+       content: |
+         To delete at most a single document that matches a specified
+         filter (even though multiple documents may match the specified
+         filter) use the
+         :perl-api:`MongoDB::Collection::delete_one()<Collection#delete_one>` method.
+
+The following example deletes the *first* document where ``status`` is
+``"D"``.
+
+.. include:: /includes/driver-example-delete-58.rst
+
+.. _write-op-delete-behavior:
+.. _write-op-remove-behavior:
+
+Delete Behavior
+---------------
+
+Indexes
+~~~~~~~
+
+Delete operations do not drop indexes, even if deleting all documents
+from a collection.
+
+Atomicity
+~~~~~~~~~
+
+All write operations in MongoDB are atomic on the level of a single
+document. For more information on MongoDB and atomicity, see
+:doc:`/core/write-operations-atomicity`.
+
+Write Acknowledgement
+~~~~~~~~~~~~~~~~~~~~~
+
+With write concerns, you can specify the level of acknowledgement
+requested from MongoDB for write operations. For details, see
+:doc:`/reference/write-concern`.
+
+.. tabs::
+
+   tabs:
+     - id: shell
+       content: |
+         .. seealso::
+
+            - :method:`db.collection.deleteMany()`
+
+            - :method:`db.collection.deleteOne()`
+
+            - :ref:`additional-deletes`
+
+     - id: python
+       content: |
+         .. seealso::
+            
+            - :py:meth:`pymongo.collection.Collection.delete_many`
+            
+            - :py:meth:`pymongo.collection.Collection.delete_one`
+
+            - :ref:`additional-deletes`
+
+     - id: php
+       content: |
+         .. seealso::
+            
+            - :phpmethod:`MongoDB\\Collection::deleteMany() <phpmethod.MongoDB\\Collection::deleteMany>`
+
+            - :phpmethod:`MongoDB\\Collection::deleteOne() <phpmethod.MongoDB\\Collection::deleteOne>`
+
+            - :ref:`additional-deletes`
+
+     - id: perl
+       content: |
+         .. seealso::
+            
+            - :perl-api:`MongoDB::Collection::delete_many()<Collection#delete_many>`
+            
+            - :perl-api:`MongoDB::Collection::delete_one()<Collection#delete_one>`
+
+            - :ref:`additional-deletes`
+
+.. class:: hidden
+
+   .. toctree::
+      :titlesonly:
+
+      /reference/delete-methods
+

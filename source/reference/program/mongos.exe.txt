@@ -1,0 +1,54 @@
+==============
+``mongos.exe``
+==============
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Synopsis
+--------
+
+:program:`mongos.exe` is the build of the MongoDB Shard
+(i.e. :program:`mongos`) for the Windows
+platform. :program:`mongos.exe` has all of the features of
+:program:`mongos` on Unix-like platforms and is completely compatible
+with the other builds of :program:`mongos`. In addition,
+:program:`mongos.exe` provides several options for interacting with
+the Windows platform itself.
+
+This document only references options that are unique to
+:program:`mongos.exe`. All :program:`mongos` options are
+available. See the :doc:`/reference/program/mongos` and the
+:doc:`/reference/configuration-options` documents for more
+information regarding :program:`mongos.exe`.
+
+To install and use :program:`mongos.exe`, read the
+:doc:`/tutorial/install-mongodb-on-windows` document.
+
+Options
+-------
+
+.. binary:: mongos.exe
+
+.. program:: mongos.exe
+
+.. include:: /includes/option/option-mongos.exe-install.rst
+
+.. include:: /includes/option/option-mongos.exe-remove.rst
+
+.. include:: /includes/option/option-mongos.exe-reinstall.rst
+
+.. include:: /includes/option/option-mongos.exe-serviceName.rst
+
+.. include:: /includes/option/option-mongos.exe-serviceDisplayName.rst
+
+.. include:: /includes/option/option-mongos.exe-serviceDescription.rst
+
+.. include:: /includes/option/option-mongos.exe-serviceUser.rst
+
+.. include:: /includes/option/option-mongos.exe-servicePassword.rst
