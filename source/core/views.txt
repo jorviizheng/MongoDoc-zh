@@ -23,7 +23,7 @@
 要创建或定义视图, MongoDB 3.4 引入:
 
 - :dbcommand:`create` 命令选项 ``viewOn`` and ``pipeline`` (
-和 :method:`db.createCollection` 助手):
+  和 :method:`db.createCollection` 助手):
 
   .. code-block:: javascript
 
@@ -46,19 +46,18 @@
 
 .. include:: /includes/extracts/views-behavior.rst
 
-Public View Definition
+视图定义公开
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Operations that lists collections, such as
-:method:`db.getCollectionInfos()` and
-:method:`db.getCollectionNames()`, include views in their outputs.
+列出集合的操作, 如
+:method:`db.getCollectionInfos()` 和
+:method:`db.getCollectionNames()`, 输出中将包含视图。.
 
 .. important::
 
    .. include:: /includes/extracts/views-public-definition.rst
 
-Drop a View
+删除视图
 -----------
 
-To remove a view, use the :method:`db.collection.drop()` method on the
-view.
+若要移除视图, 请在视图上使用 :method:`db.collection.drop()` 方法。

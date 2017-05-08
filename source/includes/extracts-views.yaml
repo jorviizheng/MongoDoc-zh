@@ -142,6 +142,6 @@ content: |
 ---
 ref: views-public-definition
 content: |
-   视图定义是公共的;也就是说: 方法: :method:`db.getCollectionInfos()`
+   视图定义是公开的, 也就是说: 方法: :method:`db.getCollectionInfos()`
    和 ``explain`` 操作将包括定义视图的管线。因此, 避免直接引用视图定义中的敏感字段和值。
 ...

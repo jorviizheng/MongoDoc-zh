@@ -33,7 +33,7 @@ MongoDB 手册 |version|
 Getting Started
 ---------------
 
-mongodb 提供了以下版本的 `入门指南 </shell>` 。
+mongodb 提供了以下版本的 :gettingstarted:`入门指南  </shell>` .
 
 .. list-table::
    :class: index-table

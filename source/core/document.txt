@@ -170,7 +170,7 @@ Arrays
 
 .. include:: /includes/fact-document-max-size.rst
 
-Document Field Order
+文档字段顺序
 ~~~~~~~~~~~~~~~~~~~~
 
 .. include:: /includes/fact-update-field-order.rst
@@ -178,41 +178,36 @@ Document Field Order
 
 .. _document-id-field:
 
-The ``_id`` Field
+``_id`` 字段
 ~~~~~~~~~~~~~~~~~
 
 .. include:: /includes/fact-id-field.rst
 
-The ``_id`` field has the following behavior and constraints:
+``_id`` 字段具有以下行为和约束::
 
-- By default, MongoDB creates a unique index on the ``_id`` field
-  during the creation of a collection.
+- 默认情况下, MongoDB 在创建集合期间在``_id`` 字段上创建一个唯一索引。
 
-- The ``_id`` field is always the first field in the documents. If the
-  server receives a document that does not have the ``_id`` field
-  first, then the server will move the field to the beginning.
+- ``_id`` 字段始终是文档中的第一个字段。如果服务器首先接收到没有 ``_id`` 字段
+  的文档, 则服务器会将该字段移到开头。（译：如果插入的文档中没有 ``_id`` 字
+  段, 自动创建 ``_id`` , 并将其放到第一个）
 
-- The ``_id`` field may contain values of any :doc:`BSON data type
-  </reference/bson-types>`, other than an array.
+- ``_id`` 字段可能包含任何 BSON 数据类型的值, 而不是一个数组。
 
-  .. warning:: To ensure functioning replication, do not store values
-     that are of the BSON regular expression type in the ``_id``
-     field.
+  .. warning:: 为了确保复制功能, 请勿在 ``_id`` 字段中存储 BSON 正则
+     表达式类型的值。
 
      .. See :issue:`SERVER-9562` for more information.
 
-The following are common options for storing values for ``_id``:
+以下是用于存储 ``_id`` 值的常用选项:
 
-- Use an :ref:`objectid`.
+- 使用 :ref:`objectid`.
 
-- Use a natural unique identifier, if available. This saves space and
-  avoids an additional index.
+- 使用自然唯一标识符 (如果可用)。这样可以节省空间并避免附加索引。
 
-- Generate an auto-incrementing number.
+- 生成一个自增长的数字。
 
-- Generate a UUID in your application code. For a more efficient
-  storage of the UUID values in the collection and in the ``_id``
-  index, store the UUID as a value of the BSON ``BinData`` type.
+- 在应用程序代码中生成 UUID。为了更有效地在集合和 ``_id`` 索引中存储
+  UUID 的值, 将 UUID 存储为 BSON ``BinData`` 类型。
 
   .. include:: /includes/fact-bindata-storage-optimization.rst
 

@@ -1,7 +1,5 @@
-Index keys that are of the ``BinData`` type are more efficiently stored
-in the index if:
+如果 ``BinData`` 类型的索引键想更有效地存储在索引中:
 
-- the binary subtype value is in the range of 0-7 or 128-135, and
+- 二进制子类型值在0-7 或128-135 的范围内, 并且
 
-- the length of the byte array is: 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12,
-  14, 16, 20, 24, or 32.
+- 字节数组的长度为: 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 20, 24, 或32。

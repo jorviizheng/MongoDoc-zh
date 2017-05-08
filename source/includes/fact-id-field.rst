@@ -1,7 +1,6 @@
-In MongoDB, each document stored in a collection requires a unique
-:term:`_id` field that acts as a :term:`primary key`. If an inserted
-document omits the ``_id`` field, the MongoDB driver automatically
-generates an :ref:`objectid` for the ``_id`` field.
+在 MongoDB 中, 存储在集合中的每个文档都需要一个充当 :term:`primary key`的
+唯一字段 :term:`_id` 。如果插入的文档省略了  ``_id``  字段, 则 MongoDB 驱
+动程序会自动为 ``_id`` 字段生成 :ref:`objectid` 。
 
-This also applies to documents inserted through update
-operations with :ref:`upsert: true <upsert-parameter>`.
+这也适用于通过 update 的 :ref:`upsert: true <upsert-parameter>` 插入
+的文档。
