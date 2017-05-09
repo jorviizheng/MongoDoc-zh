@@ -211,34 +211,30 @@ Arrays
 
   .. include:: /includes/fact-bindata-storage-optimization.rst
 
-- Use your driver's BSON UUID facility to generate UUIDs. Be aware
-  that driver implementations may implement UUID serialization and
-  deserialization logic differently, which may not be fully compatible
-  with other drivers. See your :api:`driver documentation <>` for
-  information concerning UUID interoperability.
+- 使用驱动程序的 BSON UUID 工具生成 UUID. 请注意，驱动程序实现可能以
+  不同的方式实现UUID序列化和反序列化逻辑，这可能与其他驱动程序不完全兼
+  容。 有关 UUID 互操作性的信息, 请参阅 :api:`驱动程序文档 <>` 。
 
 .. include:: /includes/note-insert-id-field.rst
 
-Other Uses of the Document Structure
+文档结构的其他用法
 ------------------------------------
 
-In addition to defining data records, MongoDB uses the document
-structure throughout, including but not limited to: :ref:`query filters
-<document-query-filter>`, :ref:`update specifications documents
-<document-update-specification>`, and :ref:`index specification
-documents <document-index-specification>`
+除了定义数据记录外, MongoDB 使用文档结构, 包括但不限于:
+:ref:`查询过滤 <document-query-filter>`, :ref:`更新规范文档
+<document-update-specification>`, and :ref:`索引
+规范文档 <document-index-specification>`
 
 .. _document-query-filter:
 
-Query Filter Documents
+过滤查询文档
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Query filter documents specify the conditions that determine which
-records to select for read, update, and delete operations.
+过滤查询文档指定用于确定哪些记录以供读取、更新和删除操作选择的
+条件。（译：就是用来指定查询条件的文档/document）
 
-You can use ``<field>:<value>`` expressions to specify the equality
-condition and :doc:`query operator </reference/operator/query>`
-expressions.
+可以使用 ``<field>:<value>`` 表达式来指定相等条件
+和 :doc:`查询运算符 </reference/operator/query>` 表达式。
 
 .. code-block:: javascript
 
@@ -260,12 +256,11 @@ For examples, see:
 
 .. _document-update-specification:
 
-Update Specification Documents
+更新规范文档
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Update specification documents use :ref:`update operators
-<update-operators>` to specify the data modifications to perform on
-specific fields during an :method:`db.collection.update()` operation.
+更新规范文档使用  :ref:`update operators <update-operators>` 指定
+在 :method:`db.collection.update()` 操作期间对特定字段执行的数据修改。
 
 .. code-block:: javascript
 
@@ -276,16 +271,15 @@ specific fields during an :method:`db.collection.update()` operation.
    }
 
 
-For examples, see :ref:`Update specifications
+有关示例, 请参见 :ref:`更新规范
 <update-documents-modifiers>`.
 
 .. _document-index-specification:
 
-Index Specification Documents
+索引规范文档
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Index specifications document define the field to index and the index
-type:
+索引规范文档定义要索引的字段和索引类型:
 
 .. code-block:: javascript
 

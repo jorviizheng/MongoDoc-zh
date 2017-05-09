@@ -1,7 +1,6 @@
 .. note::
 
-   Most MongoDB driver clients will include the ``_id`` field and
-   generate an ``ObjectId`` before sending the insert operation to
-   MongoDB; however, if the client sends a document without an ``_id``
-   field, the :program:`mongod` will add the ``_id`` field and generate
-   the ``ObjectId``.
+   大多数 MongoDB 驱动程序客户端将包含 ``_id`` 字段, 并在插入操作发
+   送到 MongoDB 之前生成一个 ``ObjectId`` ;但是, 如果客户端发送没
+   有 ``_id`` 字段的文档, 则 :program:`mongod` 将添加 ``_id`` 字段
+   并生成 ``ObjectId`` 。
