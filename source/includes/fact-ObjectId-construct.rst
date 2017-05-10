@@ -1,7 +1,7 @@
-- a 4-byte value representing the seconds since the Unix epoch,
+- 一个4字节的值, 表示自 unix 纪元以来的秒数,
 
-- a 3-byte machine identifier,
+- 一个3字节的机器标识符,
 
-- a 2-byte process id, and
+- 一个2字节的进程 id,
 
-- a 3-byte counter, starting with a random value.
+- 一个3字节计数器, 从随机值开始。

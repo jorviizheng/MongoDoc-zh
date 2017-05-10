@@ -1,7 +1,4 @@
-The relationship between the order of ``ObjectId`` values and
-generation time is not strict within a single second. If multiple
-systems, or multiple processes or threads on a single system generate
-values, within a single second; ``ObjectId`` values do not represent a
-strict insertion order. Clock skew between clients can also result in
-non-strict ordering even for values because client drivers generate
-``ObjectId`` values.
+``ObjectId`` 值的顺序与生成时间之间的关系在一秒钟内并不严格。如果多个系统, 或
+单个系统上的多个进程或线程在一秒钟内生成值, 则 ``ObjectId`` 值不表示严格的插入
+顺序。因为客户端驱动程序生成 ``ObjectId`` , 所以客户端之间的时钟偏差也可能
+导致不严格的排序。

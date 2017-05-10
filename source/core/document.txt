@@ -13,9 +13,10 @@
    :class: singlecol
 
 MongoDB 将数据记录存储为 BSON 文档。BSON 是 :term:`JSON` 文档的二
-进制表示, 尽管它包含的数据类型多于 json。对于 BSON 规范,
+进制表示, 尽管它包含的数据类型多于 JSON。对于 BSON 规范,
 请参见 `bsonspec.org <http://bsonspec.org/>`_ 。
-另请参见 :doc:`/reference/bson-types` 。
+另请参见 :doc:`/reference/bson-types` 。(译：MongoDB中的文档(document)指的是一种
+特定格式的 **数据** , 集合(表)中的一条数据也叫文档(document), 数据库操作中也靠文档(document)传参)
 
 .. include:: /images/crud-annotated-document.rst
 
