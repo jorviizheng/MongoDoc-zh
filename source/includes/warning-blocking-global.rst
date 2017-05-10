@@ -1,4 +1,3 @@
 .. warning::
 
-   This command obtains a global write lock and will block other
-   operations until it has completed.
+   此命令获取全局写锁定, 并将阻塞其他操作, 直至其完成。

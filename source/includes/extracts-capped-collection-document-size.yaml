@@ -1,25 +1,25 @@
 ref: _capped-collection-immutable-document-size
 content: |
-   If {{write}} changes the document size, the operation will fail.
+   如果 {{write}} 更改了文档大小, 则操作将失败。
 ---
 ref: capped-collection-immutable-document-size
 source:
    file: extracts-capped-collection-document-size.yaml
    ref: _capped-collection-immutable-document-size
 replacement:
-  write: "an update or a replacement operation"
+  write: "更新或替换操作"
 ---
 ref: capped-collection-immutable-document-size-update
 source:
    file: extracts-capped-collection-document-size.yaml
    ref: _capped-collection-immutable-document-size
 replacement:
-  write: "an update operation"
+  write: "更新操作"
 ---
 ref: capped-collection-immutable-document-size-replace
 source:
    file: extracts-capped-collection-document-size.yaml
    ref: _capped-collection-immutable-document-size
 replacement:
-  write: "a replacement operation"
+  write: "替换操作"
 ...
