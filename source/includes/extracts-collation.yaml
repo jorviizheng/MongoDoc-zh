@@ -6,9 +6,8 @@ content: |
 ---
 ref: collation-description
 content: |
-   :doc:`Collation </reference/collation>` allows users to specify
-   language-specific rules for string comparison, such as rules for
-   lettercase and accent marks.
+   :doc:`排序规则 </reference/collation>` 允许
+   用户为字符串比较指定特定于语言的规则, 如 lettercase 和重音符号的规则。
 
 ---
 ref: collation-collection-level
@@ -25,9 +24,8 @@ content: |
 ---
 ref: collation-unspecified
 content: |
-   If no collation is specified for the collection or for the
-   operations, MongoDB uses the simple binary comparison used in prior
-   versions for string comparisons.
+   如果没有为集合或操作指定排序规则, MongoDB 使用在先前版本中使用的简单二进制
+   比较来进行字符串比较。
 ---
 ref: collation-single-per-operation
 content: |
@@ -75,9 +73,8 @@ content: |
          backwards: <boolean>
       }
 
-   When specifying collation, the ``locale`` field is mandatory; all
-   other collation fields are optional. For descriptions of the fields,
-   see :ref:`collation-document-fields`.
+   指定排序时, ``locale`` 字段是必须的; 其他排序字段是可选的. 有关字段的说明, 请
+   参阅 :ref:`collation-document-fields`.
 ---
 ref: collation-index-options
 content: |

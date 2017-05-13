@@ -15,67 +15,60 @@
 
 .. include:: /includes/fact-sort-order.rst
 
-Numeric Types
+数字类型
 -------------
 
-MongoDB treats some types as equivalent for comparison purposes. For
-instance, numeric types undergo conversion before comparison.
+MongoDB 将某些类型视为等同用于比较目的。例如, 数值类型在比较之前进行转换。
 
-Strings
+字符串
 -------
 
-Binary Comparison
+二进制比较
 ~~~~~~~~~~~~~~~~~
 
-By default, MongoDB uses the simple binary comparison to compare
-strings.
+默认情况下, MongoDB 使用简单的二进制比较来比较字符串。
 
 .. _collation:
 
-Collation
+排序规则
 ~~~~~~~~~
 
 .. include:: /includes/extracts/collation-versionadded.rst
 
 
-Collation specification has the following syntax:
+排序规则语法:
 
 .. include:: /includes/extracts/collation-document.rst
 
 .. include:: /includes/extracts/collation-unspecified.rst
 
-Arrays
+数组
 ------
 
-With arrays, a less-than comparison or an ascending sort compares the
-smallest element of arrays, and a greater-than comparison or a
-descending sort compares the largest element of the arrays. As such,
-when comparing a field whose value is a single-element array (e.g. ``[
-1 ]``) with non-array fields (e.g. ``2``), the comparison is between
-``1`` and ``2``. A comparison of an empty array (e.g. ``[ ]``) treats
-the empty array as less than ``null`` or a missing field.
+对于数组, 小于比较或升序排序将比较数组中的最小元素, 大于比较或降序排序
+比较数组的最大元素. 因此, 在比较一个值为单元素的数组 (例如 [1]) 的字段
+时, 与非数组字段 (例如 2), 比较是介于1和2之间。空数组的比较 (例如 []) 将
+空数组视为小于 null 或缺少的字段。
 
-Dates and Timestamps
+日期和时间戳
 --------------------
 
 .. versionchanged:: 3.0.0
-   Date objects sort before Timestamp objects. Previously Date and
-   Timestamp objects sorted together.
+   日期对象在时间戳对象之前排序。以前的日期和时间戳对象一起排序。
 
-Non-existent Fields
+不存在的字段
 -------------------
 
-The comparison treats a non-existent field as it would an empty BSON
-Object. As such, a sort on the ``a`` field in documents ``{ }`` and ``{
-a: null }`` would treat the documents as equivalent in sort order.
+比较将不存在的字段视为空的 BSON 对象。因此, 在文档 ``{ }`` 和 {a: null} 中对
+``a`` 字段进行排序将按排序次序将文档视为等效。
 
-BinData
--------
+二进制数据
+-----------
 
-MongoDB sorts ``BinData`` in the following order:
+MongoDB 按以下顺序排序 ``BinData`` :
 
-#. First, the length or size of the data.
+#. 首先, 数据的长度或大小。
 
-#. Then, by the BSON one-byte subtype.
+#. 然后, 由 BSON 单字节的子类型。
 
-#. Finally, by the data, performing a byte-by-byte comparison.
+#. 最后, 按数据执行逐字节比较。

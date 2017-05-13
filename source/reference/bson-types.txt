@@ -40,7 +40,7 @@ ObjectIds 很小, 很可能是唯一的, 快速生成的, 有序的。ObjectIds 
 
 .. include:: /includes/fact-id-field.rst
 
-mongodb 客户端应添加一个具有唯一 ObjectId 的``_id`` 字段。 ``_id`` 字段
+mongodb 客户端应添加一个具有唯一 ObjectId 的 ``_id`` 字段。 ``_id`` 字段
 使用 ObjectIds 可以提供以下附加好处:
 
 - 在 :program:`mongo` shell 中,可以使用 :method:`ObjectId.getTimestamp()` 方法

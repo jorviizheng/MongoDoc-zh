@@ -10,73 +10,66 @@ MongoDB JSON 扩展
    :depth: 1
    :class: singlecol
 
-:term:`JSON` can only represent a subset of the types supported by
-:term:`BSON`. To preserve type information, MongoDB adds the following
-extensions to the JSON format:
+:term:`JSON` 只能表示 :term:`BSON` 支持的类型的子集。要保留类
+型信息, MongoDB 将以下扩展名添加到 JSON 格式:
 
-- *Strict mode*. Strict mode representations of BSON types conform to
-  the `JSON RFC <http://www.json.org>`_. Any JSON parser can parse
-  these strict mode representations as key/value pairs; however, only
-  the MongoDB internal JSON parser recognizes the type
-  information conveyed by the format.
+- *严格模式* . BSON 类型的严格模式表示符合 `JSON RFC <http://www.json.org>`_.
+  任何 JSON 分析器都可以将这些严格模式表示形式解析为键/值对;但是, 只
+  有 MongoDB 内部 JSON 分析器才能识别由格式传达的类型信息。
 
-- ``mongo`` *Shell mode*. The MongoDB internal JSON parser and the
-  :program:`mongo` shell can parse this mode.
+- ``mongo`` *Shell mode*. The MongoDB 内部 JSON 分析器和
+  :program:`mongo` shell 可以解析此模式.
 
-The representation used for the various data types depends on the
-context in which the JSON is parsed.
+用于各种数据类型的表示形式取决于分析 JSON 的上下文。
 
-Parsers and Supported Format
+分析器和支持的格式
 ----------------------------
 
-Input in Strict Mode
+严格模式的输入
 ~~~~~~~~~~~~~~~~~~~~
 
-The following can parse representations in strict mode *with*
-recognition of the type information.
+以下内容可以在严格模式下分析表示形式, 并识别类型信息。
 
-- :ecosystem:`REST Interfaces </tools/http-interfaces>`
+- :ecosystem:`REST 接口 </tools/http-interfaces>`
 
 - :program:`mongoimport`
 
-- ``--query`` option of various MongoDB tools
+- 各种 MongoDB 工具的 ``--query`` 选项
 
 - :products:`MongoDB Compass </compass>`
 
-Other JSON parsers, including :program:`mongo` shell and
-:method:`db.eval()`, can parse strict mode representations as key/value
-pairs, but *without* recognition of the type information.
+其他 JSON 分析器, 包括 :program:`mongo`  shell 和 :method:`db.eval()`, 可
+以将严格模式表示形式解析为键/值对, 但 *不* 识别类型信息。
 
-Input in ``mongo`` Shell Mode
+``mongo`` Shell 的输入
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following can parse representations in ``mongo`` shell mode *with*
-recognition of the type information.
+在 ``mongo`` shell 模式中可以解析以下工具的类型表示。
 
-- :ecosystem:`REST Interfaces </tools/http-interfaces>`
+- :ecosystem:`REST 接口 </tools/http-interfaces>`
 
 - :program:`mongoimport`
 
-- ``--query`` option of various MongoDB tools
+- 各种 MongoDB 工具的 ``--query`` 选项
 
 - :program:`mongo` shell
 
-Output in Strict mode
+严格模式下的输出
 ~~~~~~~~~~~~~~~~~~~~~
 
-:program:`mongoexport` and :ecosystem:`REST and HTTP Interfaces
-</tools/http-interfaces>` output data in *Strict mode*.
+:program:`mongoexport` 、 :ecosystem:`REST 和 HTTP 接口
+</tools/http-interfaces>` 以 *严格模式* 输出数据.
 
-Output in ``mongo`` Shell Mode
+``mongo`` Shell 的输出
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:program:`bsondump` outputs in ``mongo`` *Shell mode*.
+``mongo`` *Shell mode* 输出 :program:`bsondump` .
 
-BSON Data Types and Associated Representations
+BSON 数据类型和关联表示法
 ----------------------------------------------
 
-The following presents the BSON data types and the associated
-representations in *Strict mode* and ``mongo`` *Shell mode*.
+下面介绍了在 *严格模式* 和 ``mongo`` *Shell 模式* 下 BSON 数据
+类型和关联表示法。
 
 Binary
 ~~~~~~
@@ -103,13 +96,13 @@ Binary
 
              BinData ( <t>, <bindata> )
 
-- ``<bindata>`` is the base64 representation of a binary string.
+- ``<bindata>`` 是二进制字符串的 base64 表示形式.
 
-- ``<t>`` is a representation of a single byte indicating the data type. In
-  *Strict mode* it is a hexadecimal string, and in *Shell mode* it is an integer.
-  See the extended bson documentation. http://bsonspec.org/spec.html
+- ``<t>`` 是表示数据类型的单个字节。在 *严格模式* 下, 它是一个十六进制字
+  符串, 在 *shell 模式* 下它是一个整数。请参阅扩展的 bson 文
+  档. http://bsonspec.org/spec.html
 
-Date
+日期
 ~~~~
 
 .. bsontype:: data_date
@@ -134,22 +127,20 @@ Date
 
              new Date ( <date> )
 
-   In *Strict mode*, ``<date>`` is an ISO-8601 date format with a mandatory time
-   zone field following the template ``YYYY-MM-DDTHH:mm:ss.mmm<+/-Offset>``.
+   在 *严格模式* 下, ``<date>`` 是一个 ISO-8601 的日期格式，强制
+   带有时区字段： ``YYYY-MM-DDTHH:mm:ss.mmm<+/-Offset>``.
 
-   The MongoDB JSON parser currently does not support loading ISO-8601 strings
-   representing dates prior to the :term:`Unix epoch`. When formatting
-   pre-epoch dates and dates past what your system's ``time_t`` type can hold,
-   the following format is used:
+   MongoDB JSON 分析器当前不支持在  :term:`Unix epoch` 之前加载表示日期的 ISO-8601 字符串。当
+   格式化纪元前日期和日期超过您的系统的 ``time_t`` 类型可以容纳时, 使用以下格式:
 
    .. code-block:: none
 
       { "$date" : { "$numberLong" : "<dateAsMilliseconds>" } }
 
-   In *Shell mode*, ``<date>`` is the JSON representation of a 64-bit signed
-   integer giving the number of milliseconds since epoch UTC.
+   在 *shell 模式* 下, ``<date>`` 是一个64位有符号整数的 JSON 表示形式, 它提
+   供了从 UTC 纪元开始的毫秒数。
 
-Timestamp
+时间戳
 ~~~~~~~~~
 
 .. bsontype:: data_timestamp
@@ -174,12 +165,11 @@ Timestamp
 
              Timestamp( <t>, <i> )
 
-- ``<t>`` is the JSON representation of a 32-bit unsigned integer for
-  seconds since epoch.
+- ``<t>`` 是自纪元以来的32位无符号整数的 JSON 表示形式。
 
-- ``<i>`` is a 32-bit unsigned integer for the increment.
+- ``<i>`` 是增量的32位无符号整数。
 
-Regular Expression
+正则表达式
 ~~~~~~~~~~~~~~~~~~
 
 .. bsontype:: data_regex
@@ -204,20 +194,16 @@ Regular Expression
 
              /<jRegex>/<jOptions>
 
-- ``<sRegex>`` is a string of valid JSON characters.
+- ``<sRegex>`` 是一串有效的 JSON 字符。
 
-- ``<jRegex>`` is a string that may contain valid JSON characters and
-  unescaped double quote (``"``) characters, but may not contain
-  unescaped forward slash (``/``) characters.
+- ``<jRegex>`` 是一个字符串, 它可能包含有效的 JSON 字符和非转义双引号 (``"``) 字
+  符, 但可能不包含非转义正斜杠 (``/``) 字符。
 
-- ``<sOptions>`` is a string containing the regex options represented
-  by the letters of the alphabet.
+- ``<sOptions>`` 是一个字符串, 其中包含由字母表中的字母表示的 regex 选项。
 
-- ``<jOptions>`` is a string that may contain only the characters 'g',
-  'i', 'm' and 's' (added in v1.9). Because the ``JavaScript`` and
-  ``mongo Shell`` representations support a limited range of options,
-  any nonconforming options will be dropped when converting to this
-  representation.
+- ``<jOptions>`` 是一个字符串, 它可能只包含字符 "g"、"i"、"m" 和 "s"(在 v1.9 中添
+  加)。由于 ``JavaScript`` 和 ``mongo Shell`` 表示支持有限范围的选项, 因此在转换
+  为此表示形式时, 将丢弃任何不合格选项。
 
 OID
 ~~~
@@ -244,7 +230,7 @@ OID
 
              ObjectId( "<id>" )
 
-   ``<id>`` is a 24-character hexadecimal string.
+   ``<id>`` 是一个24字符长度的十六进制字符串。
 
 DB Reference
 ~~~~~~~~~~~~
@@ -271,11 +257,11 @@ DB Reference
 
              DBRef("<name>", "<id>")
 
-- ``<name>`` is a string of valid JSON characters.
+- ``<name>`` 是一串有效的 JSON 字符。
 
-- ``<id>`` is any valid extended JSON type.
+- ``<id>`` 是任何有效的 JSON 扩展类型.
 
-Undefined Type
+Undefined 类型
 ~~~~~~~~~~~~~~
 
 .. bsontype:: data_undefined
@@ -300,31 +286,29 @@ Undefined Type
 
              undefined
 
-   The representation for the JavaScript/BSON undefined type.
+   JavaScript/BSON 未定义类型的表示形式。
 
-   You *cannot* use ``undefined`` in query documents.
-   Consider the following document inserted into the ``people`` collection:
+   在查询文档中 *不能* 使用 ``undefined`` 。请考虑插入
+   到 ``people`` 集合中的以下文档:
    
    .. code-block:: sh
    
       db.people.insert( { name : "Sally", age : undefined } )
 
-   The following queries return an error:
+   以下查询返回错误:
    
    .. code-block:: sh
    
       db.people.find( { age : undefined } )
       db.people.find( { age : { $gte : undefined } } )
    
-   However, you can query for undefined values using :query:`$type`, as
-   in:
+   但是, 您可以使用  :query:`$type` 查询未定义的值, 如下所示:
    
    .. code-block:: sh
       
       db.people.find( { age : { $type : 6 } } )
    
-   This query returns all documents for which the ``age`` field has
-   value ``undefined``.
+   此查询返回 ``age`` 字段具有 ``undefined`` 所有文档。
 
 MinKey
 ~~~~~~
@@ -351,10 +335,8 @@ MinKey
 
              MinKey
 
-   The representation of the MinKey BSON data type that compares lower
-   than all other types. See
-   :ref:`faq-dev-compare-order-for-BSON-types` for more information on
-   comparison order for BSON types.
+   MinKey BSON 数据类型的表示比其他所有类型都低。有关 BSON 类型的比较顺序的详细
+   信息, 请参阅 :ref:`faq-dev-compare-order-for-BSON-types` .
 
 MaxKey
 ~~~~~~
@@ -381,10 +363,8 @@ MaxKey
 
              MaxKey
 
-   The representation of the MaxKey BSON data type that compares higher
-   than all other types. See
-   :ref:`faq-dev-compare-order-for-BSON-types` for more information on
-   comparison order for BSON types.
+   MaxKey BSON 数据类型的表示比其他所有类型都高。有关 BSON 类型的比较顺序的详细
+   信息, 请参阅 :ref:`faq-dev-compare-order-for-BSON-types` .
 
 NumberLong
 ~~~~~~~~~~
@@ -413,20 +393,18 @@ NumberLong
 
              NumberLong( "<number>" )
 
-   ``NumberLong`` is a 64 bit signed integer. You must include quotation
-   marks or it will be interpreted as a floating point number, resulting
-   in a loss of accuracy.
+   ``NumberLong`` 是64位有符号整数。您必须包含引号, 否则将被解释为浮点数字, 从
+   而导致精度损失。
 
-   For example, the following commands insert ``9223372036854775807`` as a
-   ``NumberLong`` with and without quotation marks around the integer value:
+   例如, 下面的命令将9223372036854775807作为 ``NumberLong`` 插入, 并在整数值
+   两边不加引号:
 
    .. code-block:: sh
 
       db.json.insert( { longQuoted : NumberLong("9223372036854775807") } )
       db.json.insert( { longUnQuoted : NumberLong(9223372036854775807) } )
 
-   When you retrieve the documents, the value of ``longUnquoted`` has
-   changed, while ``longQuoted`` retains its accuracy:
+   当您检索文档时, ``longUnquoted`` 的值已更改, 而 ``longQuoted`` 保留其准确性:
 
    .. code-block:: sh
 
