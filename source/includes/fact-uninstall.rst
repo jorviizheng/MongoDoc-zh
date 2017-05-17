@@ -1,8 +1,6 @@
-To completely remove MongoDB from a system, you must remove the MongoDB
-applications themselves, the configuration files, and any directories containing
-data and logs. The following section guides you through the necessary steps.
+要完全从系统中删除 MongoDB, 必须删除 MongoDB 应用程序本身、配置文件以及包含
+数据和日志的任何目录。以下部分将指导您完成必要的步骤.
 
 .. warning::
-   This process will *completely* remove MongoDB, its configuration, and *all*
-   databases. This process is not reversible, so ensure that all of your
-   configuration and data is backed up before proceeding.
+   此过程将 *完全* 删除 MongoDB、配置和 *所有* 数据库。此过程是不可逆的, 因此
+   请确保在继续之前备份所有的配置和数据.

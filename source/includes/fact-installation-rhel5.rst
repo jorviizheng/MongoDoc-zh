@@ -1,1 +1,1 @@
-MongoDB 3.2 deprecates support for Red Hat Enterprise Linux 5.
+MongoDB 3.2 不赞成支持 Red Hat Enterprise Linux 5.

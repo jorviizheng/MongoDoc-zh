@@ -1,12 +1,12 @@
 file: /administration/install-on-linux
 name: Install on Linux
-description: "Install MongoDB Community Edition and required dependencies on Linux."
+description: "在linux上安装MongoDB社区版和依赖."
 ---
 file: /tutorial/install-mongodb-on-os-x
 name: Install on OS X
-description: "Install MongoDB Community Edition on OS X systems from Homebrew packages or from MongoDB archives."
+description: "从自制软件包或 MongoDB 归档文件安装 MongoDB 社区版."
 ---
 file: /tutorial/install-mongodb-on-windows
 name: Install on Windows
-description: "Install MongoDB Community Edition on Windows systems and optionally start MongoDB as a Windows service."
+description: "在 Windows 系统上安装 MongoDB 社区版, 并可选择启动 MongoDB 作为 Windows 服务。."
 ...

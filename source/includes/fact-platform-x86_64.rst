@@ -4,9 +4,9 @@
    :class: compatibility
 
    * - Platform
-     - 3.4 Community & Enterprise
-     - 3.2 Community & Enterprise
-     - 3.0 Community & Enterprise
+     - 3.4 社区版 & 企业版
+     - 3.2 社区版 & 企业版
+     - 3.0 社区版 & 企业版
    * - Amazon Linux 2013.03 and later
      - |checkmark|
      - |checkmark|
@@ -36,9 +36,9 @@
      -
      -
    * - Solaris 11 64-bit
-     - Community only
-     - Community only
-     - Community only
+     - 仅社区版
+     - 仅社区版
+     - 仅社区版
    * - Ubuntu 12.04
      - |checkmark|
      - |checkmark|

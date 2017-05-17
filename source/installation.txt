@@ -2,7 +2,7 @@
 .. _tutorial-installation:
 
 ===============
-Install MongoDB
+安装 MongoDB
 ===============
 
 .. default-domain:: mongodb
@@ -18,15 +18,14 @@ Install MongoDB
 .. index:: installation guides
 .. index:: installation
 
-This section of the manual contains tutorials on installation of
-MongoDB.
+本部分手册包含关于安装 MongoDB 的教程。
 
-Supported Platforms
+支持的平台
 -------------------
 
 .. versionchanged:: 3.4
 
-   MongoDB no longer supports 32-bit x86 platforms.
+   MongoDB 不再支持32位 x86 平台.
 
 x86_64
 ~~~~~~
@@ -48,15 +47,15 @@ s390x (MongoDB Enterprise Edition)
 
 .. include:: /includes/fact-platform-s390x.rst
 
-Tutorials
+教程
 ---------
 
-MongoDB Community Edition
+MongoDB 社区版
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. include:: /includes/toc/dfn-list-installation-community.rst
 
-MongoDB Enterprise
+MongoDB 企业版
 ~~~~~~~~~~~~~~~~~~
 
 .. include:: /includes/toc/dfn-list-installation-enterprise.rst

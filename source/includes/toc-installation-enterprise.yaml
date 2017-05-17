@@ -1,14 +1,14 @@
 file: /administration/install-enterprise-linux
 name: Install on Linux
 description: |
-  Install the official builds of MongoDB Enterprise on Linux-based systems.
+  在 Linux 系统上安装 MongoDB 企业的正式构建.
 ---
 file: /tutorial/install-mongodb-enterprise-on-os-x
 name: Install on OS X
-description: "Install the official build of MongoDB Enterprise on OS X"
+description: "在 OS X 系统上安装 MongoDB 企业的正式构建."
 ---
 file: /tutorial/install-mongodb-enterprise-on-windows
 name: Install on Windows
 description: |
-  Install MongoDB Enterprise on Windows using the ``.msi`` installer.
+  使用 ``.msi`` 安装程序在 Windows 上安装 MongoDB 企业版.
 ...

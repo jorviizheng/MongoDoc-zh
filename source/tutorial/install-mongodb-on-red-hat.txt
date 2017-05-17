@@ -1,5 +1,5 @@
 =======================================================================
-Red Hat企业版 或 CentOS Linux上安装MongoDB社区版
+在Red Hat企业版 或 CentOS 上安装MongoDB社区版
 =======================================================================
 
 .. default-domain:: mongodb
@@ -10,13 +10,12 @@ Red Hat企业版 或 CentOS Linux上安装MongoDB社区版
    :depth: 1
    :class: twocols
 
-Overview
+概述
 --------
 
-Use this tutorial to install MongoDB Community Edition on Red Hat Enterprise Linux or
-CentOS Linux versions 6 and 7 using ``.rpm`` packages. While Red Hat
-includes its own MongoDB packages, use the official MongoDB Community
-Edition packages to ensure that you have the latest release.
+本教程使用 ``.rpm`` 包在 Red Hat 企业版或 CentOS 6 和 7 上安装 MongoDB 社区
+版。虽然 Red Hat 有自己的 MongoDB 软件包, 使用官方 MongoDB 社区版软件
+包, 以确保您有最新的版本.
 
 .. admonition:: Platform Support
 
@@ -31,7 +30,7 @@ Packages
 
 .. include:: /includes/fact-installation-bind-ip-default-in-config.rst
 
-Install MongoDB Community Edition
+安装 MongoDB 社区版
 ---------------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-org-red-hat.rst
@@ -40,14 +39,14 @@ Install MongoDB Community Edition
 
 .. include:: /includes/steps/install-mongodb-on-red-hat.rst
 
-Run MongoDB Community Edition
+运行 MongoDB 社区版
 -----------------------------
 
 .. include:: /includes/fact-installation-ulimit.rst
 
 .. _install-rhel-configure-selinux:
 
-Configure SELinux
+配置 SELinux
 `````````````````
 
 .. include:: /includes/fact-selinux-redhat-options.rst
@@ -57,19 +56,19 @@ Configure SELinux
 
 .. _install-selinux-data-directory:
 
-Data Directories and Permissions
+数据目录和权限
 ````````````````````````````````
 
 .. include:: /includes/warning-selinux-rhel7.rst
 
 .. include:: /includes/fact-installation-directories.rst
 
-Procedure
+程序
 ~~~~~~~~~
 
 .. include:: /includes/steps/run-mongodb-on-a-linux-distribution.rst
 
-Uninstall MongoDB Community Edition
+卸载 mongodb 社区版
 -----------------------------------
 
 .. include:: /includes/fact-uninstall.rst

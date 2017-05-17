@@ -10,7 +10,7 @@
    :depth: 1
    :class: singlecol
 
-These documents provide instructions to install MongoDB Community Edition.
+这些文档提供了安装 MongoDB 社区版的说明.
 
 .. include:: /includes/toc/dfn-list-installation-community.rst
 

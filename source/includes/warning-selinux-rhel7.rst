@@ -1,5 +1,4 @@
 .. warning::
 
-   On RHEL 7.0, if you change the data path, the *default* SELinux
-   policies will prevent :program:`mongod` from having write access on
-   the new data path if you do not change the security context.
+   在 RHEL 7.0 上, 如果您更改了数据路径, 没有更改安全上下文, *默认的* SELinux 策略将
+   阻止 :program:`mongod` 在新数据路径上具有写权限.

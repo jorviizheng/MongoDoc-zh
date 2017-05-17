@@ -10,33 +10,27 @@
    :depth: 1
    :class: singlecol
 
-These documents provide instructions to install MongoDB Community Edition for
-various Linux systems.
+这些文档提供了为各种 Linux 系统安装 mongodb 社区版的说明.
 
 .. _recommended-linux-install:
 
-Recommended
+建议
 -----------
 
-For the best installation experience, MongoDB provides packages for popular
-Linux distributions. These packages, which support
-specific platforms and provide improved performance and TLS/SSL
-support, are the preferred way to run MongoDB. The following guides
-detail the installation process for these systems:
+为了获得最佳的安装体验, MongoDB 为流行的 Linux 发行版提供软件包。这些
+软件包支持特定的平台并提供改进的性能和 TLS/SSL 支持, 是运行 MongoDB 的首
+选方式。以下指南详细介绍了这些系统的安装过程:
 
 .. include:: /includes/toc/dfn-list-spec-installation-linux-packages.rst
 
-For systems without supported packages, refer to the Manual
-Installation tutorial.
+对于没有支持的软件包的系统, 请参阅手动安装教程.
 
-Manual Installation
+手动安装
 -------------------
 
-For Linux systems without supported packages, MongoDB provides a
-generic Linux release. These versions of MongoDB don't include TLS/SSL,
-and may not perform as well as the targeted packages, but are
-compatible on most contemporary Linux systems. See the
-following guides for installation:
+对于没有支持软件包的 Linux 系统, MongoDB 提供了一个通用的 Linux 发行版。这些
+版本的 MongoDB 不包括 TLS/SSL, 也可能不执行目标软件包, 但在大多数当代 Linux 系统
+中都是兼容的。请参阅以下安装指南:
 
 .. include:: /includes/toc/dfn-list-spec-installation-linux-other.rst
 

@@ -4,7 +4,7 @@
    :class: compatibility
 
    * - Platform
-     - 3.4 Enterprise
+     - 3.4 企业版
    * - RHEL/CentOS 7.1
      - |checkmark|
    * - Ubuntu 16.04

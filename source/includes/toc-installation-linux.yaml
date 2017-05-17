@@ -1,24 +1,24 @@
 file: /tutorial/install-mongodb-on-red-hat
 name: Install on Red Hat
-description: Install MongoDB Community Edition on Red Hat Enterprise and related Linux systems using ``.rpm`` packages.
+description: 使用 ``.rpm`` 包在 Red Hat 企业版和相关的 Linux 系统上安装 MongoDB 社区版.
 ---
 file: /tutorial/install-mongodb-on-suse
 name: Install on SUSE
-description: Install MongoDB Community Edition on SUSE Linux systems using ``.rpm`` packages.
+description: 使用 ``.rpm`` 包在 SUSE Linux 系统上安装 MongoDB 社区版.
 ---
 file: /tutorial/install-mongodb-on-amazon
 name: Install on Amazon
-description: Install MongoDB Community Edition on Amazon Linux AMI systems using ``.rpm`` packages.
+description: 使用 ``.rpm`` 包在 Amazon Linux AMI 系统上安装 MongoDB 社区版.
 ---
 file: /tutorial/install-mongodb-on-ubuntu
 name: Install on Ubuntu
-description: Install MongoDB Community Edition on Ubuntu Linux systems using ``.deb`` packages.
+description: 使用 ``.deb`` 包在 Ubuntu Linux 系统上安装 MongoDB 社区版.
 ---
 file: /tutorial/install-mongodb-on-debian
 name: Install on Debian
-description: Install MongoDB Community Edition on Debian systems using ``.deb`` packages.
+description: 使用 ``.deb`` 包在 Debian 系统上安装 MongoDB 社区版.
 ---
 file: /tutorial/install-mongodb-on-linux
 name: Install From Tarball
-description: Install MongoDB Community Edition on other Linux systems from MongoDB archives.
+description: 从 MongoDB 归档文件在其他 Linux 系统上安装 MongoDB 社区版。.
 ...

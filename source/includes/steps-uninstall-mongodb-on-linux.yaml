@@ -1,33 +1,33 @@
-title: Stop MongoDB.
+title: 停止 MongoDB.
 stepnum: 1
 ref: stop-mongodb
 action:
   pre: |
-    Stop the :program:`mongod` process by issuing the following command:
+    通过以下命令来停止 :program:`mongod` 进程:
   language: sh
   code: |
     {{stop_command}}
 replacement:
   stop_command: "sudo service mongod stop"
 ---
-title: Remove Packages.
+title: 删除软件包.
 stepnum: 2
 ref: remove-packages
 action:
   pre: |
-    Remove any MongoDB packages that you had previously installed.
+    删除先前安装的所有 MongoDB 软件包.
   language: sh
   code: |
     {{command}}
 replacement:
   command: ''
 ---
-title: Remove Data Directories.
+title: 删除数据目录.
 stepnum: 3
 ref: remove-db
 action:
   pre: |
-    Remove MongoDB databases and log files.
+    删除 MongoDB 数据库和日志文件.
   language: sh
   code: |
     sudo rm -r {{log_path}}

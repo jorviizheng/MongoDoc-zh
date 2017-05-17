@@ -6,7 +6,7 @@ append:
   - /applications/aggregation.txt
   - /aggregation.txt
   - /core/aggregation-pipeline.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `MongoDB Analytics: Learn Aggregation by Example: Exploratory Analytics and Visualization Using Flight Data <http://www.mongodb.com/presentations/mongodb-analytics-learn-aggregation-example-exploratory-analytics-and-visualization?jmp=docs>`_
@@ -17,7 +17,7 @@ content: |
 ---
 ref: additional-resources-data-model-design
 append: /core/data-model-design.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `Thinking in Documents Part 1 (Blog Post) <https://www.mongodb.com/blog/post/thinking-documents-part-1?jmp=docs>`_
@@ -28,7 +28,7 @@ content: |
 ---
 ref: additional-resources-sharding-introduction
 append: /sharding.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `Sharding Methods for MongoDB (Presentation) <http://www.mongodb.com/presentations/webinar-sharding-methods-mongodb?jmp=docs>`_
@@ -41,7 +41,7 @@ content: |
 ---
 ref: additional-resources-sql-comparison
 append: /reference/sql-comparison.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `Transitioning from SQL to MongoDB (Presentation) <http://www.mongodb.com/presentations/webinar-transitioning-sql-mongodb?jmp=docs>`_
@@ -55,7 +55,7 @@ content: |
 ---
 ref: additional-resources-sql-agg-comparison
 append: /reference/sql-aggregation-comparison.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `MongoDB and MySQL Compared <https://www.mongodb.com/scale/mongodb-mysql-compared>`_
@@ -64,7 +64,7 @@ content: |
 ---
 ref: additional-resources-gridfs
 append: /core/gridfs.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `Building MongoDB Applications with Binary Files Using GridFS: Part 1 <http://www.mongodb.com/blog/post/building-mongodb-applications-binary-files-using-gridfs-part-1?jmp=docs>`_
@@ -73,21 +73,20 @@ content: |
 ref: additional-resources-installation
 append: /installation.txt
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 content: |
-  - `MongoDB Atlas <https://www.mongodb.com/cloud/atlas?jmp=docs>`_: A cloud-hosted database service for running, monitoring, and maintaining MongoDB deployments.
-  - :mms-docs:`Install MongoDB using MongoDB Cloud Manager </tutorial/getting-started?jmp=docs>`
-  - :opsmgr:`Create a New MongoDB Deployment with Ops Manager
-    </tutorial/nav/management>`: Ops Manager is an on-premise
-    solution available in :products:`MongoDB Enterprise Advanced
-    </mongodb-enterprise-advanced?jmp=docs>`.
+  - `MongoDB Atlas <https://www.mongodb.com/cloud/atlas?jmp=docs>`_: 用于运行、监视和维护 mongodb 部署的云数据库服务。.
+  - :mms-docs:`使用 MongoDB 云管理器安装 MongoDB </tutorial/getting-started?jmp=docs>`
+  - :opsmgr:`使用 Ops Manager 创建新的 MongoDB 部署
+    </tutorial/nav/management>`: Ops Manager 是 :products:`MongoDB Enterprise Advanced
+    </mongodb-enterprise-advanced?jmp=docs>` 中的部署解决方案.
   - :doc:`/crud`
   - :doc:`/data-modeling`
 ---
 ref: additional-resources-security-introduction
 append: /security.txt
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 content: |
   - `Making HIPAA Compliant MongoDB Applications <https://www.mongodb.com/blog/post/making-hipaa-compliant-applications-mongodb?jmp=docs>`_
   - `Security Architecture White Paper <https://www.mongodb.com/lp/white-paper/mongodb-security-architecture?jmp=docs>`_
@@ -96,7 +95,7 @@ content: |
 ref: additional-resources-backup
 append: /core/backups.txt
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 content: |
   - `Backup and it's Role in Disaster Recovery White Paper <https://www.mongodb.com/lp/white-paper/backup-disaster-recovery?jmp=docs>`_
   - `Backup vs. Replication: Why Do You Need Both? <http://www.mongodb.com/blog/post/backup-vs-replication-why-do-you-need-both?jmp=docs>`_
@@ -117,7 +116,7 @@ content: |
 ---
 ref: additional-resources-kerberos
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append:
   - /tutorial/control-access-to-mongodb-with-kerberos-authentication.txt
   - /core/kerberos.txt
@@ -127,7 +126,7 @@ content: |
 ---
 ref: additional-resources-mongodump
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append:
   - /reference/program/mongorestore.txt
   - /tutorial/backup-and-restore-tools.txt
@@ -141,7 +140,7 @@ content: |
 ---
 ref: additional-resources-windows-install
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append: /tutorial/install-mongodb-on-windows.txt
 content: |
   - `MongoDB for Developers Free Course <https://university.mongodb.com/courses/M101P/about?jmp=docs>`_
@@ -150,7 +149,7 @@ content: |
 ---
 ref: additional-resources-scram
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append: /release-notes/3.0-scram.txt
 content: |
   - `Blog Post: Improved Password-Based Authentication in MongoDB 3.0: SCRAM Explained (Part 1) <https://www.mongodb.com/blog/post/improved-password-based-authentication-mongodb-30-scram-explained-part-1?jmp=docs>`_
@@ -158,7 +157,7 @@ content: |
 ---
 ref: additional-resources-release-notes-30
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append: /release-notes/3.0.txt
 content: |
   - `Blog Post: Announcing MongoDB 3.0 <http://www.mongodb.com/blog/post/announcing-mongodb-30?jmp=docs>`_
@@ -167,7 +166,7 @@ content: |
 ---
 ref: additional-resources-add-user-administrator
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append: /tutorial/add-user-administrator.txt
 content: |
   - `Security Architecture White Paper <https://www.mongodb.com/lp/white-paper/mongodb-security-architecture?jmp=docs>`_
@@ -176,7 +175,7 @@ content: |
 ---
 ref: additional-resources-production-notes
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append: /administration/production-notes.txt
 content: |
   - `Blog Post: Capacity Planning and Hardware Provisioning for MongoDB In Ten Minutes <https://www.mongodb.com/blog/post/capacity-planning-and-hardware-provisioning-mongodb-ten-minutes?jmp=docs>`_
@@ -188,7 +187,7 @@ content: |
 ---
 ref: additional-resources-production-checklist
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append: /administration/production-checklist.txt
 content: |
   - `MongoDB Production Readiness Consulting Package <https://www.mongodb.com/products/consulting?jmp=docs#s_product_readiness>`_
@@ -196,14 +195,14 @@ content: |
 ---
 ref: additional-resources-monitoring
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append: /administration/monitoring.txt
 content: |
   - `MongoDB Production Readiness Consulting Package <https://www.mongodb.com/products/consulting?jmp=docs#s_product_readiness>`_
 ---
 ref: additional-resources-replication-introduction
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append: /core/replication-introduction.txt
 content: |
   - `Quick Reference Cards <https://www.mongodb.com/lp/misc/quick-reference-cards?jmp=docs>`_
@@ -211,7 +210,7 @@ content: |
 ---
 ref: additional-resources-quick-reference
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append:
   - /reference/glossary.txt
   - /reference/operator/query.txt
@@ -222,7 +221,7 @@ content: |
 ---
 ref: additional-resources-upgrades
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append:
   - /tutorial/upgrade-revision.txt
   - /release-notes/3.2-upgrade.txt
@@ -232,7 +231,7 @@ content: |
 ---
 ref: additional-resources-optimization
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append:
   - /applications/design-notes.txt
   - /administration/analyzing-mongodb-performance.txt
@@ -241,28 +240,28 @@ content: |
 ---
 ref: additional-resources-data-modeling-introduction
 append: /core/data-modeling-introduction.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `Thinking in Documents Part 1 (Blog Post) <https://www.mongodb.com/blog/post/thinking-documents-part-1?jmp=docs>`_
 ---
 ref: additional-resources-document
 append: /core/document.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `Thinking in Documents Part 1 (Blog Post) <https://www.mongodb.com/blog/post/thinking-documents-part-1?jmp=docs>`_
 ---
 ref: additional-resources-storage
 append: /core/storage.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `Blog Post: New Compression Options in MongoDB 3.0 <https://www.mongodb.com/blog/post/new-compression-options-mongodb-30?jmp=docs>`_
 ---
 ref: additional-resources-storage-engines
 append: /core/storage-engines.txt
-title: "Additional Resources"
+title: "其他资源"
 style: commref
 content: |
   - `Blog Post: Building Applications with MongoDB's Pluggable Storage Engines Part 1 <https://www.mongodb.com/blog/post/building-applications-with-mongodbs-pluggable-storage-engines-part-1?jmp=docs>`_
@@ -272,7 +271,7 @@ content: |
 ---
 ref: additional-resources-performance-eval
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append:
   - /core/write-performance.txt
   - /tutorial/analyze-query-plan.txt
@@ -284,7 +283,7 @@ content: |
 ---
 ref: additional-resources-backup-tutorials
 style: commref
-title: "Additional Resources"
+title: "其他资源"
 append:
   - /tutorial/backup-sharded-cluster-with-filesystem-snapshots.txt
   - /tutorial/backup-sharded-cluster-with-database-dumps.txt

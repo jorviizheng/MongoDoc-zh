@@ -58,17 +58,15 @@ action:
       mongod --dbpath <path to data directory>
 # End-for-getting-started-guide
 ---
-title: Begin using MongoDB.
+title: 开始使用  MongoDB.
 stepnum: 4
 ref: begin-using-mongodb
 content: |
-  To help you start using MongoDB, MongoDB provides :ref:`Getting
-  Started Guides <getting-started>` in various driver editions. See
-  :ref:`getting-started` for the available editions.
+  为了帮助您开始使用 MongoDB, MongoDB 提供了各种驱动程序版本的
+  :ref:`GettingStarted Guides <getting-started>` 。有关可用的
+  版本, 请参阅 :ref:`getting-started`.
 
-  Before deploying MongoDB in a production environment, consider the
-  :doc:`/administration/production-notes` document.
+  在生产环境中部署 MongoDB 之前, 请考虑 :doc:`/administration/production-notes` 文档.
 post: |
-  Later, to stop MongoDB, press ``Control+C`` in the terminal where the
-  :program:`mongod` instance is running.
+  稍后, 要停止 MongoDB, 请在运行 MongoD 实例的终端中按 ``Control+C`` .
 ...

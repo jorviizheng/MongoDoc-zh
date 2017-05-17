@@ -1,18 +1,17 @@
-title: Configure the package management system (``yum``).
+title: 配置软件包管理系统 (``yum``).
 stepnum: 1
 ref: config-yum
 pre: |
-  Create a ``/etc/yum.repos.d/mongodb-org-3.4.repo`` file so that
-  you can install MongoDB directly, using ``yum``.
+  创建 ``/etc/yum.repos.d/mongodb-org-3.4.repo`` 文件以便使用 ``yum`` 直接安装MongoDB.
 
   .. versionchanged:: 3.0
 
      .. include:: /includes/extracts/fact-3.0-linux-package-repo-tutorial.rst
 
 action:
-  - heading: For the *latest* stable release of MongoDB
+  - heading: *最新* 的 MongoDB 稳定版本
     pre: |
-      Use the following repository file:
+      使用以下源文件::
     copyable: true
     language: cfg
     code: |
@@ -22,15 +21,12 @@ action:
       gpgcheck=1
       enabled=1
       gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
-  - heading: For versions of MongoDB *earlier* than 3.0
+  - heading: 对于 *早于* MongoDB 3.0的版本
     pre: |
-      To install the packages from an earlier :ref:`release series
-      <release-version-numbers>`, such as 2.4 or 2.6, you can specify
-      the release series in the repository configuration. For example,
-      to restrict your system to the 2.6 release series, create a
-      ``/etc/yum.repos.d/mongodb-org-2.6.repo`` file to hold the
-      following configuration information for the MongoDB 2.6
-      repository:
+      要从早期版本系列 (如2.4 或 2.6) 的 :ref:`release series <release-version-numbers>`, 您可以
+      在源配置中指定发布系列。例如, 要将系统限制为2.6 版系列, 创建
+      ``/etc/yum.repos.d/mongodb-org-2.6.repo`` 文件保存 MongoDB 2.6 源
+      的配置信息:
     copyable: true
     language: cfg
     code: |
@@ -40,15 +36,14 @@ action:
       gpgcheck=0
       enabled=1
 post: |
-  You can find ``.repo`` files for each release {{distro_link}}.
-  Remember that odd-numbered minor release versions (e.g. 2.5) are development versions and are unsuitable
-  for production use.
+  你可以在 {{distro_link}} 找到每个发布版本的 ``.repo`` 文件。请记住, 奇数的
+  次要发行版本 (例如 2.5) 是开发版本, 不适合于生产使用。
 replacement:
   distro_name: "redhat"
-  distro_link: "`in the repository itself <https://repo.mongodb.org/yum/redhat/>`_"
+  distro_link: "`这里 <https://repo.mongodb.org/yum/redhat/>`_"
   distro_release: "$releasever"
 ---
-title: Install the MongoDB packages and associated tools.
+title: 安装 MongoDB 软件包和相关工具.
 stepnum: 2
 ref: install
 # pre: |
@@ -56,8 +51,7 @@ ref: install
 #   release or a previous one. This step provides the commands for both.
 action:
   - pre: |
-      To install the latest stable version of MongoDB, issue the following
-      command:
+      要安装最新稳定版本的 MongoDB, 请使用以下命令:
     language: sh
     code: |
       sudo yum install -y mongodb-org

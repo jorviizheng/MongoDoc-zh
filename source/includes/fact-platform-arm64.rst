@@ -4,6 +4,6 @@
    :class: compatibility
 
    * - Platform
-     - 3.4 Community & Enterprise
+     - 3.4 社区版 & 企业版
    * - Ubuntu 16.04
      - |checkmark|
