@@ -17,7 +17,7 @@
 版。虽然 Red Hat 有自己的 MongoDB 软件包, 使用官方 MongoDB 社区版软件
 包, 以确保您有最新的版本.
 
-.. admonition:: Platform Support
+.. admonition:: 平台支持
 
    .. include:: /includes/fact-installation-64bit.rst
 

@@ -14,7 +14,7 @@ stepnum: 2
 level: 4
 ref: verify
 pre: |
-  通过检查 ``/var/log/mongodb/mongod.log`` 的日志文件的内容, 可以
+  通过检查日志文件 ``/var/log/mongodb/mongod.log`` 的内容, 可以
   验证 :program:`mongod` 进程是否已成功启动。
 action:
   - language: none
@@ -30,7 +30,7 @@ action:
     code: |
           sudo chkconfig mongod on
 ---
-title: 停止 MongoDB.
+title: 关闭 MongoDB.
 stepnum: 3
 level: 4
 ref: stop-mdb
@@ -47,12 +47,12 @@ level: 4
 ref: restart-mdb
 action:
   pre: |
-    您可以通过发出以下命令重新启动 :program:`mongod` 进程:
+    您可以通过以下命令重新启动 :program:`mongod` 进程:
   language: sh
   code: |
     sudo service mongod restart
 post: |
-  通过监视 ``/var/log/mongodb/mongod.log`` 文件中的输出, 可以跟踪错误或重要消息的进程状态.
+  通过监视文件 ``/var/log/mongodb/mongod.log`` 中的输出, 可以跟踪错误或重要消息的进程状态.
 # End-for-getting-started-guide
 ---
 stepnum: 5

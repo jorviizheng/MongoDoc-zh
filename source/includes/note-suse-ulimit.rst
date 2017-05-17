@@ -1,10 +1,7 @@
 .. note::
 
-   SUSE Linux Enterprise Server and potentially other SUSE distributions ship
-   with virtual memory address space limited to 8 GB by default. You *must*
-   adjust this in order to prevent virtual memory allocation failures as the
-   database grows.
+   suse linux 企业服务器和潜在的其他 suse 发行版默认将虚拟内存地址空间限制
+   为 8 GB 。 *必须* 对此进行调整, 以便在数据库增长时防止虚拟内存分配失败.
 
-   The SLES packages for MongoDB adjust these limits in the default scripts,
-   but you will need to make this change manually if you are using custom
-   scripts and/or the tarball release rather than the SLES packages.
+   MongoDB 的 SLES 软件包在默认脚本中调整这些限制, 但如果使用自定义脚本或压缩包
+   版本而不是 SLES 软件包, 则需要手动进行此更改.

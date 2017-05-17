@@ -17,11 +17,10 @@ Amazon Linux上安装MongoDB社区版
    hosted MongoDB service on AWS, for launching, running, and
    maintaining MongoDB clusters.
 
-Overview
+概述
 --------
 
-Use this tutorial to install MongoDB Community Edition on Amazon Linux from
-``.rpm`` packages.
+本教程使用 ``.rpm`` 在 Amazon Linux 上安装 MongoDB 社区版.
 
 .. include:: /includes/fact-installation-64bit.rst
 
@@ -32,7 +31,7 @@ Packages
 
 .. include:: /includes/fact-installation-bind-ip-default-in-config.rst
 
-Install MongoDB Community Edition
+安装 MongoDB 社区版
 ---------------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-org-amazon.rst
@@ -41,7 +40,7 @@ Install MongoDB Community Edition
 
 .. include:: /includes/steps/install-mongodb-on-amazon.rst
 
-Run MongoDB Community Edition
+运行 MongoDB 社区版
 -----------------------------
 
 .. include:: /includes/fact-installation-ulimit.rst
@@ -53,7 +52,7 @@ Run MongoDB Community Edition
 
 .. include:: /includes/steps/run-mongodb-on-a-linux-distribution.rst
 
-Uninstall MongoDB Community Edition
+卸载 mongodb 社区版
 -----------------------------------
 
 .. include:: /includes/fact-uninstall.rst

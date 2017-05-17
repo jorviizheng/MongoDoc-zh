@@ -10,13 +10,12 @@ SUSE上安装MongoDB社区版
    :depth: 1
    :class: twocols
 
-Overview
+概述
 --------
 
-Use this tutorial to install MongoDB Community Edition on SUSE Linux 11
-and 12 using ``.rpm`` packages. While SUSE includes its own MongoDB
-packages, use the official MongoDB Community Edition packages to ensure
-that you have the latest release.
+本教程使用 ``.rpm`` 包在 SUSE 11 或 12 上安装 MongoDB 社区
+版。虽然 SUSE 有自己的 MongoDB 软件包, 使用官方 MongoDB 社区版软件
+包, 以确保您有最新的版本.
 
 .. admonition:: Platform Support
 
@@ -27,14 +26,14 @@ Packages
 
 .. include:: /includes/list-mongodb-org-packages.rst
 
-These packages conflict with the  ``mongodb``, ``mongodb-server``, and
-``mongodb-clients`` packages provided by Ubuntu.
+这些软件包与 Ubuntu 提供的 ``mongodb`` 、``mongodb-server`` 和 ``mongodb-clients`` 软
+件包有冲突.
 
 .. include:: /includes/fact-installation-bind-ip-default-in-config.rst
 
 .. include:: /includes/note-suse-ulimit.rst
 
-Install MongoDB Community Edition
+安装 MongoDB 社区版
 ---------------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-org-suse.rst
@@ -43,7 +42,7 @@ Install MongoDB Community Edition
 
 .. include:: /includes/steps/install-mongodb-on-suse.rst
 
-Run MongoDB Community Edition
+运行 MongoDB 社区版
 -----------------------------
 
 .. include:: /includes/fact-installation-ulimit.rst
@@ -53,12 +52,12 @@ Run MongoDB Community Edition
 
 .. include:: /includes/fact-installation-directories.rst
 
-Procedure
+程序
 ~~~~~~~~~
 
 .. include:: /includes/steps/run-mongodb-on-a-linux-distribution.rst
 
-Uninstall MongoDB Community Edition
+卸载 mongodb 社区版
 -----------------------------------
 
 .. include:: /includes/fact-uninstall.rst

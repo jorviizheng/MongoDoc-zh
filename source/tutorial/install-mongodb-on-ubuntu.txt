@@ -10,14 +10,14 @@ Ubuntu上安装MongoDB社区版
    :depth: 1
    :class: twocols
 
-Overview
+概述
 --------
 
-Use this tutorial to install MongoDB Community Edition on LTS Ubuntu Linux systems from
-``.deb`` packages. While Ubuntu includes its own MongoDB packages, the official
-MongoDB Community Edition packages are generally more up-to-date.
+本教程使用 ``.deb`` 包在 LTS Ubuntu Linux 上安装 MongoDB 社区
+版. 虽然 Ubuntu 包括自己的 MongoDB 软件包, 但官方 MongoDB 社区
+版软件包通常是最新的.
 
-.. admonition:: Platform Support
+.. admonition:: 平台支持
 
    .. include:: /includes/fact-ubuntu-lts-support.rst
 
@@ -28,12 +28,11 @@ Packages
 
 .. include:: /includes/list-mongodb-org-packages.rst
 
-These packages conflict with the  ``mongodb``, ``mongodb-server``, and
-``mongodb-clients`` packages provided by Ubuntu.
+这些软件包与 Ubuntu 提供的 ``mongodb`` 、 ``mongodb-server`` 和 ``mongodb-clients`` 软件包有冲突。
 
 .. include:: /includes/fact-installation-bind-ip-default-in-config.rst
 
-Install MongoDB Community Edition
+安装 MongoDB 社区版
 ---------------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-org-ubuntu.rst
@@ -42,7 +41,7 @@ Install MongoDB Community Edition
 
 .. include:: /includes/steps/install-mongodb-on-ubuntu.rst
 
-Run MongoDB Community Edition
+运行 MongoDB 社区版
 -----------------------------
 
 .. include:: /includes/fact-installation-ulimit.rst
@@ -54,7 +53,7 @@ Run MongoDB Community Edition
 
 .. include:: /includes/steps/run-mongodb-on-debian.rst
 
-Uninstall MongoDB Community Edition
+卸载 mongodb 社区版
 -----------------------------------
 
 .. include:: /includes/fact-uninstall.rst

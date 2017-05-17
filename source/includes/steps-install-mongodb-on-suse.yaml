@@ -1,4 +1,4 @@
-title: Import the MongoDB public key
+title: 导入 MongoDB 公钥
 stepnum: 1
 ref: import-key
 action:
@@ -6,20 +6,20 @@ action:
     code: |
       sudo rpm --import https://www.mongodb.org/static/pgp/server-3.4.asc
 ---
-title: Configure the package management system (``zypper``).
+title: 配置软件包管理系统 (``zypper``).
 stepnum: 2
 ref: config-zypper
 pre: |
-  Add the repository so that you can install MongoDB using ``zypper``.
+  添加存储库以便您可以使用 ``zypper`` 安装 MongoDB.
 
   .. versionchanged:: 3.0
 
      .. include:: /includes/extracts/fact-3.0-linux-package-repo-tutorial.rst
 
 action:
-  - heading: For the *latest* stable release of MongoDB
+  - heading: MongoDB *最新* 的稳定版本
     pre: |
-      Run the command appropriate for your version of SUSE:
+      运行适合您的 SUSE 版本的命令:
 
       SUSE 11
         .. class:: copyable-code
@@ -33,20 +33,18 @@ action:
 
            sudo zypper addrepo --gpgcheck "https://repo.mongodb.org/zypper/suse/12/mongodb-org/3.4/x86_64/" mongodb
 
-  - heading: For versions of MongoDB *earlier* than 3.4
+  - heading: 对于 MongoDB 3.4 *之前* 的版本
     pre: |
-      To install MongoDB packages from a previous :ref:`release
-      series <release-version-numbers>`, such as 3.0, you can
-      specify the release series in the repository configuration.
+      要从上一个 :ref:`版本系列 <release-version-numbers>` (如 3.0) 安
+      装 MongoDB 软件包, 您可以在存储库配置中指定发布系列.
 
-      For example, to restrict your SUSE 11 system to the 3.0 release
-      series, use the following command:
+      例如, 要在 SUSE 11 系统安装3.0 版系列, 请使用以下命令:
     copyable: true
     language: sh
     code: |
       sudo zypper addrepo --no-gpgcheck https://repo.mongodb.org/zypper/suse/11/mongodb-org/3.0/x86_64/ mongodb
 ---
-title: Install the MongoDB packages and associated tools.
+title: 安装 MongoDB 软件包和相关工具.
 stepnum: 3
 ref: install
 # pre: |
@@ -54,8 +52,7 @@ ref: install
 #   release or a previous one. This step provides the commands for both.
 action:
   - pre: |
-      To install the latest stable version of MongoDB, issue the following
-      command:
+      要安装最新稳定版本的 MongoDB, 请使用以下命令:
     language: sh
     code: |
       sudo zypper -n install mongodb-org
@@ -73,7 +70,5 @@ action:
 
   #     .. include:: /includes/release/pin-repo-suse-lock.rst
 post: |
-  Previous versions of MongoDB packages use a different repository location.
-  Refer to the version of the documentation appropriate for
-  your MongoDB version.
+  以前版本的 MongoDB 软件包使用不同的存储库位置。参考适合您的 mongodb 版本的文档.
 ...

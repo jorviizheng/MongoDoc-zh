@@ -1,24 +1,22 @@
-title: Import the public key used by the package management system.
+title: 导入软件包管理系统使用的公钥.
 stepnum: 1
 ref: import-key
 action:
   pre: |
-    The Ubuntu package management tools (i.e. ``dpkg`` and ``apt``) ensure
-    package consistency and authenticity by requiring that distributors
-    sign packages with GPG keys. Issue the following command to import the
-    `MongoDB public GPG Key <https://www.mongodb.org/static/pgp/server-3.4.asc>`_:
+    ubuntu 软件包管理工具 (即 ``dpkg`` 和 ``apt`` ) 通过要求开发者使用 GPG 密钥对
+    软件包进行签名, 从而确保软件包的一致性和真实性。使用以下命令以
+    导入 `MongoDB public GPG Key <https://www.mongodb.org/static/pgp/server-3.4.asc>`_:
   copyable: true
   language: sh
   code: |
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
 ---
-title: Create a list file for MongoDB.
+title: 为 MongoDB 创建列表文件.
 stepnum: 2
 ref: sources-list
 action:
   pre: |
-    Create the ``/etc/apt/sources.list.d/mongodb-org-3.4.list`` list file using
-    the command appropriate for your version of Ubuntu:
+    使用适合您的 Ubuntu 版本的命令创建 ``/etc/apt/sources.list.d/mongodb-org-3.4.list`` 列表文件:
 
     Ubuntu 12.04
       .. class:: copyable-code
@@ -38,17 +36,17 @@ action:
 
          echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
 ---
-title: Reload local package database.
+title: 重新加载本地软件包数据库.
 stepnum: 3
 ref: reload
 action:
   pre: |
-    Issue the following command to reload the local package database:
+    使用以下命令重新加载本地包数据库:
   language: sh
   code: |
     sudo apt-get update
 ---
-title: Install the MongoDB packages.
+title: 安装 MongoDB 软件包.
 stepnum: 4
 ref: install
 # pre: |
@@ -56,9 +54,9 @@ ref: install
 #   specific version of MongoDB.
 action:
   - heading:
-      text: Install the latest stable version of MongoDB.
+      text: 安装最新稳定版本的 MongoDB.
       character: "'"
-    pre: "Issue the following command:"
+    pre: "使用以下命令:"
     language: sh
     code: |
       sudo apt-get install -y mongodb-org
