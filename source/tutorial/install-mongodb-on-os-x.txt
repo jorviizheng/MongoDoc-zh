@@ -10,43 +10,40 @@ OS X上安装MongoDB社区版
    :depth: 1
    :class: singlecol
 
-Overview
+概述
 --------
 
-Use this tutorial to install MongoDB Community Edition on OS X systems.
+使用本教程可以在 OS X 系统上安装 MongoDB 社区版。
 
-.. admonition:: Platform Support
+.. admonition:: 平台支持
 
-   Starting in version 3.0, MongoDB only supports OS X versions 10.7 (Lion)
-   and later on Intel x86-64.
+   从版本3.0 开始, MongoDB 只支持 OS X 版本 10.7 (Lion) 和之后的基于英特尔 x86-64的系统.
 
-You may download MongoDB Community Edition through either the `MongoDB
-Download site <https://www.mongodb.com/download-center>`_ or the
-popular OS X package manager `Homebrew <http://brew.sh/>`_.
+您可以通过 `MongoDB下载中心 <https://www.mongodb.com/download-center>`_ 或
+流行的 os x 软件包管理器`Homebrew <http://brew.sh/>`_ 下载 MongoDB 社区版。
 
-Install MongoDB Community Edition
+安装 MongoDB 社区版
 ---------------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-org-osx.rst
 
-Install MongoDB Community Edition Manually
+手动安装 MongoDB 社区版
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. include:: /includes/steps/install-mongodb-on-osx-manually.rst
 
 .. _install-with-homebrew:
 
-Install MongoDB Community Edition with Homebrew
+使用 Homebrew 安装 MongoDB 社区版
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Homebrew <http://brew.sh/>`_ installs binary packages based on published
-"formulae." This section describes how to update ``brew`` to the latest
-packages and install MongoDB Community Edition. Homebrew requires some initial
-setup and configuration, which is beyond the scope of this document.
+`Homebrew <http://brew.sh/>`_ 安装基于已发布的 "formulae" 的二进制软件包。本
+节介绍如何更新 ``brew`` 到最新的软件包并安装 MongoDB 社区版。Homebrew 需要一些
+初始设置和配置, 这超出了本文档的范围。
 
 .. include:: /includes/steps/install-mongodb-on-osx-with-homebrew.rst
 
-Run MongoDB
+运行 MongoDB
 -----------
 
 .. include:: /includes/steps/run-mongodb-on-linux.rst

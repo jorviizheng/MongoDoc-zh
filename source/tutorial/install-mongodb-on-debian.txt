@@ -10,40 +10,37 @@ Debian上安装MongoDB社区版
    :depth: 1
    :class: twocols
 
-Overview
+概述
 --------
 
-Use this tutorial to install MongoDB Community Edition from ``.deb`` packages on
-Debian 7 "Wheezy" or Debian 8 "Jessie". While Debian includes its own
-MongoDB packages, use the official MongoDB Community Edition packages to
-ensure that you have the latest release.
+本教程使用 ``.deb`` 包在 Debian 7 "Wheezy" 或 Debian 8 "Jessie" 上安装 MongoDB 社区
+版. 虽然 Debian 包括自己的 MongoDB 软件包, 但官方 MongoDB 社区
+版软件包通常是最新的.
 
-MongoDB only provides packages for 64-bit builds of Debian 7 and 8.
+MongoDB 只提供 Debian 7 和 8 的64位版本的软件包.
 
 Packages
 --------
 
 .. include:: /includes/list-mongodb-org-packages.rst
 
-These packages conflict with the  ``mongodb``, ``mongodb-server``, and
-``mongodb-clients`` packages provided by Debian.
+这些软件包与 Debian 提供的 ``mongodb`` 、 ``mongodb-server`` 和 ``mongodb-clients`` 软件包有冲突.
 
 .. include:: /includes/fact-installation-bind-ip-default-in-config.rst
 
-Install MongoDB Community Edition
+安装 MongoDB 社区版
 ---------------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-org-debian.rst
 
 .. include:: /includes/fact-installation-64bit.rst
 
-The Debian package management tools (i.e. ``dpkg`` and ``apt``) ensure
-package consistency and authenticity by requiring that distributors
-sign packages with GPG keys.
+Debian 软件包管理工具 (即 ``dpkg`` 和 ``apt`` ) 通过要求开发者使用 GPG 密钥对软件
+包进行签名, 从而确保软件包的一致性和真实性.
 
 .. include:: /includes/steps/install-mongodb-on-debian.rst
 
-Run MongoDB Community Edition
+运行 MongoDB 社区版
 -----------------------------
 
 .. include:: /includes/fact-installation-ulimit.rst
@@ -55,7 +52,7 @@ Run MongoDB Community Edition
 
 .. include:: /includes/steps/run-mongodb-on-debian.rst
 
-Uninstall MongoDB Community Edition
+卸载 mongodb 社区版
 -----------------------------------
 
 .. include:: /includes/fact-uninstall.rst

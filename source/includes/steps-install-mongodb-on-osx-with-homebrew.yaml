@@ -1,40 +1,36 @@
-title: Update Homebrew's package database.
+title: 更新 Homebrew 的软件包数据库.
 stepnum: 1
 level: 4
 ref: update-brew
 action:
   pre: |
-    In a system shell, issue the following command:
+    在系统 shell 中, 发出以下命令:
   language: sh
   code: |
     brew update
 ---
-title: Install MongoDB.
+title: 安装 MongoDB.
 stepnum: 2
 level: 4
 ref: install
 pre: |
-  You can install MongoDB via ``brew`` with several different options. Use
-  one of the following operations:
+  您可以安装 MongoDB 通过 ``brew`` 的几个不同的选项。使用下列操作之一:
 action:
-  - heading: Install the MongoDB Binaries
+  - heading: 安装 MongoDB 二进制文件
     pre: |
-      To install the MongoDB binaries, issue the following command in a
-      system shell:
+      要安装 MongoDB 二进制文件, 请在系统 shell 中发出以下命令:
     language: sh
     code: |
       brew install mongodb
-  - heading: Install the MongoDB Binaries with TLS/SSL Support
+  - heading: 安装带 TLS/SSL 支持的 MongoDB 二进制文件
     pre: |
-      To install the MongoDB binaries that have TLS/SSL support,
-      issue the following from a system shell:
+      要安装具有 TLS/SSL 支持的 MongoDB 二进制文件, 请在系统 shell 发出以下命令:
     language: sh
     code: |
       brew install mongodb --with-openssl
-  - heading: Install the Latest Development Release of MongoDB
+  - heading: 安装 MongoDB 的最新开发版本
     pre: |
-      To install the latest development release for use in testing and
-      development, issue the following command in a system shell:
+      要安装用于测试和开发的最新开发版本, 请在系统 shell 中发出以下命令:
     language: sh
     code: |
      brew install mongodb --devel

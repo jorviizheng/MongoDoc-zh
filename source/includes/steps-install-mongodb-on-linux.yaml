@@ -1,41 +1,38 @@
 # This is a parent procedure that provides steps for other procedures to inherit.
 # This procedure is NOT intended for direct inclusion in a tutorial.
-title: Download the binary files for the desired release of MongoDB.
+title: 下载所需的 MongoDB 版本的二进制文件.
 stepnum: 1
 ref: download
 pre: |
-  Download the binaries from ``https://www.mongodb.com/download-center``.
+  从 ``https://www.mongodb.com/download-center`` 下载二进制文件.
 ---
 # When borrowing this step, you must include an action with a command.
-title: Extract the files from the downloaded archive.
+title: 从下载的存档中解压文件.
 stepnum: 2
 ref: extract
 pre: |
-  For example, from a system shell, you can extract through the ``tar`` command:
+  例如, 从系统 shell 程序中, 可以通过 ``tar`` 命令提取::
 ---
-title: Copy the extracted archive to the target directory.
+title: 将解压的归档文件复制到目标目录.
 stepnum: 3
 ref: copy-archive
 pre: |
-  Copy the extracted folder to the location from which MongoDB will run.
+  将解压的文件夹复制到 MongoDB 运行的位置.
 ---
-title: Ensure the location of the binaries is in the ``PATH`` variable.
+title: 确保二进制文件的位置在 ``PATH`` 变量中.
 stepnum: 4
 ref: ensure-binaries-in-path
 pre: |
-  The MongoDB binaries are in the ``bin/`` directory of the archive. To
-  ensure that the binaries are in your ``PATH``, you can modify your
-  ``PATH``.
+  MongoDB 二进制文件位于归档文件的 ``bin/`` 目录中。要确保二进制文件在您
+  的 ``PATH`` 中, 您可以修改您的 ``PATH`` .
 action:
   language: sh
   pre: |
-    For example, you can add the following line to your shell's
-    ``rc`` file (e.g. {{bashrc}}):
+    例如, 您可以将下面一行添加到 shell 的 ``rc`` 文件 (例如 {{bashrc}} ):
   code: |
     export PATH=<mongodb-install-directory>/bin:$PATH
   post: |
-    Replace ``<mongodb-install-directory>`` with the path to the extracted
-    MongoDB archive.
+    将 ``<mongodb-install-directory>`` 替换为提取的 MongoDB 归档文件的路径.
 replacement:
   bashrc: "``~/.bashrc``"
 ...

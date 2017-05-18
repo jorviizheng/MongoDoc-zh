@@ -11,32 +11,29 @@
    :class: singlecol
 
 
-Overview
+概述
 --------
 
-Compiled versions of MongoDB Community Edition for Linux provide a simple
-option for installing MongoDB Community Edition for other Linux systems without
-supported packages.
+编译的 MongoDB 社区版为 Linux 提供了一个简单的选项在其他没有支持的软件包的 Linux 系统
+上安装 MongoDB 社区版.
 
 .. note::
-   Do not use this installation method unless you have a specific need
-   that the available :ref:`Linux Packages <recommended-linux-install>`
-   do not address.
+   不要使用此安装方法, 除非您有特定的需要, 而可用的
+   :ref:`Linux Packages <recommended-linux-install>` 无法解决。
 
-Install MongoDB Community Edition
+安装 MongoDB 社区版
 ---------------------------------
 
-MongoDB only provides archives for 64-bit builds of Linux. Follow the
-installation procedure appropriate for your system.
+MongoDB 只为64位版本的 Linux 提供归档文件。使用适合您的系统的安装方法.
 
 .. include:: /includes/extracts/install-past-mongodb-org-tarball.rst
 
-Install for 64-bit Linux
+在 64 位 Linux 上安装
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. include:: /includes/steps/install-mongodb-on-linux-64.rst
 
-Run MongoDB Community Edition
+运行 MongoDB 社区版
 -----------------------------
 
 .. include:: /includes/fact-installation-ulimit.rst
