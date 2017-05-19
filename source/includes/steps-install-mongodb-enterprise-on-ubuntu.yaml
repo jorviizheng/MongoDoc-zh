@@ -4,13 +4,12 @@ source:
   file: steps-install-mongodb-on-ubuntu.yaml
   ref: import-key
 ---
-title: Create a ``/etc/apt/sources.list.d/mongodb-enterprise.list`` file for MongoDB.
+title: 创建 ``/etc/apt/sources.list.d/mongodb-enterprise.list`` 文件.
 stepnum: 2
 ref: sources-list
 action:
   - pre: |
-      Create the list file using the command appropriate for your version of
-      Ubuntu:
+      使用适合您的 Ubuntu 版本的命令创建列表文件:
 
       Ubuntu 12.04
 
@@ -34,11 +33,9 @@ action:
          echo "deb [ arch=amd64,arm64,ppc64el,s390x ] http://repo.mongodb.com/apt/ubuntu xenial/mongodb-enterprise/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-enterprise.list
 
   - pre: |
-      If you'd like to install MongoDB Enterprise packages from a
-      particular :ref:`release series <release-version-numbers>`, such as
-      2.4 or 2.6, you can specify the release series in the repository
-      configuration. For example, to restrict your system to the 2.6
-      release series, add the following repository:
+      如果要从特定的 :ref:`发行系列 <release-version-numbers>` (如2.4 或 2.6) 安
+      装 MongoDB 的企业版软件包, 可以在存储库配置中指定发布系列。例如, 要
+      安装2.6 发布系列, 请添加以下存储库:
     copyable: true
     language: sh
     code: |
@@ -57,9 +54,9 @@ ref: install
 #   specific version of MongoDB.
 action:
   - heading:
-      text: Install the latest stable version of MongoDB Enterprise.
+      text: 安装最新稳定的 mongodb 企业版.
       character: "'"
-    pre: "Issue the following command:"
+    pre: "使用以下命令:"
     language: sh
     code: |
       sudo apt-get install -y mongodb-enterprise
@@ -87,7 +84,6 @@ action:
   #     echo "mongodb-enterprise-mongos hold" | sudo dpkg --set-selections
   #     echo "mongodb-enterprise-tools hold" | sudo dpkg --set-selections
 post: |
-  Versions of the MongoDB packages before 2.6 use a different repository
-  location. Refer to the version of the documentation appropriate for
-  your MongoDB version.
+  2.6 之前的 MongoDB 软件包版本使用不同的存储库位置。请参考适合您的 MongoDB 版本
+  的文档。
 ...

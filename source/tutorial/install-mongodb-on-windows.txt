@@ -10,81 +10,72 @@ Windows上安装MongoDB社区版
    :depth: 1
    :class: singlecol
 
-Overview
+概述
 --------
 
-Use this tutorial to install MongoDB Community Edition on Windows systems.
+使用本教程在 windows 系统上安装 MongoDB 社区版。
 
-.. admonition:: Platform Support
+.. admonition:: 平台支持
 
-   Starting in version 2.2, MongoDB does not support Windows XP. Please
-   use a more recent version of Windows to use more recent releases of
-   MongoDB.
+   从版本2.2 开始, MongoDB 不支持 Windows XP。请使用较新版本的 Windows 来使用最新的 MongoDB.
 
-.. important:: If you are running any edition of Windows Server 2008
-   R2 or Windows 7, please install `a hotfix to resolve an issue with
-   memory mapped files on Windows <http://support.microsoft.com/kb/2731284>`_.
+.. important:: 如果您正在运行任何版本的 Windows Server 2008 R2 或 Windows 7, 请
+   安装 `一个修复程序以解决 Windows 上的内存映射文件问题 <http://support.microsoft.com/kb/2731284>`_.
 
-Requirements
+要求
 ------------
 
-MongoDB Community Edition requires Windows Server 2008 R2, Windows Vista, or
-later. The ``.msi`` installer includes all other software dependencies
-and will automatically upgrade any older version of MongoDB installed
-using an ``.msi`` file.
+MongoDB 社区版要求 Windows Server 2008 R2、Windows Vista 或更高版本。 ``.msi`` 安装
+程序包括所有其他软件依赖项, 并将使用 ``.msi`` 文件自动升级任何旧版本的 MongoDB.
 
-Get MongoDB Community Edition
+获取 mongodb 社区版
 -----------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-org-windows.rst
 
 .. include:: /includes/steps/get-mongodb-for-windows.rst
 
-Install MongoDB Community Edition
+安装 MongoDB 社区版
 ---------------------------------
 
-Interactive Installation
+交互式安装
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. include:: /includes/steps/install-mongodb-on-windows.rst
 
-Unattended Installation
+无人值守安装
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-You may install MongoDB Community unattended on Windows from the command line
-using ``msiexec.exe``.
+您可以使用 ``msiexec.exe`` 从命令行无人值守的安装 mongodb 社区版。
 
 .. include:: /includes/steps/install-mongodb-on-windows-unattended.rst
 
-Run MongoDB Community Edition
+运行 MongoDB 社区版
 -----------------------------
 
 .. warning::
 
-   Do not make :program:`mongod.exe` visible on public networks without
-   running in "Secure Mode" with the :setting:`auth` setting. MongoDB is
-   designed to be run in trusted environments, and the database does not
-   enable "Secure Mode" by default.
+   在没有开启 "Secure Mode" 和 :setting:`auth` 设置时, 不要使mongod.exe 在
+   公用网络上可见。MongoDB 设计为在受信任的环境中运行, 并且默认情况下数据库
+   不启用 "Secure Mode" 。
 
 .. include:: /includes/steps/run-mongodb-on-windows.rst
 
 .. _manually-create-windows-service:
 
-Configure a Windows Service for MongoDB Community Edition
+把 MongoDB 社区版配置成 Windows 服务
 ---------------------------------------------------------
 
 .. include:: /includes/steps/configure-windows-service-for-mongodb.rst
 
-Manually Create a Windows Service for MongoDB Community Edition
+为 mongodb 社区版手动创建 windows 服务
 ---------------------------------------------------------------
 
-You can set up the MongoDB server as a :guilabel:`Windows Service` that
-starts automatically at boot time.
+您可以将 MongoDB 服务器设置为在启动时自动启动的 :guilabel:`Windows Service` .
 
-The following procedure assumes you have installed MongoDB Community using the
-``.msi`` installer with the path ``C:\Program Files\MongoDB\Server\3.2\``.
+下面的过程假定您已使用 ``.msi`` 安装程序在
+``C:\Program Files\MongoDB\Server\3.2\`` 安装了 mongodb 社区版。
 
-If you have installed in an alternative directory, you will need to
-adjust the paths as appropriate.
+如果您已在其他目录中安装, 则需要调整相应的路径。
 
 .. include:: /includes/steps/create-manually-windows-service-for-mongodb.rst

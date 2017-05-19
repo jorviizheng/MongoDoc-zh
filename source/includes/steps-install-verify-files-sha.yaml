@@ -1,18 +1,16 @@
-title: Download the MongoDB installation file.
+title: 下载 MongoDB 安装文件 .
 stepnum: 1
 ref: download-install-file
 pre: |
-   Download the binaries from ``https://www.mongodb.org/downloads``
-   based on your environment.
+   根据您的环境从 ``https://www.mongodb.org/downloads`` 下载二进制文件.
 
-   For example, to download the ``3.0.5`` release for OS X through the
-   shell, type this command:
+   例如, 要通过 shell 下载 OS X 的 ``3.0.5`` 版本, 请运行以下命令:
 action:
   language: sh
   code: |
     curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.0.5.tgz
 ---
-title: Download the SHA256 file.
+title: 下载 SHA256 文件.
 stepnum: 2
 ref: download-sha-file
 action:
@@ -20,18 +18,17 @@ action:
   code: |
     curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.0.5.tgz.sha256
 ---
-title: Use the SHA-256 checksum to verify the MongoDB package file.
+title: 使用 SHA-256 验证 MongoDB 包文件.
 stepnum: 3
 ref: verify-install-file-sha256
 action:
   - pre: |
-      Compute the checksum of the package file:
+      计算包文件的校验和:
     language: sh
     code: |
       shasum -c mongodb-osx-x86_64-3.0.5.tgz.sha256
   - pre: |
-      which should return the following if the checksum matched the downloaded
-      package:
+      如果校验和与下载的包匹配, 则应返回以下内容:
     language: sh
     code: |
       mongodb-osx-x86_64-3.0.5.tgz: OK

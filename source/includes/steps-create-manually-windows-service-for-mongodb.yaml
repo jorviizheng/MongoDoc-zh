@@ -1,37 +1,36 @@
 title:
-  text: Open an Administrator command prompt.
+  text: 打开管理员命令提示符.
   character: "~"
 stepnum: 1
 ref: open-command-prompt
 pre: |
-  Press the ``Win`` key, type ``cmd.exe``, and press ``Ctrl + Shift + Enter``
-  to run the :guilabel:`Command Prompt` as Administrator.
+  按 ``Win`` 键, 键入 ``cmd.exe`` , 然后按 ``Ctrl + Shift + Enter`` 以管理员
+  身份运行 :guilabel:`Command Prompt` .
 post: |
-  Execute the remaining steps from the Administrator command prompt.
+  从管理员命令提示符执行其余步骤.
 ---
-title: Create directories.
+title: 创建目录.
 stepnum: 2
 ref: create-directories
 pre: |
-  Create directories for your database and log files:
+  为数据库和日志文件创建目录:
 action:
   language: powershell
   code: |
     mkdir c:\data\db
     mkdir c:\data\log
 ---
-title: Create a configuration file.
+title: 创建配置文件.
 stepnum: 3
 ref: create-configuration-file
 pre: |
-  Create a configuration file. The file **must** set :setting:`systemLog.path`.
-  Include additional
-  :doc:`configuration options </reference/configuration-options>` as appropriate.
+  创建配置文件。文件 **必须** 设置 :setting:`systemLog.path` 。酌情
+  包括其他 :doc:`配置选项 </reference/configuration-options>` 。
 # don't wrap the text above to avoid breaking something in primer
 action:
   pre: |
-    For example, create a file at ``C:\Program Files\MongoDB\Server\3.4\mongod.cfg`` that specifies both
-    :setting:`systemLog.path` and :setting:`storage.dbPath`:
+    创建一个包含 :setting:`systemLog.path` 和 :setting:`storage.dbPath` 的
+    文件 ``C:\Program Files\MongoDB\Server\3.4\mongod.cfg`` :
   language: yaml
   code: |
     systemLog:
@@ -40,23 +39,25 @@ action:
     storage:
         dbPath: c:\data\db
 ---
-title: Create the MongoDB service.
+title: 创建 MongoDB 服务.
 stepnum: 4
 ref: create-mongodb-service
 action:
-  - pre: "Create the MongoDB service."
+  - pre: "创建 MongoDB 服务."
     language: powershell
     code: |
       sc.exe create MongoDB binPath= "\"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe\" --service --config=\"C:\Program Files\MongoDB\Server\3.4\mongod.cfg\"" DisplayName= "MongoDB" start= "auto"
     post: |
-      ``sc.exe`` requires a space between "=" and the configuration values
+      ``sc.exe`` 命令的各个参数的 "=" 后面都要有一个空格, 双引号
+      要用 "\\" 转义.
+      requires a space between "=" and the configuration values
       (eg "binPath= "), and a "\\" to escape double quotes.
-  - pre: "If successfully created, the following log message will display:"
+  - pre: "如果成功创建, 将显示以下日志消息::"
     language: powershell
     code: |
       [SC] CreateService SUCCESS
 ---
-title: Start the MongoDB service.
+title: 启动 mongodb 服务.
 stepnum: 5
 ref: start-mongodb-service
 action:
@@ -64,17 +65,16 @@ action:
   code: |
     net start MongoDB
 ---
-title: Stop or remove the MongoDB service as needed.
+title: 根据需要停止或删除 MongoDB 服务.
 stepnum: 6
 ref: stop-mongodb-service
 action:
-  - pre: "To stop the MongoDB service, use the following command:"
+  - pre: "要停止 mongodb 服务, 请使用以下命令:"
     language: powershell
     code: |
       net stop MongoDB
   - pre: |
-      To remove the MongoDB service, first stop the service and then
-      run the following command:
+      要删除 MongoDB 服务, 请使用以下命令:
     language: powershell
     code: |
       sc.exe delete MongoDB

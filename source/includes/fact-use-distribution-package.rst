@@ -1,3 +1,2 @@
-Use the provided distribution packages as described in this page if possible.
-These packages will automatically install all of MongoDB's dependencies, and are
-the recommended installation method.
+如有可能, 请使用本页所述的所提供的分发包。这些软件包将自动安装所有 MongoDB 的依赖
+项, 并且是推荐的安装方法。

@@ -10,12 +10,11 @@ Red Hat 企业版 或 CentOS上安装MongoDB企业版
    :depth: 1
    :class: twocols
 
-Overview
+概述
 --------
 
-Use this tutorial to install :products:`MongoDB Enterprise
-</mongodb-enterprise-advanced?jmp=docs>` on Red Hat Enterprise Linux or CentOS
-Linux versions 6 and 7 from ``.rpm`` packages.
+本教程使用 ``.rpm`` 包在 Red Hat 企业版或 CentOS 6 和 7 上
+安装 :products:` MongoDB 企业版 </mongodb-enterprise-advanced?jmp=docs>` 。
 
 .. admonition:: Platform Support
 
@@ -30,7 +29,7 @@ Linux versions 6 and 7 from ``.rpm`` packages.
 
 .. include:: /includes/fact-installation-bind-ip-default-in-config.rst
 
-Install MongoDB Enterprise
+安装 MongoDB 企业版
 --------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-enterprise-red-hat.rst
@@ -41,22 +40,22 @@ Install MongoDB Enterprise
 
 .. _install-redhat-from-tarball:
 
-Install MongoDB Enterprise From Tarball
+从压缩包安装 MongoDB 企业版
 ---------------------------------------
 
 .. |package-format| replace:: ``.rpm``
 
 .. include:: /includes/fact-install-tarball-link.rst
 
-Run MongoDB Enterprise
+运行 MongoDB 企业版
 ----------------------
 
-Prerequisites
+前提条件
 ~~~~~~~~~~~~~
 
 .. _install-enterprise-rhel-configure-selinux:
 
-Configure SELinux
+配置 SELinux
 `````````````````
 
 .. include:: /includes/fact-selinux-redhat-options.rst
@@ -66,7 +65,7 @@ Configure SELinux
 
 .. _install-enterprise-selinux-data-directory:
 
-Data Directories and Permissions
+数据目录和权限
 ````````````````````````````````
 
 .. include:: /includes/warning-selinux-rhel7.rst
@@ -78,12 +77,12 @@ ulimit
 
 .. include:: /includes/fact-installation-ulimit.rst
 
-Procedure
+程序
 ~~~~~~~~~
 
 .. include:: /includes/steps/run-mongodb-on-a-linux-distribution.rst
 
-Uninstall MongoDB
+卸载 MongoDB
 -----------------
 
 .. include:: /includes/fact-uninstall.rst

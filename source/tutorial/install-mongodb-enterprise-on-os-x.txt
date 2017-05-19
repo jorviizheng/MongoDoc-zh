@@ -4,25 +4,24 @@ OS X上安装MongoDB企业版
 
 .. default-domain:: mongodb
 
-Overview
+概述
 --------
 
-Use this tutorial to install :products:`MongoDB Enterprise
-</mongodb-enterprise-advanced?jmp=docs>` on OS X systems. MongoDB Enterprise
-is available on select platforms and contains support for several features
-related to security and monitoring.
+使用本教程在 OS X 系统上安装:products:`MongoDB 企业版
+</mongodb-enterprise-advanced?jmp=docs>` 。mongodb 企业在
+本平台上可用, 并包含对与安全和监视相关的几个功能的支持。
 
-.. admonition:: Platform Support
+.. admonition:: 平台支持
 
-   MongoDB only supports OS X versions 10.7 (Lion) and later on Intel x86-64.
-   Versions of MongoDB Enterprise prior to 3.2 did not support OS X.
+   MongoDB 只支持 OS X 版本 10.7 (Lion) 和之后的基于英特尔 x86-64的系统.
+   3.2 之前的 MongoDB 企业版不支持 OS X.
 
-Install MongoDB Enterprise
+安装 MongoDB 企业版
 --------------------------
 
 .. include:: /includes/steps/install-mongodb-enterprise-on-os-x.rst
 
-Run MongoDB Enterprise
+运行 MongoDB 企业版
 ----------------------
 
 .. include:: /includes/steps/run-mongodb-on-linux.rst

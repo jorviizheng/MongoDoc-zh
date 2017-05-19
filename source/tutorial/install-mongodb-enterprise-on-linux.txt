@@ -11,25 +11,23 @@
    :class: singlecol
 
 
-Overview
+概述
 --------
 
-MongoDB Enterprise tarballs provide an option for installing
-MongoDB Enterprise Edition if the distribution packages are not
-appropriate for your deployment.
+如果分发包不适用于您的部署，MongoDB 企业版压缩包提供了
+安装 mongodb 企业版的选项。
 
-Installing the tarballs on a platform not listed on
-:ref:`prod-notes-supported-platforms` may result in unpredictable
-behavior.
+在 :ref:`prod-notes-supported-platforms` 上未列出的平台上安装压缩包
+可能会导致不可预知的行为。
 
-Install MongoDB
+安装 MongoDB
 ---------------
 
 .. include:: /includes/extracts/install-past-mongodb-enterprise-tarball.rst
 
 .. include:: /includes/steps/install-mongodb-enterprise-on-linux.rst
 
-Run MongoDB
+运行 MongoDB
 -----------
 
 .. include:: /includes/fact-installation-ulimit.rst

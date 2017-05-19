@@ -3,13 +3,12 @@ source:
   file: steps-install-mongodb-on-debian.yaml
   ref: import-key
 ---
-title: Create a ``/etc/apt/sources.list.d/mongodb-enterprise.list`` file for MongoDB.
+title: 创建 ``/etc/apt/sources.list.d/mongodb-enterprise.list`` 文件.
 stepnum: 2
 ref: sources-list
 action:
   - pre: |
-      Create the list file using the command appropriate for your version
-      of Debian:
+      使用适合您的 Debian 版本的命令创建列表文件:
 
       Debian 7 "Wheezy"
         .. code-block:: sh
@@ -21,11 +20,9 @@ action:
 
            echo "deb http://repo.mongodb.com/apt/debian jessie/mongodb-enterprise/3.4 main" | sudo tee /etc/apt/sources.list.d/mongodb-enterprise.list
   - pre: |
-      If you'd like to install MongoDB Enterprise packages from a
-      particular :ref:`release series <release-version-numbers>`, such as
-      2.6, you can specify the release series in the repository
-      configuration. For example, to restrict your system to the 2.6
-      release series, add the following repository:
+      如果要从特定的 :ref:`发行系列 <release-version-numbers>` (如2.4 或 2.6) 安
+      装 MongoDB 的企业版软件包, 可以在存储库配置中指定发布系列。例如, 要
+      安装2.6 发布系列, 请添加以下存储库:
     language: sh
     code: |
       echo "deb http://repo.mongodb.com/apt/debian wheezy/mongodb-enterprise/2.6 main" | sudo tee /etc/apt/sources.list.d/mongodb-enterprise-2.6.list

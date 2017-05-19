@@ -1,33 +1,30 @@
-title: Determine which MongoDB build you need.
+title: 确定所需的 MongoDB 构建.
 stepnum: 1
 ref: select-mongodb
 pre: |
-  The following MongoDB builds are available for Windows:
+  以下 MongoDB 版本可用于 Windows:
 
-  **MongoDB for Windows 64-bit** runs only
-  on Windows Server 2008 R2, Windows 7 64-bit, and newer versions of
-  Windows. This build takes advantage of recent enhancements to the
-  Windows Platform and cannot operate on older versions of Windows.
+  **MongoDB for Windows 64-bit** 仅在 Windows Server 2008 R2、Windows 7 64 位
+  和较新版本的 Windows 上运行。此构建利用了 Windows 平台最近的增强功能, 不能在较
+  早版本的 Windows 上运行.
 
-  **MongoDB for Windows 64-bit Legacy** runs on Windows Vista, and
-  Windows Server 2008 and does not include recent performance
-  enhancements.
+  Windows Vista 以及 windows server 2008 上
+  的 **MongoDB for Windows 64-bit Legacy** , 不包括最近的性能增强.
 
 action:
   pre: |
-    To find which version of Windows you are running, enter the following
-    commands in the :guilabel:`Command Prompt` or :guilabel:`Powershell`:
+    要查找正在运行的 Windows 版本, 请在 :guilabel:`Command Prompt` 或
+    :guilabel:`Powershell` 中输入以下命令:
   language: powershell
   code: |
     wmic os get caption
     wmic os get osarchitecture
 ---
-title: Download MongoDB for Windows.
+title: 下载 Download.
 stepnum: 2
 ref: download
 pre: |
-  Download the latest production release of MongoDB from the `MongoDB
-  downloads page <http://www.mongodb.org/downloads>`_. Ensure you download
-  the correct version of MongoDB for your Windows system. The 64-bit
-  versions of MongoDB do not work with 32-bit Windows.
+  从 `MongoDB 下载页面 <http://www.mongodb.org/downloads>`_ 下载 MongoDB 的
+  最新生产版本。确保为您的 Windows 系统下载正确的 MongoDB 版本。64位版本
+  的 MongoDB 不能在 32位 Windows 下工作。
 ...

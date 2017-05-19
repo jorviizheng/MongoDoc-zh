@@ -10,12 +10,10 @@
    :depth: 1
    :class: singlecol
 
-These documents provide instructions to install MongoDB Enterprise.
+这些文档提供了安装 MongoDB 企业版的说明。
 
-MongoDB Enterprise is available for MongoDB Enterprise subscribers
-and includes several additional features including support for SNMP
-monitoring, LDAP authentication, Kerberos authentication, and System
-Event Auditing.
+MongoDB 企业版可用于 MongoDB 企业用户, 并包含一些附加功能, 包括支持 SNMP 监
+视、LDAP 身份验证、Kerberos 身份验证和系统事件审核。
 
 .. include:: /includes/toc/dfn-list-installation-enterprise.rst
 

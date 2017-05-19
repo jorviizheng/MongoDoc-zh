@@ -1,13 +1,12 @@
-title: Configure repository.
+title: 配置源.
 ref: install-repository
 stepnum: 1
 pre: |
-  Create an ``/etc/yum.repos.d/mongodb-enterprise.repo`` file so that
-  you can install MongoDB enterprise directly, using ``yum``.
+  创建 ``/etc/yum.repos.d/mongodb-org-3.4.repo`` 文件以便使用 ``yum`` 直接安装MongoDB.
 action:
-  - heading: For the *latest* stable release of MongoDB Enterprise
+  - heading: *最新* 的 MongoDB 稳定版本
     pre: |
-      Use the following repository file:
+      使用以下源文件:
     language: cfg
     code: |
       [mongodb-enterprise]
@@ -17,18 +16,17 @@ action:
       enabled=1
       gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
   - pre: |
-      ``.repo`` files for each release can also be found `in the repository itself <https://repo.mongodb.com/yum/redhat/>`_.
-      Remember that odd-numbered minor release versions (e.g. 2.5) are development versions and are unsuitable
-      for production deployment.
+      你可以在 {{distro_link}} 找到每个发布版本的 ``.repo`` 文件。请记住, 奇数的
+      次要发行版本 (例如 2.5) 是开发版本, 不适合于生产使用。
 ---
-title: Install the MongoDB Enterprise packages and associated tools.
+title: 安装 MongoDB 软件包和相关工具.
 ref: install
 stepnum: 2
 # pre: |
 #   You can install either the latest stable version of MongoDB Enterprise or a
 #   specific version of MongoDB Enterprise.
 action:
-  pre: "To install the latest stable version of MongoDB Enterprise, issue the following command:"
+  pre: "要安装最新稳定的 MongoDB 企业版, 请使用以下命令:"
   language: sh
   code: |
     sudo yum install -y mongodb-enterprise
@@ -66,7 +64,7 @@ action:
 #   See the :v2.4:`2.4 version of documentation for more information
 #   </tutorial/install-mongodb-on-linux>`.
 ---
-title: When the install completes, you can run MongoDB.
+title: 安装完成后, 您可以运行 MongoDB.
 ref: install-completes
 stepnum: 3
 ...

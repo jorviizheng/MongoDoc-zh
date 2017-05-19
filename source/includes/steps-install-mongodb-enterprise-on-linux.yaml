@@ -1,9 +1,8 @@
-title: Install any missing dependencies.
+title: 安装所有缺少的依赖项.
 stepnum: 1
 ref: install-deps
 pre: |
-  To manually install MongoDB Enterprise, first install any dependencies
-  as appropriate for your operating system:
+  要手动安装 MongoDB 企业版, 请首先安装适用于您的操作系统的所有依赖项:
 
   Red Hat Enterprise Linux/CentOS
     .. include:: /includes/extracts/install-mongodb-enterprise-manually-red-hat.rst
@@ -17,25 +16,20 @@ pre: |
   Amazon Linux
     .. include:: /includes/extracts/install-mongodb-enterprise-manually-amazon.rst
 ---
-title: Download and extract the MongoDB Enterprise packages.
+title: 下载并提取 MongoDB 企业版软件包。
 stepnum: 2
 ref: sequence
 pre: |
-  After you have installed the required prerequisite packages, download
-  and extract the MongoDB Enterprise tarball for your system from
-  `<https://www.mongodb.com/download-center#enterprise>`_.
+  在安装了所需的必备组件包后, 从 `<https://www.mongodb.com/download-center#enterprise>`_ 下载
+  并解压 MongoDB 企业版。
 ---
-title: Ensure that the MongoDB binaries are in your ``PATH``.
+title: 确保 MongoDB 二进制文件在 ``PATH`` 中.
 stepnum: 3
 ref: ensure-binaries-in-path
 pre: |
-  The MongoDB binaries are in the ``bin/`` directory of the tarball.
-  You must either:
+  MongoDB 二进制文件位于压缩包的 ``bin/`` 目录中。您必须:
 
-  - Copy these binaries into a directory listed in your ``PATH``
-    variable such as ``/usr/local/bin``,
-  - Create symbolic links to each of these binaries from
-    a directory listed in your ``PATH`` variable, or
-  - Modify your user's ``PATH`` environment variable to include this
-    directory.
+  - 将这些二进制文件复制到 ``PATH`` 变量中列出的目录中, 例如 ``/usr/local/bin`` ,
+  - 从 ``PATH`` 变量中列出的目录创建指向这些二进制文件的符号链接, 或者
+  - 修改用户的 ``PATH`` 环境变量以包含此目录.
 ...

@@ -1,5 +1,5 @@
 ====================================
-Verify Integrity of MongoDB Packages
+验证 MongoDB 软件包的完整性
 ====================================
 
 .. default-domain:: mongodb
@@ -10,30 +10,26 @@ Verify Integrity of MongoDB Packages
    :depth: 1
    :class: singlecol
 
-Overview
+概述
 --------
 
-The MongoDB release team digitally signs all software packages to
-certify that a particular MongoDB package is a valid and unaltered
-MongoDB release. Before installing MongoDB, you should validate the package
-using either the provided PGP signature or SHA-256 checksum.
+MongoDB 发布团队对所有软件包进行数字签名, 以证明特定的 MongoDB 软件包
+是有效且未经修改的 MongoDB 版本。在安装 MongoDB 之前, 您应该使用提供
+的 PGP 签名或 SHA-256 校验和验证包。
 
-PGP signatures provide the strongest guarantees by checking both the
-authenticity and integrity of a file to prevent tampering.
+PGP 签名通过检查文件的真实性和完整性来防止篡改, 从而提供了最有力的保证。
 
-Cryptographic checksums only validate file integrity to prevent network
-transmission errors.
+加密校验仅验证文件完整性以防止网络传输错误.
 
-Procedures
+程序
 ----------
 
 Use PGP/GPG
 +++++++++++
 
-MongoDB signs each release branch with a different PGP key. The public key files
-for each release branch since MongoDB 2.2 are available for download
-from the `key server <https://www.mongodb.org/static/pgp/>`_ in both textual
-``.asc`` and binary ``.pub`` formats.
+MongoDB 使用不同的 PGP 密钥对每个发布分支进行签名。自 MongoDB 2.2 以来, 每个
+发布分支的公钥文件都可从 `密钥服务器 <https://www.mongodb.org/static/pgp/>`_ 中
+下载, 包括文本 ``.asc`` 和二进制 ``.pub`` 格式。
 
 .. include:: /includes/steps/install-verify-files-pgp.rst
 

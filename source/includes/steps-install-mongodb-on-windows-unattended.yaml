@@ -4,30 +4,27 @@ inherit:
   file: steps-create-manually-windows-service-for-mongodb.yaml
   ref: open-command-prompt
 ---
-title: Install MongoDB for Windows.
+title: 为 Windows 安装 MongoDB.
 stepnum: 2
 level: 4
 ref: install
 action:
   pre: |
-    Change to the directory containing the ``.msi`` installation binary of your
-    choice and invoke:
+    更改到包含您选择和调用的 ``.msi`` 安装二进制文件的目录:
 
     .. include:: /includes/release/install-windows-default.rst
   post: |
-    You can specify the installation location for the executable by
-    modifying the ``INSTALLLOCATION`` value.
+    可以通过修改 ``INSTALLLOCATION`` 值来指定可执行文件的安装位置.
 
-    By default, this method installs all MongoDB binaries. To install specific
-    MongoDB component sets, you can specify them in the ``ADDLOCAL`` argument
-    using a comma-separated list including one or more of the following
-    component sets:
+    默认情况下, 此方法会安装所有的 MongoDB 二进制文件。若要安装特定
+    的 MongoDB 组件集, 可以使用以逗号分隔的列表 (包括一个或多个以下
+    组件集) 在 ``ADDLOCAL`` 参数中指定它们:
 
     .. list-table::
        :widths: 20 80
 
-       * - **Component Set**
-         - **Binaries**
+       * - **组件集**
+         - **程序**
        * - ``Server``
          - ``mongod.exe``
        * - ``Router``
@@ -41,6 +38,6 @@ action:
        * - ``MiscellaneousTools``
          - ``bsondump.exe``, ``mongofiles.exe``, ``mongooplog.exe``, ``mongoperf.exe``
 
-    For instance, to install *only* the MongoDB utilities, invoke:
+    例如, 要 *仅* 安装 MongoDB 实用程序, 请调用:
 
     .. include:: /includes/release/install-windows-addlocal.rst

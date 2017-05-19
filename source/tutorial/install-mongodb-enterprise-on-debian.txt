@@ -10,20 +10,19 @@ Debian上安装MongoDB企业版
    :depth: 1
    :class: twocols
 
-Overview
+概述
 --------
 
-Use this tutorial to install :products:`MongoDB Enterprise
-</mongodb-enterprise-advanced?jmp=docs>` from ``.deb`` packages on
-Debian 7 "Wheezy" or Debian 8 "Jessie".
+本教程使用 ``.deb`` 包在 Debian 7 "Wheezy" 或 Debian 8 "Jessie" 上
+安装 :products:`MongoDB 企业版 </mongodb-enterprise-advanced?jmp=docs>` .
 
-.. admonition:: Platform Support
+.. admonition:: 平台支持
 
    .. include:: /includes/fact-installation-64bit.rst
 
 .. include:: /includes/list-mongodb-enterprise-packages.rst
 
-Install MongoDB Enterprise
+安装 MongoDB 企业版
 --------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-enterprise-debian.rst
@@ -36,14 +35,14 @@ Install MongoDB Enterprise
 
 .. _install-debian-from-tarball:
 
-Install MongoDB Enterprise From Tarball
+用压缩包安装 MongoDB 企业版
 ---------------------------------------
 
 .. |package-format| replace:: ``.deb``
 
 .. include:: /includes/fact-install-tarball-link.rst
 
-Run MongoDB Enterprise
+运行 MongoDB 企业版
 ----------------------
 
 .. |mongod-user| replace:: ``mongodb``

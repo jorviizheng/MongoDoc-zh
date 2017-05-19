@@ -10,13 +10,12 @@ SUSE上安装MongoDB企业版
    :depth: 1
    :class: twocols
 
-Overview
+概述
 --------
 
-Use this tutorial to install :products:`MongoDB Enterprise
-</mongodb-enterprise-advanced?jmp=docs>` on SUSE Linux 11 and 12.
-MongoDB Enterprise is available on select platforms and contains support
-for several features related to security and monitoring.
+使用本教程可以在11和12版上安装  :products:`MongoDB 企业版
+</mongodb-enterprise-advanced?jmp=docs>` 。mongodb 企业
+版在本平台上可用, 并包含对与安全和监视相关的几个功能的支持.
 
 .. admonition:: Platform Support
 
@@ -24,17 +23,16 @@ for several features related to security and monitoring.
 
 .. include:: /includes/list-mongodb-enterprise-packages.rst
 
-Considerations
+考虑
 --------------
 
-MongoDB only provides Enterprise packages for 64-bit builds of SUSE
-Enterprise Linux versions 11 and 12.
+MongoDB 仅为 SUSE 企业版 11 和 12 提供企业版软件包.
 
 .. include:: /includes/fact-use-distribution-package.rst
 
 .. include:: /includes/note-suse-ulimit.rst
 
-Install MongoDB Enterprise
+安装 MongoDB 企业版
 --------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-enterprise-suse.rst
@@ -43,32 +41,32 @@ Install MongoDB Enterprise
 
 .. _install-suse-from-tarball:
 
-Install MongoDB Enterprise From Tarball
+用压缩包安装 MongoDB 企业版
 ---------------------------------------
 
 .. |package-format| replace:: ``.rpm``
 
 .. include:: /includes/fact-install-tarball-link.rst
 
-Run MongoDB Enterprise
+运行 MongoDB 企业版
 ----------------------
 
 .. |mongod-user| replace:: ``mongod``
 .. |mongod-datadir| replace:: ``/var/lib/mongo``
 
-Prerequisites
+考虑
 ~~~~~~~~~~~~~
 
 .. include:: /includes/fact-installation-directories.rst
 
 .. include:: /includes/fact-installation-ulimit.rst
 
-Procedure
+程序
 ~~~~~~~~~
 
 .. include:: /includes/steps/run-mongodb-on-a-linux-distribution.rst
 
-Uninstall MongoDB
+卸载 MongoDB
 -----------------
 
 .. include:: /includes/fact-uninstall.rst

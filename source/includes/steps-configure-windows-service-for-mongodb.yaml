@@ -13,50 +13,45 @@ inherit:
   file: steps-create-manually-windows-service-for-mongodb.yaml
   ref: create-configuration-file
 ---
-title: Install the MongoDB service.
+title: 安装 MongoDB 服务.
 stepnum: 4
 ref: mongodb-service
 pre: |
      .. important::
 
-        Run all of the following commands in :guilabel:`Command Prompt` with
-        "Administrative Privileges".
+        使用 "管理权限" 在 :guilabel:`Command Prompt` 下运行以下所有命令.
 action:
   - pre: |
-      Install the MongoDB service by starting :program:`mongod.exe`
-      with the ``--install`` option and the ``-config``
-      option to specify the previously created configuration file.
+      通过使用 ``--install`` 选项和 ``-config`` 选项启动 :program:`mongod.exe` 来
+      安装 MongoDB 服务, 以指定以前创建的配置文件。
     language: powershell
     code: |
       "C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --config "C:\Program Files\MongoDB\Server\3.4\mongod.cfg" --install
 post: |
-  To use an alternate :setting:`dbpath`, specify the path in the
-  configuration file (e.g. ``C:\mongodb\mongod.cfg``) or
-  on the command line with the :option:`--dbpath <mongod --dbpath>` option.
+  若要使用备用 :setting:`dbpath` , 请在配置文件 (例如 ``C:\mongodb\mongod.cfg`` ) 或
+  命令行中使用 :option:`--dbpath <mongod --dbpath>` 选项指定路径。
 
-  If needed, you can install services for multiple instances of
-  :program:`mongod.exe` or :program:`mongos.exe`. Install each service
-  with a unique :option:`--serviceName <mongod.exe --serviceName>` and
-  :option:`--serviceDisplayName <mongod.exe --serviceDisplayName>`. Use
-  multiple instances only when sufficient system resources exist and your
-  system design requires it.
+  如果需要, 您可以为 :program:`mongod.exe` 或 :program:`mongod.exe` 的多个实例
+  安装服务。安装每个服务的唯一 :option:`--serviceName <mongod.exe --serviceName>` 和
+  :option:`--serviceDisplayName <mongod.exe --serviceDisplayName>` 。仅当
+  存在足够的系统资源且系统设计需要时, 才使用多个实例。
 ---
 stepnum: 5
 inherit:
   file: steps-create-manually-windows-service-for-mongodb.yaml
   ref: start-mongodb-service
 ---
-title: Stop or remove the MongoDB service as needed.
+title: 根据需要停止或删除 MongoDB 服务.
 stepnum: 6
 ref: stop
 action:
   - pre: |
-      To stop the MongoDB service use the following command:
+      要停止 MongoDB 服务, 请使用以下命令:
     language: powershell
     code: |
       net stop MongoDB
   - pre: |
-      To remove the MongoDB service use the following command:
+      要删除 MongoDB 服务, 请使用以下命令:
     language: powershell
     code: |
       "C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --remove

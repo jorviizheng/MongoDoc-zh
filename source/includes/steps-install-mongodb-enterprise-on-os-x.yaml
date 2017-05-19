@@ -3,8 +3,9 @@ ref: download-mongodb-enterprise
 level: 4
 action:
   pre: |
-    Download the latest production release of `MongoDB Enterprise
-    <http://www.mongodb.com/products/mongodb-enterprise?jmp=docs>`_.
+    下载  `MongoDB 企业版
+    <http://www.mongodb.com/products/mongodb-enterprise?jmp=docs>`_ 的
+    最新生产版本.
 ---
 stepnum: 2
 level: 4

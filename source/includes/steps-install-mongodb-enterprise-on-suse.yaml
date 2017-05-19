@@ -3,14 +3,14 @@ source:
   file: steps-install-mongodb-on-suse.yaml
   ref: import-key
 ---
-title: Configure the package management system (``zypper``).
+title: 配置包管理系统 (``zypper``).
 stepnum: 2
 ref: config-zypper
 pre: |
-  Add the repository so that you can install MongoDB using ``zypper``.
+  添加存储库, 以便您可以使用 ``zypper`` 安装 MongoDB .
 action:
   - pre: |
-      Run the command appropriate for your version of SUSE:
+      运行适合您的 SUSE 版本的命令:
 
       SUSE 11
         .. class:: copyable-code
@@ -24,17 +24,15 @@ action:
 
            sudo zypper addrepo --gpgcheck "https://repo.mongodb.com/zypper/suse/12/mongodb-enterprise/3.4/x86_64/" mongodb
   - pre: |
-      If you'd like to install MongoDB packages from a previous :ref:`release
-      series <release-version-numbers>`, such as 2.6, you can
-      specify the release series in the repository configuration. For
-      example, to restrict your SUSE 11 system to the 2.6 release series,
-      use the following command:
+      如果要从特定的 :ref:`发行系列 <release-version-numbers>` (如2.4 或 2.6) 安
+      装 MongoDB 的企业版软件包, 可以在存储库配置中指定发布系列。例如, 要在 SUSE 11 上
+      安装2.6 发布系列, 请使用以下命令:
     copyable: true
     language: sh
     code: |
       sudo zypper addrepo --no-gpgcheck https://repo.mongodb.com/zypper/suse/11/mongodb-enterprise/2.6/x86_64/ mongodb
 ---
-title: Install the MongoDB packages and associated tools.
+title: 安装 MongoDB 软件包和相关工具.
 stepnum: 3
 ref: install
 # pre: |
@@ -42,8 +40,7 @@ ref: install
 #   release or a previous one. This step provides the commands for both.
 action:
   - pre: |
-      To install the latest stable version of MongoDB, issue the following
-      command:
+      要安装最新的稳定版本的 MongoDB, 请使用以下命令:
     language: sh
     code: |
       sudo zypper -n install mongodb-enterprise
@@ -61,7 +58,5 @@ action:
 
   #     .. include:: /includes/release/pin-repo-suse-lock-enterprise.rst
 post: |
-  Previous versions of MongoDB packages use a different repository location.
-  Refer to the version of the documentation appropriate for
-  your MongoDB version.
+  以前版本的 MongoDB 软件包使用不同的存储库位置。请参考适合您的 MongoDB 版本的文档。
 ...

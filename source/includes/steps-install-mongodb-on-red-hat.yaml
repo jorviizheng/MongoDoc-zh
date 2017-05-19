@@ -11,7 +11,7 @@ pre: |
 action:
   - heading: *最新* 的 MongoDB 稳定版本
     pre: |
-      使用以下源文件::
+      使用以下源文件:
     copyable: true
     language: cfg
     code: |

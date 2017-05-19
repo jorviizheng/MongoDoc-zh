@@ -1,9 +1,12 @@
-title: Set up the MongoDB environment.
+title: 设置 MongoDB 环境.
 stepnum: 1
 ref: create-data-dir
 action:
   - pre: |
-      MongoDB requires a :term:`data directory <dbpath>` to store all
+      MongoDB 需要一个 :term:`数据目录 <dbpath>` 来存储所有数据。MongoDB 的
+      默认数据目录路径是您启动 MongoDB 的驱动器上的绝对路径 ``\data\db`` 。通过
+      在 :guilabel:`Command Prompt` 运行以下命令来创建此文件夹:
+      MongoDB requires a :term:`数据目录 <dbpath>` to store all
       data. MongoDB's default data directory path is the absolute path
       ``\data\db`` on the drive from which you start MongoDB. Create
       this folder by running the following command in a
@@ -13,61 +16,54 @@ action:
     code: |
       md \data\db
   - pre: |
-      You can specify an alternate path for data files using the
-      :option:`--dbpath <mongod --dbpath>` option to
-      :program:`mongod.exe`, for example:
+      可以使用 :option:`--dbpath <mongod --dbpath>` 选项为 :program:`mongod.exe` 指定
+      数据文件的备用路径, 例如:
     copyable: true
     language: powershell
     code: |
       "C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --dbpath d:\test\mongodb\data
   - pre: |
-      If your path includes spaces, enclose the entire path in double
-      quotes, for example:
+      如果路径包含空格, 请用双引号将整个路径括起来, 例如:
     copyable: true
     language: powershell
     code: |
       "C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --dbpath "d:\test\mongo db data"
 post: |
-  You may also specify the ``dbpath`` in a :doc:`configuration file
-  </reference/configuration-options>`.
+  您也可以在 :doc:`配置文件 </reference/configuration-options>` 中指定 ``dbpath`` .
 ---
-title: Start MongoDB.
+title: 开启 MongoDB.
 stepnum: 2
 ref: start
 action:
   pre: |
-    To start MongoDB, run :program:`mongod.exe`. For example, from the
+    要开启 MongoDB, 执行 :program:`mongod.exe`. 例如, 在
     :guilabel:`Command Prompt`:
   copyable: true
   language: powershell
   code: |
     "C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe"
 post: |
-  This starts the main MongoDB database process. The ``waiting for
-  connections`` message in the console output indicates that the
-  :program:`mongod.exe` process is running successfully.
+  这将启动 MongoDB 数据库进程。控制台输出中的 ``waiting for connections`` 消息
+  指示 :program:`mongod.exe` 进程正在成功运行。
 
-  Depending on the security level of your system, Windows may pop up a
-  :guilabel:`Security Alert` dialog box about blocking "some features" of
-  ``C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe`` from communicating
-  on networks. All users should select ``Private Networks, such as my home or
-  work network`` and click ``Allow access``. For additional information on
-  security and MongoDB, please see the :doc:`Security Documentation </security>`.
+  根据系统的安全级别, Windows 可能会弹出一个 :guilabel:`Security Alert` 对话框, 关于
+  阻止 ``C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe`` 在网络上进行通信
+  的 "某些功能" 。所有用户都应选择 ``专用网络`` , 如 ``我的家庭`` 或 ``工作网络`` , 然后
+  单击 ``允许访问`` 。有关安全和 MongoDB 的其他信息, 请参阅 :doc:`安全文档 </security>`.
 ---
-title: Connect to MongoDB.
+title: 连接到 MongoDB.
 stepnum: 3
 ref: connect
 pre: |
-  To connect to MongoDB through the :program:`mongo.exe <mongo>` shell,
-  open another :guilabel:`Command Prompt`.
+  要通过 :program:`mongo.exe <mongo>` shell 连接到 MongoDB, 请打开另一个 :guilabel:`Command Prompt` 。
 action:
     copyable: true
     language: powershell
     code: |
       "C:\Program Files\MongoDB\Server\3.4\bin\mongo.exe
 post: |
-   If you want to develop applications using .NET, see the documentation
-   of :ecosystem:`C# and MongoDB </drivers/csharp>` for more information.
+   如果要使用 .NET 开发应用程序, 请参阅 :ecosystem:`C# and MongoDB </drivers/csharp>` 的
+   文档以获取更多信息。
 # End-for-getting-started-guide
 ---
 stepnum: 4

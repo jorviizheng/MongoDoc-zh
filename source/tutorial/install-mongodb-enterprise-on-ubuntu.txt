@@ -10,14 +10,13 @@ Ubuntu上安装MongoDB企业版
    :depth: 1
    :class: twocols
 
-Overview
+概述
 --------
 
-Use this tutorial to install :products:`MongoDB Enterprise
-</mongodb-enterprise-advanced?jmp=docs>` on LTS Ubuntu Linux systems from
-``.deb`` packages.
+本教程使用 ``.deb`` 包在 LTS Ubuntu Linux 上安
+装 :products:`MongoDB 企业版 </mongodb-enterprise-advanced?jmp=docs>` .
 
-.. admonition:: Platform Support
+.. admonition:: 平台支持
 
    .. include:: /includes/fact-ubuntu-lts-support.rst
 
@@ -25,7 +24,7 @@ Use this tutorial to install :products:`MongoDB Enterprise
 
 .. include:: /includes/list-mongodb-enterprise-packages.rst
 
-Install MongoDB Enterprise
+安装 MongoDB 企业版
 --------------------------
 
 .. include:: /includes/extracts/install-past-mongodb-enterprise-ubuntu.rst
@@ -38,14 +37,14 @@ Install MongoDB Enterprise
 
 .. _install-ubuntu-from-tarball:
 
-Install MongoDB Enterprise From Tarball
+用压缩包安装 MongoDB 企业版
 ---------------------------------------
 
 .. |package-format| replace:: ``.deb``
 
 .. include:: /includes/fact-install-tarball-link.rst
 
-Run MongoDB Enterprise
+运行 MongoDB 企业版
 ----------------------
 
 .. |mongod-user| replace:: ``mongodb``
@@ -57,7 +56,7 @@ Run MongoDB Enterprise
 
 .. include:: /includes/steps/run-mongodb-on-debian.rst
 
-Uninstall MongoDB
+卸载 MongoDB
 -----------------
 
 .. include:: /includes/fact-uninstall.rst

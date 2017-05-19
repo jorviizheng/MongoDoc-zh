@@ -1,13 +1,14 @@
-title: Download MongoDB Enterprise for Windows.
+title: 下载 MongoDB 企业版的 Windows 版本.
 stepnum: 1
 ref: download
 pre: |
-  Download the latest production release of `MongoDB Enterprise
-  <http://www.mongodb.com/products/mongodb-enterprise?jmp=docs>`_.
+  下载 `MongoDB 企业版
+  <http://www.mongodb.com/products/mongodb-enterprise?jmp=docs>`_ 的
+  最新生产版本.
 action:
   pre: |
-    To find which version of Windows you are running, enter the following
-    commands in the :guilabel:`Command Prompt` or :guilabel:`Powershell`:
+    要查看正在运行的 Windows 版本, 请在 :guilabel:`Command Prompt` 或
+    :guilabel:`Powershell` 中输入以下命令:
   language: powershell
   code: |
     wmic os get caption
